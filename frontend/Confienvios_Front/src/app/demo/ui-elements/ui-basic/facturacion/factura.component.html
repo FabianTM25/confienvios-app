@@ -1,0 +1,314 @@
+<H3>FACTURA</H3>
+<hr />
+
+<!-- BUSCADORES DE USUARIOS -->
+<div class="container mt-4">
+  <div class="row g-3">
+    <!-- Buscar cliente envía -->
+    <div class="col-md-6">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar Cliente Rmt..."
+          name="buscarClienteRmt"
+          [(ngModel)]="textoBusqueda"
+          (keyup.enter)="buscarCliente()"
+        />
+        <button class="btn btn-primary" type="button" (click)="buscarCliente()">Buscar</button>
+      </div>
+    </div>
+    <!-- Buscar cliente recibe -->
+    <div class="col-md-6">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar Cliente Dto..."
+          name="buscarClienteDto"
+          [(ngModel)]="textoBusquedaDto"
+          (keyup.enter)="buscarClienteDto()"
+        />
+        <button class="btn btn-primary" type="button" (click)="buscarClienteDto()">Buscar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INFORMACION CLIENTES -->
+<div class="container">
+  <div class="row g-4 mt-2">
+    <!-- CLIENTE rmt -->
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4">
+        <h5>Cliente Remite</h5>
+        <hr />
+
+        <form>
+          <div class="mb-3">
+            <label>Nombre Rmt</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nombreClienteRmt"
+              placeholder="Nombre del Cliente RMT"
+              [(ngModel)]="clienteRmtSeleccionado.nombreClienteRmt"
+              readonly
+            />
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label>Tipo Documento</label>
+              <input
+                placeholder="Tipo Documento"
+                class="form-control"
+                name="tipoDocumentoClienteRmt"
+                [(ngModel)]="clienteRmtSeleccionado.tipoDocumentoRmt"
+                readonly
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label>Documento</label>
+              <input
+                placeholder="Documento"
+                class="form-control"
+                name="documentoClienteRmt"
+                [(ngModel)]="clienteRmtSeleccionado.documentoClienteRmt"
+                readonly
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label>Dirección</label>
+              <input
+                type="text"
+                placeholder="Dirección"
+                class="form-control"
+                name="direccionClienteRmt"
+                [(ngModel)]="clienteRmtSeleccionado.direccionClienteRmt"
+                readonly
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label>Teléfono</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Teléfono"
+                name="telefonoClienteRmt"
+                [(ngModel)]="clienteRmtSeleccionado.telefonoClienteRmt"
+                readonly
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- CLIENTE dto -->
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4">
+        <h5>Cliente Destino</h5>
+        <hr />
+
+        <form>
+          <div class="mb-3">
+            <label>Nombre</label>
+            <input
+              type="text"
+              placeholder="Nombre del Cliente Dto"
+              class="form-control"
+              name="nombreClienteDto"
+              [(ngModel)]="clienteDtoSeleccionado.nombreClienteDto"
+              readonly
+            />
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label>Tipo Documento</label>
+              <input
+                type="text"
+                id="tipoDocumentoClienteDto"
+                class="form-control"
+                placeholder="Tipo Documento"
+                name="tipoDocumentoClienteDto"
+                [(ngModel)]="clienteDtoSeleccionado.tipoDocumentoDto"
+                readonly
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>Documento</label>
+              <input
+                type="number"
+                id="documentoClienteDto"
+                class="form-control"
+                placeholder="Documento"
+                name="documentoClienteDto"
+                [(ngModel)]="clienteDtoSeleccionado.documentoClienteDto"
+                readonly
+              />
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label>TD</label>
+              <input
+                type="text"
+                id="TD_rb"
+                class="form-control"
+                placeholder="TD"
+                name="td"
+                [(ngModel)]="clienteDtoSeleccionado.td"
+                readonly
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label>NIU</label>
+              <input
+                type="text"
+                id="NIU_rb"
+                class="form-control"
+                placeholder="NIU"
+                name="niu"
+                [(ngModel)]="clienteDtoSeleccionado.niu"
+                readonly
+              />
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label>Pabellón</label>
+              <input
+                type="text"
+                id="Pabellon_rb"
+                class="form-control"
+                placeholder="Pabellón"
+                name="pabellon"
+                [(ngModel)]="clienteDtoSeleccionado.pabellon"
+                readonly
+              />
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label>Estructura</label>
+              <input
+                type="text"
+                id="ESTRUCTURA_rb"
+                class="form-control"
+                placeholder="Estructura"
+                name="estructura"
+                [(ngModel)]="clienteDtoSeleccionado.estructura"
+                readonly
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTON GUARDAR -->
+<div class="text-center mt-4">
+  <button class="btn btn-primary px-5" (click)="guardar(modalContent)">GUARDAR</button>
+</div>
+
+<!-- MODAL -->
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">FACTURA</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <!-- Cliente Envía -->
+    <h5>Cliente Remite</h5>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label>Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaGuardada.nombre_cliente_rmt" readonly />
+      </div>
+      <div class="col-md-3">
+        <label>Tipo Doc</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaGuardada.tipo_documento_rmt" readonly />
+      </div>
+
+      <div class="col-md-3">
+        <label>Documento</label>
+        <input type="number" class="form-control" [(ngModel)]="facturaGuardada.documento_cliente_rmt" readonly />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label>Dirección</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaGuardada.direccion_cliente_rmt" readonly />
+      </div>
+
+      <div class="col-md-6">
+        <label>Teléfono</label>
+        <input type="number" class="form-control" [(ngModel)]="facturaGuardada.telefono_cliente_rmt" readonly />
+      </div>
+    </div>
+
+    <!-- Cliente Recibe -->
+    <h5>Cliente Destino</h5>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label>Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaGuardada.nombre_cliente_dto" readonly />
+      </div>
+      <div class="col-md-3">
+        <label>Tipo Doc</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaGuardada.tipo_documento_dto" readonly />
+      </div>
+
+      <div class="col-md-3">
+        <label>Documento</label>
+        <input type="number" class="form-control" [(ngModel)]="facturaGuardada.documento_cliente_dto" readonly />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label>TD</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaGuardada.td" readonly />
+      </div>
+
+      <div class="col-md-3">
+        <label>NIU</label>
+        <input type="number" class="form-control" [(ngModel)]="facturaGuardada.niu" readonly />
+      </div>
+
+      <div class="col-md-3">
+        <label>Pabellón</label>
+        <input type="number" class="form-control" [(ngModel)]="facturaGuardada.pabellon" readonly />
+      </div>
+
+      <div class="col-md-3">
+        <label>Estructura</label>
+        <input type="number" class="form-control" [(ngModel)]="facturaGuardada.estructura" readonly />
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-success" (click)="imprimirFacturaYRotulo(facturaGuardada.id_factura!); limpiarFormulario(); modal.close()">
+        IMPRIMIR
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close(); limpiarFormulario()">Cerrar</button>
+  </div>
+</ng-template>
+
+<!-- PAGINACION -->

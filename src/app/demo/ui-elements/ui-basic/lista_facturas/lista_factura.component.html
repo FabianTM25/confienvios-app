@@ -1,0 +1,166 @@
+<H3>LISTA DE FACTURAS</H3>
+<hr />
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <button class="btn btn-primary" routerLink="/basic/facturacion">Factura Nueva</button>
+  <input type="text" id="m-search" class="form-control w-25" placeholder="Buscar..." (input)="buscarFactura($event)" />
+</div>
+
+<div class="col-x1-12">
+  <app-card cardTitle="LISTA DE FACTURAS" [options]="false" blockClass="table-border-style">
+    <div class="table-responsive">
+      <table class="table table-hover table-sm">
+        <thead>
+          <tr>
+            <th style="width: 5%">N° Factura</th>
+            <th style="width: 20%">Nombre_Rte</th>
+            <th style="width: 5%">Tipo_Doc</th>
+            <th style="width: 10%">Documento_Rte</th>
+            <th style="width: 20%">Nombre_Dto</th>
+            <th style="width: 5%">Tipo_Doc</th>
+            <th style="width: 10%">Documento_Dto</th>
+            <th style="width: 10%">Td</th>
+            <th style="width: 10%">Nui</th>
+            <th style="width: 10%">Imprimir</th>
+            <th style="width: 5%">Anular</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (f of facturaPaginado; track f.id_factura) {
+            <tr>
+              <th scope="row">{{ f.numero_factura }}</th>
+              <td class="text-truncate">{{ f.nombre_cliente_rmt }}</td>
+              <td>{{ f.tipo_documento_rmt }}</td>
+              <td>{{ f.documento_cliente_rmt }}</td>
+              <td class="text-truncate">{{ f.nombre_cliente_dto }}</td>
+              <td>{{ f.tipo_documento_dto }}</td>
+              <td>{{ f.documento_cliente_dto }}</td>
+              <td>{{ f.td }}</td>
+              <td>{{ f.niu }}</td>
+              
+              <td>
+                <button
+                  type="button"
+                  class="mb-1 btn btn-outline-success btn-sm"
+                  [disabled]="f.estado == 2 || f.estado == '2'"
+                  (click)="abrirModalFactura(modalContentFac, f.id_factura)"
+                >
+                  Fac
+                </button>
+
+                <button
+                  type="button"
+                  class="mb-1 btn btn-outline-success btn-sm"
+                  [disabled]="f.estado == 2 || f.estado == '2'"
+                  (click)="abrirModalRotulo(modalContentRot, f.id_factura)"
+                >
+                  Rot
+                </button>
+              </td>
+              <td>
+                <span *ngIf="f.estado == '2'" class="badge bg-danger">ANULADA</span>
+                <button
+                  *ngIf="f.estado !== '2'"
+                  type="button"
+                  class="mb-1 btn btn-outline-danger btn-sm"
+                  (click)="abrirModalAnular(modalContentAnu, f)"
+                >
+                  Anular
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </app-card>
+</div>
+
+<!-- Modal Imprimir Factura-->
+<ng-template #modalContentFac let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">FACTURA</h4>
+  </div>
+  <div class="modal-body text-center">
+    <h5>Esta seguro de imprimir la Factura</h5>
+    <div class="text-center mt-4">
+      <button class="btn btn-success" [disabled]="facturaSeleccionada?.estado == 2" (click)="imprimirFactura(idFactura)">IMPRIMIR</button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+<!-- Modal Imprimir Rotulo-->
+<ng-template #modalContentRot let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Rotulo</h4>
+  </div>
+  <div class="modal-body text-center">
+    <h5>Esta seguro de imprimir la Rotulo</h5>
+    <div class="text-center mt-4">
+      <button class="btn btn-success" [disabled]="facturaSeleccionada?.estado == 2" (click)="imprimirRotulo(idRotulo)">IMPRIMIR</button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+<!-- Modal Anular-->
+<ng-template #modalContentAnu let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Anular Factura</h4>
+  </div>
+  <div class="modal-body text-center">
+    <h5>
+      ¿Está seguro de anular la factura
+      <strong>{{ facturaSeleccionada?.numero_factura }}</strong>
+      ?
+    </h5>
+    <div class="text-center mt-4">
+      <button class="btn btn-danger" (click)="anularFactura(facturaSeleccionada); modal.close()">Confirmar Anulación</button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+<!--<button *ngIf="f.estado === '1'"  class="btn btn-warning btn-sm"  (click)="anularFactura(f)">  Anular</button>
+<span  *ngIf="f.estado === '2'" class="badge bg-danger">  ANULADA</span>
+
+ CONTADOR DE REGISTROS -->
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <div>
+    Mostrando
+    {{ obtenerInicio() }}
+    -
+    {{ obtenerFin() }}
+    de
+    {{ factura.length }}
+    registros
+  </div>
+
+  <!-- PAGINADOR -->
+  <nav>
+    <ul class="pagination mb-0">
+      <li class="page-item" [class.disabled]="paginaActual === 1">
+        <a class="page-link" (click)="cambiarPagina(paginaActual - 1)">Previous</a>
+      </li>
+
+      @for (p of [].constructor(totalPaginas); track i; let i = $index) {
+        <li class="page-item" [class.active]="paginaActual === i + 1">
+          <a class="page-link" (click)="cambiarPagina(i + 1)">
+            {{ i + 1 }}
+          </a>
+        </li>
+      }
+
+      <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+        <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

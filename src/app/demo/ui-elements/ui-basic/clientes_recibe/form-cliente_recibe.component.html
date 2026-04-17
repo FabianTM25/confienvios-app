@@ -1,0 +1,230 @@
+<div class="container-fluid pantalla-completa">
+  <H3>CLIENTE DTO</H3>
+  <hr />
+
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <!-- Botón izquierda -->
+    <button class="btn btn-primary" (click)="openNuevoClienteDto(modalContent)">Nuevo Cliente Destino</button>
+    <!-- Input derecha buscarClienteDto-->
+    <input type="text" id="m-search" class="form-control w-25" placeholder="Buscar..." (input)="buscarClienteDto($event)" />
+  </div>
+
+  <div class="toast-container position-fixed top-0 end-0 p-2" style="z-index: 1200">
+    <div class="toast align-items-center text-bg-success border-0 show" *ngIf="mostrarToast">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ mensajeToast }}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="mostrarToast = false"></button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #modalContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Nuevo Cliente Destino</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+
+    <div class="modal-body">
+      <form [form]="registerForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+        <div *ngIf="mensajeError" class="alert alert-danger text-center">
+          {{ mensajeError }}
+        </div>
+
+        <!-- nombre cliente dto  -->
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label>Nombre cliente</label>
+            <input
+              type="text"
+              id="nombreClienteDto"
+              class="form-control"
+              placeholder="Nombre del Cliente Recibe"
+              [field]="registerForm.nombreClienteDto"
+              [class.is-invalid]="submitted() && registerForm.nombreClienteDto().errors().length > 0"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <!-- Tipo documento -->
+          <div class="col-md-4">
+            <label>Tipo de Documento</label>
+            <select
+              class="form-select"
+              name="tipoDocumentoDto"
+              [(ngModel)]="registerModel().tipoDocumentoDto"
+              placeholder="Tipo de Documento"
+            >
+              <option value="">Seleccione...</option>
+              <option value="CC">CC - Cédula de Ciudadanía</option>
+              <option value="CE">CE - Cédula de Extranjería</option>
+              <option value="NIT">NIT</option>
+              <option value="TI">TI - Tarjeta de Identidad</option>
+              <option value="PP">PP - Pasaporte</option>
+            </select>
+          </div>
+
+          <!-- Documento -->
+          <div class="col-md-4">
+            <label>Documento</label>
+            <input
+              type="number"
+              name="documentoClienteDto"
+              id="documentoClienteDto"
+              class="form-control"
+              placeholder="Documento"
+              [field]="registerForm.documentoClienteDto"
+              [class.is-invalid]="submitted() && registerForm.documentoClienteDto().errors().length > 0"
+            />
+          </div>
+          <!-- td -->
+          <div class="col-md-4">
+            <label>TD</label>
+            <input
+              type="number"
+              name="td"
+              id="td"
+              class="form-control"
+              placeholder="TD"
+              [field]="registerForm.td"
+              [class.is-invalid]="submitted() && registerForm.td().errors().length > 0"
+            />
+          </div>
+        </div>
+        <!-- nui -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>NIU</label>
+            <input
+              type="text"
+              name="niu"
+              id="niu"
+              class="form-control"
+              placeholder="NIU"
+              [field]="registerForm.niu"
+              [class.is-invalid]="submitted() && registerForm.niu().errors().length > 0"
+            />
+          </div>
+          <!-- pabellon -->
+          <div class="col-md-4">
+            <label>PABELLON</label>
+            <input
+              type="text"
+              name="pabellon"
+              id="pabellon"
+              class="form-control"
+              placeholder="PABELLON"
+              [field]="registerForm.pabellon"
+              [class.is-invalid]="submitted() && registerForm.pabellon().errors().length > 0"
+            />
+          </div>
+          <!-- estructura -->
+          <div class="col-md-4">
+            <label>ESTRUCTURA</label>
+            <input
+              type="text"
+              name="estructura"
+              id="estructura"
+              class="form-control"
+              placeholder="ESTRUCTURA"
+              [field]="registerForm.estructura"
+              [class.is-invalid]="submitted() && registerForm.estructura().errors().length > 0"
+            />
+          </div>
+        </div>
+
+        <!-- BOTÓN -->
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-primary">GUARDAR</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+    </div>
+  </ng-template>
+
+  <!--lista de clientes-->
+
+  <div class="col-x1-12">
+    <app-card cardTitle="LISTA DE CLIENTES DESTINO" [options]="false" blockClass="table-border-style">
+      <div class="table-responsive">
+        <table class="table table-hover w-100">
+          <thead>
+            <tr>
+              <th style="width: 5%">#</th>
+              <th style="width: 15%">NOMBRE</th>
+              <th style="width: 10%">T_DOC</th>
+              <th style="width: 10%">DOCUMENTO</th>
+              <th style="width: 10%">TD</th>
+              <th style="width: 10%">NIU</th>
+              <th style="width: 10%">PABELLON</th>
+              <th style="width: 15%">ESTRUCTURA</th>
+              <th style="width: 20%">Editar/Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cliente_dto of clienteDtoPaginado; track cliente_dto.idClienteDto) {
+              <tr>
+                <th scope="row">{{ cliente_dto.idClienteDto }}</th>
+                <td class="text-truncate">{{ cliente_dto.nombreClienteDto }}</td>
+                <td>{{ cliente_dto.tipoDocumentoDto }}</td>
+                <td>{{ cliente_dto.documentoClienteDto }}</td>
+                <td>{{ cliente_dto.td }}</td>
+                <td>{{ cliente_dto.niu }}</td>
+                <td>{{ cliente_dto.pabellon }}</td>
+                <td>{{ cliente_dto.estructura }}</td>
+                <td>
+                  <DIV class="d-flex gap-1">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="editarClienteDto(cliente_dto, modalContent)">
+                      Editar
+                    </button>
+
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarClienteDto(cliente_dto)">Eliminar</button>
+                  </DIV>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <!-- CONTADOR DE REGISTROS -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+          Mostrando
+          {{ obtenerInicio() }}
+          -
+          {{ obtenerFin() }}
+          de
+          {{ clienteDto.length }}
+          registros
+        </div>
+
+        <!-- PAGINADOR -->
+        <nav>
+          <ul class="pagination mb-0">
+            <li class="page-item" [class.disabled]="paginaActual === 1">
+              <a class="page-link" (click)="cambiarPagina(paginaActual - 1)">Previous</a>
+            </li>
+
+            @for (p of [].constructor(totalPaginas); track i; let i = $index) {
+              <li class="page-item" [class.active]="paginaActual === i + 1">
+                <a class="page-link" (click)="cambiarPagina(i + 1)">
+                  {{ i + 1 }}
+                </a>
+              </li>
+            }
+
+            <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+              <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </app-card>
+  </div>
+</div>

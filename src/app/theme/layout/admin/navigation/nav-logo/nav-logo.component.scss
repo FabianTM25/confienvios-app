@@ -1,0 +1,51 @@
+/*.mobile-menu {
+  display: flex !important;
+  cursor: pointer;
+  
+  span,
+  span::before,
+  span::after {
+    background-color: #fff;
+    display: block;
+    width: 22px;
+    height: 2px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  span::before,
+  span::after {
+    content: '';
+    position: absolute;
+  }
+
+  span::before {
+    top: -6px;
+  }
+
+  span::after {
+    top: 6px;
+  }
+
+  &.on span {
+    background-color: transparent;
+  }
+
+  &.on span::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+
+  &.on span::after {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+  :host {
+  .mobile-menu {
+    opacity: 1 !important;
+    transform: rotateY(0deg) !important;
+    visibility: visible !important;
+    display: flex !important;
+  }
+}
+}*/

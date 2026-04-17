@@ -1,0 +1,113 @@
+<H3>USUARIOS</H3>
+<hr />
+
+<!--formulario modal de usuarios-->
+
+<!--<button class="btn btn-primary" (click)="openModal(modalContent)">Nuevo Usuario</button>-->
+<button class="btn btn-primary" (click)="openNuevoUsuario(modalContent)">Nuevo Usuario</button>
+
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <!--<h4 class="modal-title">Nuevo Usuario</h4>-->
+    <h4 class="modal-title">{{ modalTitle() }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [form]="registerForm()" (ngSubmit)="onSubmit()" ngNativeValidate>
+      <div class="row">
+        <div class="form-group">
+          <input
+            type="text"
+            id="usuario"
+            name="usuario"
+            class="form-control"
+            placeholder="Usuario"
+            [field]="registerForm.usuario"
+            [class.is-invalid]="submitted() && registerForm.usuario().errors().length > 0"
+          />
+          @if (submitted() && registerForm.usuario().errors().length > 0) {
+            <div class="invalid-feedback">
+              @for (error of registerForm.usuario().errors(); track error.kind) {
+                <div>{{ error.message }}</div>
+              }
+            </div>
+          }
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            id="user_name"
+            name="user_name"
+            class="form-control"
+            placeholder="Nombre Usuario"
+            [field]="registerForm.user_name"
+            [class.is-invalid]="submitted() && registerForm.user_name().errors().length > 0"
+          />
+          @if (submitted() && registerForm.user_name().errors().length > 0) {
+            <div class="invalid-feedback">
+              @for (error of registerForm.user_name().errors(); track error.kind) {
+                <div>{{ error.message }}</div>
+              }
+            </div>
+          }
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="Contraseña"
+            [field]="registerForm.password"
+            [class.is-invalid]="submitted() && registerForm.password().errors().length > 0"
+          />
+          @if (submitted() && registerForm.password().errors().length > 0) {
+            <div class="invalid-feedback">
+              @for (error of registerForm.password().errors(); track error.kind) {
+                <div>{{ error.message }}</div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">GUARDAR</button>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+<!--lista de usuarios-->
+
+<div class="col-x1-12">
+  <app-card cardTitle="LISTA DE USUARIOS" [options]="false" blockClass="table-border-style">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Nombre de Usuario</th>
+            <th>Editar/Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (usuario of usuarios; track usuario.id_usuario) {
+            <tr>
+              <th scope="row">{{ usuario.id_usuario }}</th>
+              <td>{{ usuario.usuario }}</td>
+              <td>{{ usuario.user_name }}</td>
+              <td>
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="editarUsuario(usuario, modalContent)">Editar</button>
+                <!--<button type="button" class="btn btn-outline-success btn-sm">Editar</button>-->
+                <button type="button" class="btn btn-outline-danger btn-sm"(click)="eliminarUsuario(usuario.id_usuario)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </app-card>
+</div>
