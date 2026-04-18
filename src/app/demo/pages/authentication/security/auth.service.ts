@@ -38,14 +38,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { environment } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment.prod';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private url = environment.apiUrl + '/auth';
+  //private url = environment.apiUrl + '/auth';
+  private url = `${environment.authUrl + '/auth'}`;
   private http = inject(HttpClient);
   private router = inject(Router);
 
