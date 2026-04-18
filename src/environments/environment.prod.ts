@@ -6,6 +6,6 @@ import packageInfo from '../../package.json';
 };*//*local*/
 export const environment = {
   production: true,
-  apiUrl: 'https://confienvios-app.onrender.com/api',
-  appVersion: packageInfo.version
+  apiUrl: 'https://confienvios-app.onrender.com',
+  appVersion: '1.0.0'
 };
