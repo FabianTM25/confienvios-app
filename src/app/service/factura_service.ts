@@ -2,12 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { Factura } from '../modelo/Factura_modelo';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class FacturaService {
-  private urlBase = "http://localhost:8080/facturas"
+  //private urlBase = "http://localhost:8080/facturas"
+    private urlBase = `${environment.apiUrl}/facturas`;
+
 
 
   constructor (private clienteHttp: HttpClient){}
