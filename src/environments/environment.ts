@@ -13,7 +13,7 @@ import packageInfo from '../../package.json';
 export const environment = {
   production: true,
   apiUrl: 'https://confienvios-app.onrender.com/api',
-  appVersion: packageInfo.version
+  appVersion: '1.0.0'
 };
 /*
  * For easier debugging in development mode, you can import the following file

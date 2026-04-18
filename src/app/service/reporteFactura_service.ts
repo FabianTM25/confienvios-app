@@ -19,7 +19,7 @@ export class ReporteService {
 // ✅ Con responseType: 'blob'
 imprimirFactura(id: number): Observable<Blob> {
   //return this.http.get(`http://localhost:8080/api/report/${id}`, {
-        return this.http.get(`${this.url}/api/report/${id}`, {
+        return this.http.get(`${this.url}/report/${id}`, {
 
     responseType: 'blob'
   });

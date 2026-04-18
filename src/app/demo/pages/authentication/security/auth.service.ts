@@ -38,7 +38,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { environment } from '../../../../../environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -47,7 +47,7 @@ import { environment } from '../../../../../environments/environment.prod';
 export class AuthService {
 
   //private url = environment.apiUrl + '/auth';
-  private url = `${environment.authUrl + '/auth'}`;
+  private url = `${environment.apiUrl}/../auth`;
   private http = inject(HttpClient);
   private router = inject(Router);
 
