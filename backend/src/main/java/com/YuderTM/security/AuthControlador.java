@@ -10,7 +10,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 //@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://confienvios-app.onrender.com")
+//@CrossOrigin(origins = "https://confienvios-app.onrender.com")
+@CrossOrigin(origins = "*")
 public class AuthControlador {
 
     private final IUserRepository userRepository;

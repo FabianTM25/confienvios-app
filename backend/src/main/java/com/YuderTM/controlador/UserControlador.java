@@ -11,10 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/usuarios", produces = "application/json")//http://localhost:8080/Confienvios
-@CrossOrigin(origins = {
+/*@CrossOrigin(origins = {
     "http://localhost:4200",
     "https://confienvios-app-two.vercel.app/"  // reemplaza con tu URL real de Angular
-})
+})*/
+@CrossOrigin(origins = "*")
 public class UserControlador {
 
     private final IUserService iUserService;
