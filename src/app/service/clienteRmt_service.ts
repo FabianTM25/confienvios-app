@@ -2,12 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ClienteRtm } from '../modelo/ClienteRmt_modelo';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class clienteRmt_Service {
-  private urlBase = "http://localhost:8080/clientes"
+  //private urlBase = "http://localhost:8080/clientes"
+  private urlBase = `${environment.apiUrl}/clientes`;
 
 
   constructor (private clienteHttp: HttpClient){}
