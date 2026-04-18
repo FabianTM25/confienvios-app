@@ -13,7 +13,7 @@ import packageInfo from '../../package.json';
 
 export const environment = {
   production: true,
-  apiUrl: 'https://confienvios-app.onrender.com/api',
+  apiUrl: 'https://confienvios-app.onrender.com/',
   appVersion: '1.0.0'
 };
 
