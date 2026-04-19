@@ -3,6 +3,8 @@ package com.YuderTM.servicio;
 import com.YuderTM.modelo.Rotulo;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -11,6 +13,8 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.core.io.ClassPathResource;
+
 
 @Service
 public class ReporteService {
@@ -28,7 +32,15 @@ public class ReporteService {
 
         try{
         // 1. Cargar el archivo del reporte (.jasper)
-        InputStream reportStream = this.getClass().getResourceAsStream("/reports/factura.jasper");
+       // InputStream reportStream = this.getClass().getResourceAsStream("/reports/factura.jasper");
+
+InputStream reportStream = new ClassPathResource("reports/factura.jasper").getInputStream();
+
+        if (reportStream == null) {
+    System.out.println("❌ NO se encontró factura.jasper en el JAR");
+} else {
+    System.out.println("✅ factura.jasper cargado correctamente");
+}
 
         if (reportStream == null) {
             throw new RuntimeException("No se encontró el reporte: " + id);
