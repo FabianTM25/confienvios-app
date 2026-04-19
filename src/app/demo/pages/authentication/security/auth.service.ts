@@ -46,8 +46,8 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  //private url = environment.apiUrl + '/auth';
-  private url = `${environment.apiUrl}/../auth`;
+  private url = environment.apiUrl + '/auth';
+  
   private http = inject(HttpClient);
   private router = inject(Router);
 
