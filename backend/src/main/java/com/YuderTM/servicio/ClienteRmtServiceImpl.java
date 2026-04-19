@@ -37,6 +37,7 @@ public class ClienteRmtServiceImpl implements IClienteRmtService{
     //sirve para crear o actualizar
     @Override
     public Cliente_rmt guardarClienteRtm(Cliente_rmt clienteRmt) {
+            clienteRmt.setNombreClienteRmt(clienteRmt.getNombreClienteRmt().toUpperCase());
         return iClienteRmtRepository.save(clienteRmt);
     }
 

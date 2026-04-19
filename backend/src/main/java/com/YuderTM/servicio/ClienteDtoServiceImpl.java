@@ -37,6 +37,7 @@ public class ClienteDtoServiceImpl implements IClienteDtoService{
     //sirve para crear o actualizar
     @Override
     public Cliente_dto guardarClienteDto(Cliente_dto clienteDto) {
+         clienteDto.setNombreClienteDto(clienteDto.getNombreClienteDto().toUpperCase());
         return iClienteDtoRepository.save(clienteDto);
     }
 
