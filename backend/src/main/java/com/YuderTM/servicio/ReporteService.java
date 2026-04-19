@@ -26,7 +26,7 @@ public class ReporteService {
 
     public byte[] generarReporte(Integer id) throws Exception {
         // 1. Cargar el archivo del reporte (.jasper)
-        InputStream reportStream = this.getClass().getResourceAsStream("/reports/Factura.jasper");
+        InputStream reportStream = this.getClass().getResourceAsStream("/reports/factura.jasper");
 
         if (reportStream == null) {
             throw new RuntimeException("No se encontró el reporte: " + id);
@@ -70,7 +70,7 @@ public class ReporteService {
     public byte[] generarRotulo(Integer idRotulo) throws Exception {
 
         // 1. Cargar el .jasper (NO SE COMPILA)
-        InputStream reportStream = this.getClass().getResourceAsStream("/reports/Rotulo.jasper");
+        InputStream reportStream = this.getClass().getResourceAsStream("/reports/rotulo.jasper");
 
         if (reportStream == null) {
             throw new RuntimeException("No se encontró rotulo.jasper");
