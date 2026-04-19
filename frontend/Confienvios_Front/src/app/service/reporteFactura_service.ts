@@ -14,13 +14,13 @@ export class ReporteService {
   constructor(private http: HttpClient) {}
 
   imprimirFactura(id: number): Observable<Blob> {
-    return this.http.get(`${this.url}/api/reportes/report/${id}`, {
+    return this.http.get(`${this.url}/reportes/report/${id}`, {
       responseType: 'blob'
     });
   }
 
   imprimirRotulo(id: number) {
-    return this.http.get(`${this.url}/api/reportes/rotulo/${id}`, {
+    return this.http.get(`${this.url}/reportes/rotulo/${id}`, {
       responseType: 'blob'
     });
   }
