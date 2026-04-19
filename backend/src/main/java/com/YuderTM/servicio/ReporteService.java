@@ -25,6 +25,8 @@ public class ReporteService {
     }
 
     public byte[] generarReporte(Integer id) throws Exception {
+
+        try{
         // 1. Cargar el archivo del reporte (.jasper)
         InputStream reportStream = this.getClass().getResourceAsStream("/reports/factura.jasper");
 
@@ -63,11 +65,16 @@ public class ReporteService {
             // 4. Exportar a PDF
             return JasperExportManager.exportReportToPdf(jasperPrint);
         }
-    }
+    }catch (Exception e) {
+    e.printStackTrace(); // 👈 IMPORTANTE
+    throw e;
+}
+}
 
     //rotulo
 
     public byte[] generarRotulo(Integer idRotulo) throws Exception {
+        try{
 
         // 1. Cargar el .jasper (NO SE COMPILA)
         InputStream reportStream = this.getClass().getResourceAsStream("/reports/rotulo.jasper");
@@ -97,9 +104,16 @@ public class ReporteService {
         }
 
         // 4. Llenar reporte
-        JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, params, dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, params, new JREmptyDataSource());
+        //JasperFillManager.fillReport(reportStream, params, dataSource);
 
         // 5. Exportar PDF
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
+    catch (Exception e) {
+        e.printStackTrace(); // 🔥 CLAVE
+        throw new RuntimeException("Error generando rótulo: " + e.getMessage());
+    }
+}
+
 }
