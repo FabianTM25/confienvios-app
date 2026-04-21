@@ -33,7 +33,7 @@ public class UserControlador {
     @GetMapping
     public ResponseEntity<List<Usuario>> listarUsuarios() {
         List<Usuario> usuarios = iUserService.listarUsuarios();
-        logger.info("Usuarios encontrados: " + usuarios);
+        //logger.info("Usuarios encontrados: " + usuarios);
         //usuarios.forEach(usuario -> logger.info(usuario.toString()));//imprimir por consola
         return ResponseEntity.ok(iUserService.listarUsuarios());
     }
