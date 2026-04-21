@@ -117,7 +117,8 @@ public class ReporteService {
             }
 
             // 4. Llenar reporte
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, params, new JREmptyDataSource());
+            // 4. Llenar reporte
+                JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, params, dataSource);
             // JasperFillManager.fillReport(reportStream, params, dataSource);
 
             // 5. Exportar PDF
