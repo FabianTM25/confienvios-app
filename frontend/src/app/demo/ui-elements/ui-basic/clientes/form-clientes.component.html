@@ -1,0 +1,200 @@
+<H3>CLIENTE RMT</H3>
+<hr />
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <!-- Botón izquierda -->
+  <button class="btn btn-primary" (click)="openNuevoClienteRmt(modalContent)">Nuevo Cliente</button>
+  <!-- Input derecha -->
+  <input
+    type="text"
+    id="m-search"
+    class="form-control w-25"
+    placeholder="Buscar por nombre o documento..."
+    (input)="buscarCliente($event)"
+  />
+</div>
+
+<div class="toast-container position-fixed top-0 end-0 p-2" style="z-index: 1200">
+  <div class="toast align-items-center text-bg-success border-0 show" *ngIf="mostrarToast">
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ mensajeToast }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="mostrarToast = false"></button>
+    </div>
+  </div>
+</div>
+
+<!--inicio del modal con el Formulario para cliente-->
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ modalTitle() }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <!--modal body-->
+  <!--datos cliente rmt remite-->
+  <div class="modal-body">
+    <form [form]="registerForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+      <div *ngIf="mensajeError" class="alert alert-danger text-center">
+        {{ mensajeError }}
+      </div>
+      <div class="col-md-12">
+        <label for="">Nombre del Cliente RMT</label>
+        <div class="mb-3">
+          <input
+            type="text"
+            id="nombreClienteRmt"
+            name="nombreClienteRmt"
+            class="form-control"
+            placeholder="Nombre del Cliente RMT"
+            [field]="registerForm.nombreClienteRmt"
+            [class.is-invalid]="submitted() && registerForm.nombreClienteRmt().errors().length > 0"
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <!--tipo documento-->
+        <div class="col-md-6">
+          <label>Tipo de Documento</label>
+          <select class="form-select form-control" name="tipoDocumentoRmt" [(ngModel)]="registerModel().tipoDocumentoRmt">
+            <option value="" disabled selected>Seleccione tipo...</option>
+            <option value="CC">CC - Cédula de Ciudadanía</option>
+            <option value="CE">CE - Cédula de Extranjería</option>
+            <option value="NIT">NIT</option>
+            <option value="TI">TI - Tarjeta de Identidad</option>
+            <option value="PP">PP - Pasaporte</option>
+          </select>
+        </div>
+        <!--documento cliente rmt remite-->
+        <div class="col-md-6">
+          <label >Documento RMT</label>
+          <input
+            type="number"
+            name="documentoClienteRmt"
+            id="documentoClienteRmt"
+            class="form-control"
+            placeholder="Documento"
+            [field]="registerForm.documentoClienteRmt"
+            [class.is-invalid]="submitted() && registerForm.documentoClienteRmt().errors().length > 0"
+          />
+        </div>
+      </div>
+
+      <!--direccion cliente rmt remite-->
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label>Direccion RMT</label>
+          <input
+            type="text"
+            id="direccionClienteRmt"
+            name="direccionClienteRmt"
+            class="form-control"
+            placeholder="Direccion RMT"
+            [field]="registerForm.direccionClienteRmt"
+            [class.is-invalid]="submitted() && registerForm.direccionClienteRmt().errors().length > 0"
+          />
+        </div>
+        <div class="col-md-6">
+          <label>Telefono</label>
+          <input
+            type="text"
+            id="telefonoClienteRmt"
+            name="telefonoClienteRmt"
+            class="form-control"
+            placeholder="Telefono"
+            [field]="registerForm.telefonoClienteRmt"
+            [class.is-invalid]="submitted() && registerForm.telefonoClienteRmt().errors().length > 0"
+          />
+        </div>
+      </div>
+
+      <div class="col-md-12 text-center">
+        <button type="submit" class="btn btn-primary">GUARDAR</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+<!--inicio de la tabla para cliente-->
+
+<div class="col-x1-12">
+  <app-card cardTitle="LISTA DE CLIENTES" [options]="false" blockClass="table-border-style">
+    <div class="table-responsive">
+      <!--<table class="table table-hover">-->
+      <table class="table table-hover w-100" style="table-layout: fixed">
+        <thead>
+          <tr>
+            <th style="width: 5%">#</th>
+            <th style="width: 20%">Nombre Cliente RMT</th>
+            <th style="width: 10%">Tipo_Doc</th>
+            <th style="width: 15%">Documento</th>
+            <th style="width: 20%">Direccion</th>
+            <th style="width: 15%">Telefono</th>
+            <th style="width: 20%">Editar/Eliminar</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (cliente_rmt of clienteRmtPaginado; track cliente_rmt.idClienteRmt) {
+            <tr>
+              <th scope="row">{{ cliente_rmt.idClienteRmt }}</th>
+              <td class="text-truncate">{{ cliente_rmt.nombreClienteRmt }}</td>
+              <td>{{ cliente_rmt.tipoDocumentoRmt }}</td>
+              <td>{{ cliente_rmt.documentoClienteRmt }}</td>
+              <td class="text-truncate">{{ cliente_rmt.direccionClienteRmt }}</td>
+              <td>{{ cliente_rmt.telefonoClienteRmt }}</td>
+              <td>
+                <DIV class="d-flex gap-1">
+                  <button type="button" class="btn btn-outline-success btn-sm" (click)="editarClienteRmt(cliente_rmt, modalContent)">
+                    Editar
+                  </button>
+
+                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarClienteRmt(cliente_rmt)">Eliminar</button>
+                </DIV>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CONTADOR DE REGISTROS -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <div>
+        Mostrando
+        {{ obtenerInicio() }}
+        -
+        {{ obtenerFin() }}
+        de
+        {{ clienteRmt.length }}
+        registros
+      </div>
+
+      <!-- PAGINADOR -->
+      <nav>
+        <ul class="pagination mb-0">
+          <li class="page-item" [class.disabled]="paginaActual === 1">
+            <a class="page-link" (click)="cambiarPagina(paginaActual - 1)">Previous</a>
+          </li>
+
+          @for (p of [].constructor(totalPaginas); track i; let i = $index) {
+            <li class="page-item" [class.active]="paginaActual === i + 1">
+              <a class="page-link" (click)="cambiarPagina(i + 1)">
+                {{ i + 1 }}
+              </a>
+            </li>
+          }
+
+          <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+            <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </app-card>
+</div>
