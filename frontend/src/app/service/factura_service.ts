@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class FacturaService {
   //private urlBase = "http://localhost:8080/facturas"
 
-  private urlBase = `${environment.apiUrl}/facturas`;
+  private urlBase = `${environment.apiUrl}/api/facturas`;
 
 
 

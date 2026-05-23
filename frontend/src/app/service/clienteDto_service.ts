@@ -11,7 +11,7 @@ export class clienteDto_Service {
   //private urlBase = "http://localhost:8080/clienteDto"
 
 
-private urlBase = `${environment.apiUrl}/clienteDto`;
+private urlBase = `${environment.apiUrl}/api/clienteDto`;
 
 
   constructor (private clienteHttp: HttpClient){}
