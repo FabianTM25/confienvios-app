@@ -188,10 +188,7 @@ public class Factura {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
     public LocalDateTime getFecha_creacion() { return fecha_creacion; }
     public void setFecha_creacion(LocalDateTime fecha_creacion) { this.fecha_creacion = fecha_creacion; }
 
