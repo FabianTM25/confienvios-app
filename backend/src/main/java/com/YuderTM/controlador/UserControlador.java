@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-<<<<<<< HEAD
-@RequestMapping("/usuarios")//http://localhost:8080/Confienvios
-@CrossOrigin(origins = "http://localhost:4200") // Para Angular
-=======
+
+/*@RequestMapping("/usuarios")//http://localhost:8080/Confienvios
+@CrossOrigin(origins = "http://localhost:4200") // Para Angular*/
+
 @RequestMapping(value = "/api/usuarios", produces = "application/json")//http://localhost:8080/Confienvios
 /*@CrossOrigin(origins = {
     "http://localhost:4200",
     "https://confienvios-app-two.vercel.app/"  // reemplaza con tu URL real de Angular
 })*/
 @CrossOrigin(origins = "*")
->>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
+
 public class UserControlador {
 
     private final IUserService iUserService;
@@ -38,13 +38,13 @@ public class UserControlador {
     @GetMapping
     public ResponseEntity<List<Usuario>> listarUsuarios() {
         List<Usuario> usuarios = iUserService.listarUsuarios();
-<<<<<<< HEAD
+
         logger.info("Usuarios encontrados: " + usuarios);
         usuarios.forEach(usuario -> logger.info(usuario.toString()));//imprimir por consola
-=======
+
         //logger.info("Usuarios encontrados: " + usuarios);
         //usuarios.forEach(usuario -> logger.info(usuario.toString()));//imprimir por consola
->>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
+
         return ResponseEntity.ok(iUserService.listarUsuarios());
     }
 
@@ -95,8 +95,5 @@ public class UserControlador {
         return ResponseEntity.noContent().build();
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 }
