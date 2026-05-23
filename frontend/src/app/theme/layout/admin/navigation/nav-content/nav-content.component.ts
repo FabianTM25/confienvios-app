@@ -20,7 +20,7 @@ export class NavContentComponent {
   // public method
   // version
   title = 'Demo application for version numbering';
-  currentApplicationVersion = environment.appVersion;
+  currentApplicationVersion = '1.0.0';
 
   navigations!: NavigationItem[];
   wrapperWidth: number;

@@ -1,10 +1,11 @@
 /// <reference types="@angular/localize" />
 
 import { enableProdMode, importProvidersFrom } from '@angular/core';
+
 import { environment } from './environments/environment';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-// eslint-disable-next-line import/no-deprecated
 import { provideAnimations } from '@angular/platform-browser/animations';
+
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -16,8 +17,5 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule, AppRoutingModule),
-    provideHttpClient(withInterceptors([authInterceptor])),
-    provideAnimations() // la línea tachada funciona igual, es solo una advertencia
-  ]
+    importProvidersFrom(BrowserModule, AppRoutingModule), provideHttpClient(withInterceptors([authInterceptor]))]
 }).catch((err) => console.error(err));

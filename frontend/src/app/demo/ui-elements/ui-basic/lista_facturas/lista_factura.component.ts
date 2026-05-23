@@ -33,7 +33,6 @@ export class BasicClientesComponent implements OnInit{
   factura: Factura[] = [];
   facturaOriginal: Factura[] = [];
   facturaPaginado: Factura[] = [];
-  fechaActual: Date = new Date();
   
   //busqueda 
   textoBusqueda: string = '';

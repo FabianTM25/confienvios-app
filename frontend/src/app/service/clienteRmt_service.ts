@@ -9,33 +9,29 @@ import { environment } from 'src/environments/environment';
 })
 export class clienteRmt_Service {
   //private urlBase = "http://localhost:8080/clientes"
-private apiUrl = `${environment.apiUrl}/api/clientes`;
+  private urlBase = `${environment.apiUrl}/clientes`;
+
 
   constructor (private clienteHttp: HttpClient){}
 
     obtenerCliente_rmtLista(): Observable<ClienteRtm[]>{
-      //return this.clienteHttp.get<ClienteRtm[]>(this.urlBase);
-      return this.clienteHttp.get<ClienteRtm[]>(this.apiUrl);
+      return this.clienteHttp.get<ClienteRtm[]>(this.urlBase);
     }
 
     agregarCliente_rmt(cliente: ClienteRtm): Observable<Object>{
-      //return this.clienteHttp.post(this.urlBase, cliente)
-      return this.clienteHttp.post(this.apiUrl, cliente);
+      return this.clienteHttp.post(this.urlBase, cliente)
     }
 
     actualizarCliente_rmt(cliente: ClienteRtm) {
-    //return this.clienteHttp.put(`${this.urlBase}/${cliente.idClienteRmt}`, cliente);
-     return this.clienteHttp.put(`${this.apiUrl}/${cliente.idClienteRmt}`, cliente);
+    return this.clienteHttp.put(`${this.urlBase}/${cliente.idClienteRmt}`, cliente);
     }
 
   eliminarCliente_rmt(id: number): Observable<any> {
-    //return this.clienteHttp.delete(`${this.urlBase}/${id}`);
-    return this.clienteHttp.delete(`${this.apiUrl}/${id}`);
+    return this.clienteHttp.delete(`${this.urlBase}/${id}`);
   }
 
   buscarClienteRmt(texto: string): Observable<ClienteRtm>{
-  //return this.clienteHttp.get<ClienteRtm>(`${this.urlBase}/buscar?texto=${texto}`);
-  return this.clienteHttp.get<ClienteRtm>(`${this.apiUrl}/buscar?texto=${texto}`);
+  return this.clienteHttp.get<ClienteRtm>(`${this.urlBase}/buscar?texto=${texto}`);
 }
   
 }

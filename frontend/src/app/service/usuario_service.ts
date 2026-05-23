@@ -9,28 +9,24 @@ import { environment } from 'src/environments/environment';
 })
 export class UsuarioService {
 
-  //private urlBase = `${environment.apiUrl}/usuarios`; 
-    private apiUrl = `${environment.apiUrl}/api/usuarios`;
+  private urlBase = `${environment.apiUrl}/usuarios`; 
+  private apiUrl = environment.apiUrl;
 
   constructor(private clienteHttp: HttpClient) {}
 
   obtenerUsuarioLista(): Observable<Usuario[]> {
-    //return this.clienteHttp.get<Usuario[]>(this.urlBase);
-    return this.clienteHttp.get<Usuario[]>(this.apiUrl);
+    return this.clienteHttp.get<Usuario[]>(this.urlBase);
   }
 
   agregarUsuario(usuario: Usuario): Observable<Object> {
-    //return this.clienteHttp.post(this.urlBase, usuario);
-    return this.clienteHttp.post(this.apiUrl, usuario);
+    return this.clienteHttp.post(this.urlBase, usuario);
   }
 
   actualizarUsuario(usuario: Usuario) {
-    //return this.clienteHttp.put(`${this.urlBase}/${usuario.id_usuario}`, usuario);
-    return this.clienteHttp.put(`${this.apiUrl}/${usuario.id_usuario}`, usuario);
+    return this.clienteHttp.put(`${this.urlBase}/${usuario.id_usuario}`, usuario);
   }
 
   eliminarUsuario(id: number): Observable<any> {
-    //return this.clienteHttp.delete(`${this.urlBase}/${id}`);
-    return this.clienteHttp.delete(`${this.apiUrl}/${id}`);
+    return this.clienteHttp.delete(`${this.urlBase}/${id}`);
   }
 };

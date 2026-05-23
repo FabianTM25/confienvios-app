@@ -142,15 +142,8 @@ export class BasicClientesComponent implements OnInit {
   onSubmit() {
   this.submitted.set(true);
 
-  let datosUsuario = this.registerForm().value();
+  const datosUsuario = this.registerForm().value();
   const esEdicion = !!datosUsuario.idClienteRmt;
-
-   // ✅ Convertir campos de texto a mayúsculas antes de guardar
-  datosUsuario = {
-    ...datosUsuario,
-    nombreClienteRmt:    datosUsuario.nombreClienteRmt?.toString().toUpperCase().trim() ?? '',
-    direccionClienteRmt: datosUsuario.direccionClienteRmt?.toString().toUpperCase().trim() ?? '',
-  };
 
   const documentoExiste = this.clienteRmtOriginal.find(c =>
     c.documentoClienteRmt === datosUsuario.documentoClienteRmt &&

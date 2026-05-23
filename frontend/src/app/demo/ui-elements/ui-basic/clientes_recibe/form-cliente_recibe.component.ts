@@ -132,17 +132,8 @@ onSubmit() {
 
   this.submitted.set(true);
 
-  let datosUsuario = this.registerForm().value();
+  const datosUsuario = this.registerForm().value();
   const esEdicion = !!datosUsuario.idClienteDto;
-
-    // ✅ Convertir campos de texto a mayúsculas antes de guardar
-  datosUsuario = {
-    ...datosUsuario,
-    nombreClienteDto: datosUsuario.nombreClienteDto?.toString().toUpperCase().trim() ?? '',
-    niu:              datosUsuario.niu?.toString().toUpperCase().trim() ?? '',
-    pabellon:         datosUsuario.pabellon?.toString().toUpperCase().trim() ?? '',
-    estructura:       datosUsuario.estructura?.toString().toUpperCase().trim() ?? '',
-  };
 
   // validaciones
   const documentoExiste = this.clienteDtoOriginal.find(c =>

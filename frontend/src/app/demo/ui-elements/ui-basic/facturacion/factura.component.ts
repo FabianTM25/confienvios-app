@@ -5,8 +5,6 @@ import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { Field, form, minLength, required } from '@angular/forms/signals';
 import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule  } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
-import { RespuestaFacturaDto } from 'src/app/service/factura_service';
 
 // Models & Services
 import { ClienteRtm } from 'src/app/modelo/ClienteRmt_modelo';
@@ -44,10 +42,6 @@ export class FacturaComponent implements OnInit {
   clienteDto: ClienteDto[] = [];
   clienteDtoOriginal: ClienteDto[] = [];
   facturaGuardada: Factura = {} as Factura;
-
-  // Variables nuevas 
-facturaPendiente: Factura | null = null;        // ✅ guarda la factura mientras espera autorización
-warningMensaje: string = '';                    // ✅ mensaje del warning
 
   //busqueda 
   textoBusqueda: string = '';
@@ -154,89 +148,62 @@ buscarCliente(){
   }
 
 
-  guardar(content: any, modalWarning: any): void {
-
-  // VALIDACIONES
-  if (!this.clienteRmtSeleccionado?.idClienteRmt) {
+  guardar(content: any): void {
+      // VALIDAR CLIENTE RMT
+   if (!this.clienteRmtSeleccionado?.idClienteRmt) {
     alert("Debe buscar un cliente que REMITE");
     return;
   }
+
   if (!this.clienteDtoSeleccionado?.idClienteDto) {
     alert("Debe buscar un cliente DESTINO");
     return;
   }
 
   const factura: Factura = {
+
     id_factura: null,
     numero_factura: '',
+
     id_cliente_rmt: this.clienteRmtSeleccionado.idClienteRmt?.toString(),
     nombre_cliente_rmt: this.clienteRmtSeleccionado.nombreClienteRmt,
     tipo_documento_rmt: this.clienteRmtSeleccionado.tipoDocumentoRmt,
     documento_cliente_rmt: this.clienteRmtSeleccionado.documentoClienteRmt,
     direccion_cliente_rmt: this.clienteRmtSeleccionado.direccionClienteRmt,
     telefono_cliente_rmt: this.clienteRmtSeleccionado.telefonoClienteRmt,
+
     id_cliente_dto: this.clienteDtoSeleccionado.idClienteDto?.toString(),
     nombre_cliente_dto: this.clienteDtoSeleccionado.nombreClienteDto,
     tipo_documento_dto: this.clienteDtoSeleccionado.tipoDocumentoDto,
     documento_cliente_dto: this.clienteDtoSeleccionado.documentoClienteDto,
+
     td: this.clienteDtoSeleccionado.td,
     niu: this.clienteDtoSeleccionado.niu,
     pabellon: this.clienteDtoSeleccionado.pabellon,
     estructura: this.clienteDtoSeleccionado.estructura,
+
     estado: "1"
   };
 
   this.Factura_Service.agregarFactura(factura).subscribe({
 
-    next: (respuesta: RespuestaFacturaDto) => {
-      // ✅ Sin encomienda previa — guardar directo
-      console.log("Factura guardada:", respuesta.factura);
-      this.facturaGuardada = respuesta.factura!;
-      this.openModal(content); // abre modal de éxito/impresión
+    next: (data: Factura) => {
+
+      console.log("Factura guardada:", data);
+
+      this.facturaGuardada = data;
+
+      this.openModal(content);
+
     },
 
-    error: (error: HttpErrorResponse) => {
-      if (error.status === 409) {
-        // ⚠️ Cliente ya tiene encomienda en el mes — abrir modal de confirmación
-        const respuesta: RespuestaFacturaDto = error.error;
-        this.warningMensaje = respuesta.warning ?? 'El cliente ya tiene una encomienda este mes.';
-        this.facturaPendiente = factura; // guardar para reenviar si autoriza
-        this.modalService.open(modalWarning, {
-          centered: true,
-          backdrop: 'static',
-          keyboard: false
-        });
-      } else {
-        console.error(error);
-        alert("Error al guardar la factura");
-      }
-    }
-
-  });
-}
-
-confirmarConAutorizacion(content: any): void {
-  if (!this.facturaPendiente) return;
-
-  this.Factura_Service.agregarFactura(this.facturaPendiente, true).subscribe({
-    next: (respuesta: RespuestaFacturaDto) => {
-      console.log("Factura guardada con autorización:", respuesta.factura);
-      this.facturaGuardada = respuesta.factura!;
-      this.modalService.dismissAll();       // cierra el modal de warning
-      this.facturaPendiente = null;
-      this.openModal(content);              // abre modal de éxito/impresión
-    },
-    error: (err) => {
-      console.error('Error al guardar con autorización:', err);
+    error: (error) => {
+      console.error(error);
       alert("Error al guardar la factura");
     }
-  });
-}
 
-cancelarGuardado(): void {
-  this.facturaPendiente = null;
-  this.warningMensaje = '';
-  this.modalService.dismissAll();
+  });
+
 }
 
 limpiarFormulario(): void {

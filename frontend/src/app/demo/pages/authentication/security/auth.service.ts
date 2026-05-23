@@ -10,7 +10,9 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
   //private url = 'http://localhost:8080/auth';
-  private url = `${environment.apiUrl}/api`;
+
+private url = environment.apiUrl + '/auth';
+
   private http = inject(HttpClient);
   private router = inject(Router);
 
