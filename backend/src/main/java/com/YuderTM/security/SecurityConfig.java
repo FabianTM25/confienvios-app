@@ -101,7 +101,8 @@ import java.util.List;
             "/**/*.js",
             "/**/*.css",
             "/assets/**",
-            "/api/auth/login"
+            "/api/auth/login",
+            "/api/auth/encriptar/**"
           ).permitAll()
 
           // protegidos
