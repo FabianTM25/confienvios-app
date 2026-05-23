@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class clienteRmt_Service {
   //private urlBase = "http://localhost:8080/clientes"
-  private urlBase = `${environment.apiUrl}/clientes`;
+  private urlBase = `${environment.apiUrl}/api/clientes`;
 
 
   constructor (private clienteHttp: HttpClient){}
