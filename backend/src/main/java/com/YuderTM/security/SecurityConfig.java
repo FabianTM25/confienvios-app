@@ -126,10 +126,8 @@ import java.util.List;
 
       config.setAllowedOrigins(List.of(
         "http://localhost:4200",
-        "http://localhost:64764",
         "https://confienvios-app-two.vercel.app",
-        "https://confienvios-app.vercel.app",          // ←
-        "https://confienvios-app-fabiantm25s-projects.vercel.app"  // ← el tuyo
+        "https://confienvios-n2pn5wypp-fabiantm25s-projects.vercel.app"  // ← agrega este
       ));
 
       config.setAllowedMethods(List.of(
