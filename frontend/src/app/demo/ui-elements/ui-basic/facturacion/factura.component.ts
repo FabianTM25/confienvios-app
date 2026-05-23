@@ -187,11 +187,11 @@ buscarCliente(){
 
   this.Factura_Service.agregarFactura(factura).subscribe({
 
-    next: (data: Factura) => {
+    next: (data: any) => {
 
       console.log("Factura guardada:", data);
 
-      this.facturaGuardada = data;
+      this.facturaGuardada = data.factura ?? data;
 
       this.openModal(content);
 
