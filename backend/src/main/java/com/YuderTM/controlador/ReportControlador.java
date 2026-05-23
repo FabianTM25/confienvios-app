@@ -9,8 +9,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+<<<<<<< HEAD
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
+=======
+@RequestMapping(value = "/api/reportes", produces = "application/json")
+/*@CrossOrigin(origins = {
+    "http://localhost:4200",
+    "https://confienvios-app-two.vercel.app/"  // reemplaza con tu URL real de Angular
+})*/
+@CrossOrigin(origins = "*")
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 public class ReportControlador {
 
     private final ReporteService reporteService;

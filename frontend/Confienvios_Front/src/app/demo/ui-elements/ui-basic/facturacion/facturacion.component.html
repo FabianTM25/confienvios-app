@@ -1,0 +1,316 @@
+
+<!--BUSCADORES DE USUARIOS-->
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="input-group mb-2">
+        <input type="text" class="form-control" placeholder="Buscar clientes remite" (input)="($event)" />
+        <button class="btn btn-primary" type="button"></button>
+      </div>
+    </div>
+
+    <div class="col-md-6 ps-4">
+      <div class="input-group mb-2">
+        <input type="text" class="form-control" placeholder="Buscar clientes destino" (input)="($event)" />
+        <button class="btn btn-primary" type="button"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--INFORMACION DE BUSQUEDA DE USUARIOS-->
+<div class="row gx-4 mb-2">
+  <div class="col-md-6 mb-4 ">
+    <div class="card shadow-sm p-4 ">
+      <h5 class="mt-2">Cliente Rmt</h5>
+      <hr />
+      <form action="javascript:void(0)">
+        <!--datos cliente rmt remite-->
+        <div class="modal-body">
+          <form >
+            <div class="row">
+              <div class="form-group">
+                <label for="">Nombre Rmt</label>
+                <input
+                  type="text"
+                  id="name_rmt"
+                  class="form-control"
+                  placeholder="Nombre del Cliente RMT"
+                    />
+              </div>
+              <!--documento cliente rmt remite-->
+              <div class="form-group">
+                 <label for="">Documento</label>
+                <input
+                  type="int"
+                  id="Documento"
+                  class="form-control"
+                  placeholder="Documento"
+               />              
+              </div>
+              <!--direccion cliente rmt remite-->
+              <div class="row mb-3">
+              <div class="col-md-6">
+                <label>Direccion</label>
+                <input
+                  type="number"
+                  id="Documento"
+                  class="form-control"
+                  placeholder="Documento"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>Telefono</label>
+                  <input
+                    type="number"
+                    id="TD"
+                    class="form-control"
+                    placeholder="TD"
+                  />
+              </div>
+            </div>
+            </div>  
+          </form>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-6 mb- ">
+    <div class="card shadow-sm p-4 ">
+      <h5 class="mt-2">Cliente Recibe</h5>
+      <hr />
+      <form >    
+        <!-- FILA 1 -->
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label>Nombre</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              placeholder="Nombre del Cliente Recibe"
+            />
+          </div>
+        </div>
+        <!-- FILA 2 -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label>Documento</label>
+            <input
+              type="number"
+              id="Documento"
+              class="form-control"
+              placeholder="Documento"
+            />
+          </div>
+          <div class="col-md-6">
+            <label>TD</label>
+              <input
+                type="number"
+                id="TD"
+                class="form-control"
+                placeholder="TD"
+              />
+          </div>
+        </div>
+        <!-- FILA 3 -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>NIU</label>
+            <input
+              type="number"
+              id="NIU"
+              class="form-control"
+              placeholder="NIU"
+            />
+          </div>
+          <div class="col-md-4">
+            <label>PABELLON</label>
+            <input
+              type="number"
+              id="PABELLON"
+              class="form-control"
+              placeholder="PABELLON"
+            />
+          </div>
+          <div class="col-md-4">
+            <label>ESTRUCTURA</label>
+            <input
+              type="number"
+              id="ESTRUCTURA"
+              class="form-control"
+              placeholder="ESTRUCTURA"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center mt-4">
+        <button class="btn btn-primary" (click)="openModal(modalContent)">GUARDAR</button>
+        
+<!--INGRESO AL MODAL-->
+      <ng-template #modalContent let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title">FACTURA</h4>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="modal.dismiss()">
+          </button>
+        </div>
+        <!--cliente envia modal-->
+
+          <h5 class="mt-2">Cliente Envia</h5>
+          <form action="javascript:void(0)">
+          <!--datos cliente rmt remite-->
+            <div class="modal-body">
+              <form >
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label>Nombre RMT</label>
+                      <input
+                        type="text"
+                        id="Nombre_rmt"
+                        class="form-control"
+                        placeholder="Nombre RMT"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label>Documento</label>
+                        <input
+                          type="number"
+                          id="Documento"
+                          class="form-control"
+                          placeholder="Documento"
+                        />
+                    </div>
+                  </div>
+                  <!--direccion cliente rmt remite-->
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label>Direccion</label>
+                      <input
+                        type="number"
+                        id="Direccion"
+                        class="form-control"
+                        placeholder="Direccion"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label>Telefono</label>
+                        <input
+                          type="number"
+                          id="Telefono"
+                          class="form-control"
+                          placeholder="Telefono"
+                        />
+                    </div>
+                  </div>             
+              </form>
+            </div>
+          </form>
+          <!--cliente Recibe modal-->
+          <h5 class="mt-2">Cliente Recibe</h5>
+          <div class="modal-body">
+            <form (ngSubmit)="onSubmit($event)">
+              <!-- FILA 1 -->
+                <div class="row mb-3">
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label>Nombre</label>
+                      <input
+                        type="number"
+                        id="Nombre"
+                        class="form-control"
+                        placeholder="Nombre"
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <label>Documento</label>
+                      <input
+                        type="number"
+                        id="Documento"
+                        class="form-control"
+                        placeholder="Documento"
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <label>TD</label>
+                      <input
+                        type="number"
+                        id="Td"
+                        class="form-control"
+                        placeholder="Td"
+                      />
+                    </div>
+                  </div>
+                  <!-- FILA 3 -->
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label>NIU</label>
+                      <input
+                        type="number"
+                        id="NIU"
+                        class="form-control"
+                        placeholder="NIU"
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <label>PABELLON</label>
+                      <input
+                        type="number"
+                        id="PABELLON"
+                        class="form-control"
+                        placeholder="PABELLON"
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <label>ESTRUCTURA</label>
+                      <input
+                        type="number"
+                        id="ESTRUCTURA"
+                        class="form-control"
+                        placeholder="ESTRUCTURA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary text-center">IMPRIMIR</button>
+              </div>
+            </form>
+          </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close()">
+      Cerrar
+    </button>
+  </div>
+</ng-template>
+
+<footer>
+  <br>
+
+<nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link" href="javascript:void(0)" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:void(0)">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:void(0)">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:void(0)">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:void(0)">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </footer>

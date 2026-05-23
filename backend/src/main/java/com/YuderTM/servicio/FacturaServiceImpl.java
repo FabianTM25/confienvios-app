@@ -7,7 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import java.time.LocalDate;
+=======
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.time.LocalDateTime;
@@ -59,7 +62,10 @@ public class FacturaServiceImpl implements IFacturaService {
         iFacturaRepository.deleteById(id_factura);
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
     @Override
     public Long contarFacturasDia() {
         return iFacturaRepository.contarFacturasDia();
@@ -76,6 +82,7 @@ public class FacturaServiceImpl implements IFacturaService {
         return iFacturaRepository.contarFacturasAnio(LocalDateTime.now().getYear());
     }
 
+<<<<<<< HEAD
 
     @Override
     public boolean existeEncomiendaClienteMes(String documentoClienteDto) {
@@ -91,4 +98,6 @@ public class FacturaServiceImpl implements IFacturaService {
                 documentoClienteDto, inicioMes, finMes
         );
     }
+=======
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 }

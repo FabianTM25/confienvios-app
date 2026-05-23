@@ -2,7 +2,10 @@ package com.YuderTM.repositorio;
 import com.YuderTM.modelo.Factura;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+<<<<<<< HEAD
 import java.time.LocalDateTime;
+=======
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -18,6 +21,7 @@ import org.springframework.data.repository.query.Param;
 
     @Query(value = "SELECT COUNT(*) FROM factura WHERE EXTRACT(YEAR FROM fecha_creacion) = :anio AND estado = '1'", nativeQuery = true)
     Long contarFacturasAnio(@Param("anio") int anio);
+<<<<<<< HEAD
 
 
     @Query(value = """
@@ -33,5 +37,7 @@ import org.springframework.data.repository.query.Param;
             @Param("fin") LocalDateTime fin
     );
 
+=======
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
     }
 

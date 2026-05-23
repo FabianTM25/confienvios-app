@@ -1,12 +1,18 @@
 package com.YuderTM.controlador;
 
 import com.YuderTM.modelo.Factura;
+<<<<<<< HEAD
 import com.YuderTM.modelo.RespuestaFacturaDto;
 import com.YuderTM.servicio.IFacturaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+=======
+import com.YuderTM.servicio.IFacturaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.YuderTM.modelo.Rotulo;
@@ -17,8 +23,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+<<<<<<< HEAD
 @RequestMapping("facturas") //http://localhost:8080/Confienvios
 @CrossOrigin(origins = "http://localhost:4200") // Para Angular
+=======
+@RequestMapping(value = "/api/facturas", produces = "application/json")//http://localhost:8080/Confienvios
+/*@CrossOrigin(origins = {
+    "http://localhost:4200",
+    "https://confienvios-app-two.vercel.app/"  // reemplaza con tu URL real de Angular
+})*/
+@CrossOrigin(origins = "*")
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 
 public class FacturaControlador {
 
@@ -83,6 +98,7 @@ public class FacturaControlador {
     }
 //guardar factura
 @PostMapping
+<<<<<<< HEAD
 public ResponseEntity<RespuestaFacturaDto> guardarFactura(@RequestBody Factura factura,
                                               @RequestParam(value = "autorizado", defaultValue = "false") boolean autorizado) {
    //verificacion
@@ -100,6 +116,9 @@ public ResponseEntity<RespuestaFacturaDto> guardarFactura(@RequestBody Factura f
         respuesta.setRequiereAutorizacion(true);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(respuesta); // ✅ tipo consistente
     }
+=======
+public ResponseEntity<Factura> guardarFactura(@RequestBody Factura factura){
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 
     // guardar factura
     Factura facturaGuardada = iFacturaService.guardarFactura(factura);
@@ -118,6 +137,7 @@ public ResponseEntity<RespuestaFacturaDto> guardarFactura(@RequestBody Factura f
     rotulo.setEstructura(facturaGuardada.getEstructura());
 
     // guardar rotulo
+<<<<<<< HEAD
     //iRotuloService.guardarRotulo(rotulo);
     // 5. Respuesta exitosa
     respuesta.setFactura(facturaGuardada);
@@ -125,6 +145,11 @@ public ResponseEntity<RespuestaFacturaDto> guardarFactura(@RequestBody Factura f
     respuesta.setRequiereAutorizacion(false);
     return ResponseEntity.ok(respuesta);
     //return ResponseEntity.ok(facturaGuardada);
+=======
+    iRotuloService.guardarRotulo(rotulo);
+
+    return ResponseEntity.ok(facturaGuardada);
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 }
     @PatchMapping("/{id}/anular")
     public ResponseEntity<Factura> anularFactura(@PathVariable Integer id) {

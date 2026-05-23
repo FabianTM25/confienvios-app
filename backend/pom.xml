@@ -97,6 +97,14 @@
 			<artifactId>jasperreports-barcode4j</artifactId>
 			<version>7.0.5</version>
 		</dependency>
+<<<<<<< HEAD
+=======
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-fonts</artifactId>
+    		<version>6.20.0</version>
+		</dependency>
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 	</dependencies>
 
 	<build>

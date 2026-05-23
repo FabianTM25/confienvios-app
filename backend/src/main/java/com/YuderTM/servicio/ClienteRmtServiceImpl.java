@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+<<<<<<< HEAD
 import java.util.Optional;
+=======
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 
 @Service
 @Transactional
@@ -38,6 +41,10 @@ public class ClienteRmtServiceImpl implements IClienteRmtService{
     //sirve para crear o actualizar
     @Override
     public Cliente_rmt guardarClienteRtm(Cliente_rmt clienteRmt) {
+<<<<<<< HEAD
+=======
+            clienteRmt.setNombreClienteRmt(clienteRmt.getNombreClienteRmt().toUpperCase());
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
         return iClienteRmtRepository.save(clienteRmt);
     }
 

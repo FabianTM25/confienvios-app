@@ -1,0 +1,63 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'scss/variables';
+
+/* fonts-icon */
+@import 'scss/fonts/fontawesome/scss/fontawesome';
+@import 'scss/fonts/feather/iconfont';
+
+@import 'scss/general';
+@import 'scss/generic';
+@import 'scss/mixins/function';
+
+/* important element */
+@import 'scss/menu/pc-footer.scss';
+@import 'scss/menu/menu-lite';
+
+/* basic elements */
+@import 'scss/theme-elements/theme-elements';
+
+/* third party modules style*/
+@import 'scss/plugins/plugins';
+
+@import 'scss/custom';
+
+
+
+html, body {
+  height: 100%;
+}
+
+.pcoded-main-container {
+  min-height: 100vh;
+}
+.page-wrapper{
+  min-height: calc(100vh - 120px);
+}
+.pcoded-navbar:not(.navbar-collapsed) .mobile-menu {
+  opacity: 1 !important;
+  transform: rotateY(0deg) !important;
+  visibility: visible !important;
+}
+
+.pcoded-navbar.navbar-collapsed {
+  .pcoded-inner-navbar {
+    .pcoded-mtext {
+      transform: rotateY(-90deg) !important;
+      transform-origin: 0 0 !important;
+      opacity: 0 !important;
+      width: 0 !important;
+      overflow: hidden !important;
+    }
+  }
+
+  &:hover {
+    .pcoded-inner-navbar {
+      .pcoded-mtext {
+        transform: rotateY(0deg) !important;
+        opacity: 1 !important;
+        width: auto !important;
+      }
+    }
+  }
+}

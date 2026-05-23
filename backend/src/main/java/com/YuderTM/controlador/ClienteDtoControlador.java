@@ -1,7 +1,10 @@
 package com.YuderTM.controlador;
 
 import com.YuderTM.modelo.Cliente_dto;
+<<<<<<< HEAD
 import com.YuderTM.modelo.Cliente_rmt;
+=======
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 import com.YuderTM.servicio.IClienteDtoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+<<<<<<< HEAD
 @RequestMapping("clienteDto") //http://localhost:8080/Confienvios
 @CrossOrigin(origins = "http://localhost:4200") // Para Angular
+=======
+@RequestMapping(value = "/api/clienteDto", produces = "application/json")//http://localhost:8080/Confienvios
+/*@CrossOrigin(origins = {
+    "http://localhost:4200",
+    "https://confienvios-app-two.vercel.app/"  // reemplaza con tu URL real de Angular
+})*/
+@CrossOrigin(origins = "*")
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 
 public class ClienteDtoControlador {
 

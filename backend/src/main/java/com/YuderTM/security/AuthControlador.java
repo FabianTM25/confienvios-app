@@ -2,15 +2,25 @@ package com.YuderTM.security;
 
 import com.YuderTM.modelo.Usuario;
 import com.YuderTM.repositorio.IUserRepository;
+<<<<<<< HEAD
 import com.YuderTM.security.JwtUtil;
+=======
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
+<<<<<<< HEAD
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:4200")
+=======
+@RequestMapping("/api/auth")
+//@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "https://confienvios-app.onrender.com")
+@CrossOrigin(origins = "*")
+>>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
 public class AuthControlador {
 
     private final IUserRepository userRepository;
