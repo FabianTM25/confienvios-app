@@ -1,10 +1,9 @@
 package com.YuderTM.servicio;
 
 import com.YuderTM.modelo.Cliente_dto;
-<<<<<<< HEAD
+
 import com.YuderTM.modelo.Cliente_rmt;
-=======
->>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
+
 import com.YuderTM.repositorio.IClienteDtoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,10 +40,9 @@ public class ClienteDtoServiceImpl implements IClienteDtoService{
     //sirve para crear o actualizar
     @Override
     public Cliente_dto guardarClienteDto(Cliente_dto clienteDto) {
-<<<<<<< HEAD
-=======
+
          clienteDto.setNombreClienteDto(clienteDto.getNombreClienteDto().toUpperCase());
->>>>>>> c95e1604e7ea771cec1d1287270e1c842491141f
+
         return iClienteDtoRepository.save(clienteDto);
     }
 
