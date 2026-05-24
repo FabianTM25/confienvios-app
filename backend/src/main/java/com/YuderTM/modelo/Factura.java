@@ -26,8 +26,13 @@ public class Factura {
     String estructura;
     String estado;
 
-    @Column(name = "fecha_creacion", insertable = false, updatable = false)
-    private LocalDateTime fecha_creacion;
+  @Column(name = "fecha_creacion", updatable = false)
+  private LocalDateTime fecha_creacion;
+
+  @PrePersist
+  public void prePersist() {
+    this.fecha_creacion = LocalDateTime.now();
+  }
 
     //constructor
     public Factura() {
