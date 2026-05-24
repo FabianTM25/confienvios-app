@@ -1,4 +1,4 @@
-
+<!---
 <div class="container-fluid pantalla-completa">
 <div class="row">
   @for (sale of sales; track sale) {
@@ -28,4 +28,77 @@
 <div class="text-center mt-2">
   <img src="assets/images/confienvios.png" alt="Confienvios" style="width: 400px; margin-top: 100px;" />
 </div>
+</div>--->
+
+<div class="container-fluid py-4">
+
+  <!-- Tarjetas de resumen -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="text-muted small fw-semibold text-uppercase">Hoy</span>
+            <div class="rounded-circle bg-success bg-opacity-10 p-2">
+              <i class="feather icon-calendar text-success" style="font-size:18px"></i>
+            </div>
+          </div>
+          <h2 class="fw-bold mb-1">{{ sales[0].amount }}</h2>
+          <p class="text-muted small mb-3">Facturas del día</p>
+          <div class="progress" style="height:4px; border-radius:2px;">
+            <div class="progress-bar bg-success" [style.width.%]="sales[0].progress"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="text-muted small fw-semibold text-uppercase">Este mes</span>
+            <div class="rounded-circle bg-primary bg-opacity-10 p-2">
+              <i class="feather icon-trending-up text-primary" style="font-size:18px"></i>
+            </div>
+          </div>
+          <h2 class="fw-bold mb-1">{{ sales[1].amount }}</h2>
+          <p class="text-muted small mb-3">Facturas del mes</p>
+          <div class="progress" style="height:4px; border-radius:2px;">
+            <div class="progress-bar bg-primary" [style.width.%]="sales[1].progress"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="text-muted small fw-semibold text-uppercase">Este año</span>
+            <div class="rounded-circle bg-warning bg-opacity-10 p-2">
+              <i class="feather icon-bar-chart-2 text-warning" style="font-size:18px"></i>
+            </div>
+          </div>
+          <h2 class="fw-bold mb-1">{{ sales[2].amount }}</h2>
+          <p class="text-muted small mb-3">Facturas del año</p>
+          <div class="progress" style="height:4px; border-radius:2px;">
+            <div class="progress-bar bg-warning" [style.width.%]="sales[2].progress"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logo central -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body text-center py-5">
+          <img src="assets/images/confienvios.png" alt="Confienvios" style="max-width:320px; opacity:0.9;" />
+          <p class="text-muted mt-3 mb-0">Sistema de gestión de encomiendas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
