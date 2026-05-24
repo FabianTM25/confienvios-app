@@ -107,7 +107,7 @@ public class ReporteService {
 
     InputStream logoStream =
       this.getClass()
-        .getResourceAsStream("/img/confienvios1.png");
+        .getResourceAsStream("/img/confienvios2.png");
 
     Map<String, Object> params = new HashMap<>();
 
