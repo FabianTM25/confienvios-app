@@ -20,9 +20,9 @@ export class FacturaService {
       return this.clienteHttp.get<Factura[]>(this.urlBase);
     }
 
-   agregarFactura(factura: Factura): Observable<Factura> {
-    return this.clienteHttp.post<Factura>(this.urlBase, factura);
-    }
+  agregarFactura(factura: Factura, autorizado: boolean = false): Observable<any> {
+  return this.clienteHttp.post(`${this.urlBase}?autorizado=${autorizado}`, factura);
+}
 
     actualizarFactura(factura: Factura) {
     return this.clienteHttp.put(`${this.urlBase}/${factura.id_factura}`, factura);

@@ -148,9 +148,8 @@ buscarCliente(){
   }
 
 
-  guardar(content: any): void {
-      // VALIDAR CLIENTE RMT
-   if (!this.clienteRmtSeleccionado?.idClienteRmt) {
+  guardar(content: any, autorizado: boolean = false): void {
+  if (!this.clienteRmtSeleccionado?.idClienteRmt) {
     alert("Debe buscar un cliente que REMITE");
     return;
   }
@@ -161,49 +160,46 @@ buscarCliente(){
   }
 
   const factura: Factura = {
-
     id_factura: null,
     numero_factura: '',
-
     id_cliente_rmt: this.clienteRmtSeleccionado.idClienteRmt?.toString(),
     nombre_cliente_rmt: this.clienteRmtSeleccionado.nombreClienteRmt,
     tipo_documento_rmt: this.clienteRmtSeleccionado.tipoDocumentoRmt,
     documento_cliente_rmt: this.clienteRmtSeleccionado.documentoClienteRmt,
     direccion_cliente_rmt: this.clienteRmtSeleccionado.direccionClienteRmt,
     telefono_cliente_rmt: this.clienteRmtSeleccionado.telefonoClienteRmt,
-
     id_cliente_dto: this.clienteDtoSeleccionado.idClienteDto?.toString(),
     nombre_cliente_dto: this.clienteDtoSeleccionado.nombreClienteDto,
     tipo_documento_dto: this.clienteDtoSeleccionado.tipoDocumentoDto,
     documento_cliente_dto: this.clienteDtoSeleccionado.documentoClienteDto,
-
     td: this.clienteDtoSeleccionado.td,
     niu: this.clienteDtoSeleccionado.niu,
     pabellon: this.clienteDtoSeleccionado.pabellon,
     estructura: this.clienteDtoSeleccionado.estructura,
-
     estado: "1"
   };
 
-  this.Factura_Service.agregarFactura(factura).subscribe({
-
+  this.Factura_Service.agregarFactura(factura, autorizado).subscribe({
     next: (data: any) => {
-
       console.log("Factura guardada:", data);
-
       this.facturaGuardada = data.factura ?? data;
-
       this.openModal(content);
-
     },
-
     error: (error) => {
-      console.error(error);
-      alert("Error al guardar la factura");
+      // 409 = cliente ya tiene encomienda este mes
+      if (error.status === 409) {
+        const mensaje = error.error?.warning || 
+          '⚠️ El cliente ya tiene una encomienda este mes. ¿Desea continuar?';
+        const confirmar = confirm(mensaje);
+        if (confirmar) {
+          this.guardar(content, true); // reintenta con autorizado=true
+        }
+      } else {
+        console.error(error);
+        alert("Error al guardar la factura");
+      }
     }
-
   });
-
 }
 
 limpiarFormulario(): void {
