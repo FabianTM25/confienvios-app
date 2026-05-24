@@ -2,6 +2,8 @@ package com.YuderTM.modelo;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Entity
 public class Factura {
@@ -31,7 +33,7 @@ public class Factura {
 
   @PrePersist
   public void prePersist() {
-    this.fecha_creacion = LocalDateTime.now();
+    this.fecha_creacion = LocalDateTime.now(ZoneId.of("America/Bogota"));
   }
 
     //constructor
