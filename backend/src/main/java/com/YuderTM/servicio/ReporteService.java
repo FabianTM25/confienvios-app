@@ -33,7 +33,7 @@ public class ReporteService {
 
     InputStream reportStream =
       this.getClass()
-        .getResourceAsStream("/reports/Factura.jasper");
+        .getResourceAsStream("/reports/Factura1.jasper");
 
     if (reportStream == null) {
       throw new RuntimeException(
@@ -81,7 +81,7 @@ public class ReporteService {
 
     InputStream reportStream =
       this.getClass()
-        .getResourceAsStream("/reports/Rotulo.jasper");
+        .getResourceAsStream("/reports/Rotulo1.jasper");
 
     if (reportStream == null) {
       throw new RuntimeException(
