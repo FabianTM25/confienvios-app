@@ -57,7 +57,7 @@ public class ReporteService {
     }
 
     if (logoStream2 != null) {
-      params.put("logoParam2", logoStream2);
+      params.put("logoParam1", logoStream2);
     }
 
     try (Connection connection =
