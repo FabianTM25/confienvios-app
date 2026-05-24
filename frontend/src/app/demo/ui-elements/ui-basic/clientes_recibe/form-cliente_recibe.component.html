@@ -6,6 +6,10 @@
     <!-- Botón izquierda -->
     <button class="btn btn-primary" (click)="openNuevoClienteDto(modalContent)">Nuevo Cliente Destino</button>
     <!-- Input derecha buscarClienteDto-->
+     <div class="input-group w-25">
+       <span class="input-group-text bg-white border-end-0">
+      <i class="feather icon-search" style="font-size: 14px;"></i>
+    </span>
     <input type="text" id="m-search" class="form-control w-25" placeholder="Buscar..." (input)="buscarClienteDto($event)" />
   </div>
 
@@ -152,6 +156,9 @@
 
   <div class="col-x1-12">
     <app-card cardTitle="LISTA DE CLIENTES DESTINO" [options]="false" blockClass="table-border-style">
+      <p class="text-muted mb-2" style="font-size: 13px;">
+  <i class="feather icon-users"></i> {{ clienteDto.length }} clientes registrados
+    </p>
       <div class="table-responsive">
         <table class="table table-hover w-100">
           <thead>
