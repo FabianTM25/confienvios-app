@@ -40,7 +40,6 @@ public class ReporteService {
         "No se encontró Factura.jasper"
       );
     }
-
     InputStream logoStream =
       this.getClass()
         .getResourceAsStream("/img/confienvios.png");
