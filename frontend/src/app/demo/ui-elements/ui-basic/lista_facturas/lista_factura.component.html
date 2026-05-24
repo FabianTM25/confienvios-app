@@ -4,16 +4,18 @@
 <div class="d-flex align-items-center justify-content-between mb-3">
   <button class="btn btn-primary" routerLink="/basic/facturacion">Factura Nueva</button>
   <div class="input-group w-25">
-       <span class="input-group-text bg-white border-end-0">
-      <i class="feather icon-search" style="font-size: 14px;"></i>
+    <span class="input-group-text bg-white border-end-0">
+      <i class="feather icon-search" style="font-size: 14px"></i>
     </span>
-  <input type="text" id="m-search" class="form-control w-25" placeholder="Buscar..." (input)="buscarFactura($event)" />
+    <input type="text" id="m-search" class="form-control border-start-0" placeholder="Buscar..." (input)="buscarFactura($event)" />
+  </div>
 </div>
 
 <div class="col-x1-12">
   <app-card cardTitle="LISTA DE FACTURAS" [options]="false" blockClass="table-border-style">
-    <p class="text-muted mb-2" style="font-size: 13px;">
-  <i class="feather icon-users"></i> {{ facturaPaginado.length }} facturas registradas
+    <p class="text-muted mb-2" style="font-size: 13px">
+      <i class="feather icon-users"></i>
+      {{ facturaPaginado.length }} facturas registradas
     </p>
     <div class="table-responsive">
       <table class="table table-hover table-sm">
@@ -44,7 +46,7 @@
               <td>{{ f.documento_cliente_dto }}</td>
               <td>{{ f.td }}</td>
               <td>{{ f.niu }}</td>
-              
+
               <td>
                 <button
                   type="button"

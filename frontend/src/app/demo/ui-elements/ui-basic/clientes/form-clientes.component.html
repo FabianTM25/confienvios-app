@@ -6,8 +6,8 @@
   <button class="btn btn-primary" (click)="openNuevoClienteRmt(modalContent)">Nuevo Cliente</button>
   <!-- Input derecha -->
   <div class="input-group w-25">
-       <span class="input-group-text bg-white border-end-0">
-      <i class="feather icon-search" style="font-size: 14px;"></i>
+    <span class="input-group-text bg-white border-end-0">
+      <i class="feather icon-search" style="font-size: 14px"></i>
     </span>
     <input
       type="text"
@@ -17,7 +17,6 @@
       (input)="buscarCliente($event)"
     />
   </div>
-  
 </div>
 
 <div class="toast-container position-fixed top-0 end-0 p-2" style="z-index: 1200">
@@ -74,7 +73,7 @@
         </div>
         <!--documento cliente rmt remite-->
         <div class="col-md-6">
-          <label >Documento RMT</label>
+          <label>Documento RMT</label>
           <input
             type="number"
             name="documentoClienteRmt"
@@ -129,10 +128,10 @@
 <!--inicio de la tabla para cliente-->
 
 <div class="col-x1-12">
-  
   <app-card cardTitle="Lista de Clientes RMT" [options]="false" blockClass="table-border-style">
-   <p class="text-muted mb-2" style="font-size: 13px;">
-  <i class="feather icon-users"></i> {{ clienteRmt.length }} clientes registrados
+    <p class="text-muted mb-2" style="font-size: 13px">
+      <i class="feather icon-users"></i>
+      {{ clienteRmt.length }} clientes registrados
     </p>
     <div class="table-responsive">
       <!--<table class="table table-hover">-->

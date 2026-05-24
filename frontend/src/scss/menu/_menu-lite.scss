@@ -620,7 +620,7 @@
     transition: all 0.3s ease-in-out;
 
     + .scroll-div {
-      float: left;
+      //float: left;
       display: inline-block;
     }
   }
@@ -1456,7 +1456,7 @@ app-nav-group {
 
 // Fondo del sidebar
 .pcoded-navbar {
-  background: #0F1923 !important;
+  background: #103961 !important;
   box-shadow: 2px 0 8px rgba(0,0,0,0.2) !important;
 
   // Logo area

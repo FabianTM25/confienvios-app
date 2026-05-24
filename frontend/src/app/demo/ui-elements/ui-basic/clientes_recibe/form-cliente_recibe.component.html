@@ -10,7 +10,13 @@
        <span class="input-group-text bg-white border-end-0">
       <i class="feather icon-search" style="font-size: 14px;"></i>
     </span>
-    <input type="text" id="m-search" class="form-control w-25" placeholder="Buscar..." (input)="buscarClienteDto($event)" />
+    <input 
+    type="text" 
+    id="m-search" 
+    class="form-control border-start-0" 
+    placeholder="Buscar..." 
+    (input)="buscarClienteDto($event)" />
+  </div>
   </div>
 
   <div class="toast-container position-fixed top-0 end-0 p-2" style="z-index: 1200">
