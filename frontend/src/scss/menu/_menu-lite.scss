@@ -1450,3 +1450,105 @@ app-nav-group {
 .pcoded-navbar .header-logo {
   overflow: visible !important;
 }
+//----------------------sildebar menu----------------------
+//
+// ===== CONFIENVIOS CUSTOM SIDEBAR =====
+
+// Fondo del sidebar
+.pcoded-navbar {
+  background: #0F1923 !important;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2) !important;
+
+  // Logo area
+  .navbar-brand {
+    background: #0a1219 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+  }
+
+  .b-bg {
+    background: #1D9E75 !important;
+    border-radius: 10px !important;
+  }
+
+  .b-title {
+    color: #ffffff !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.3px !important;
+  }
+
+  // Secciones (NAVIGATION, USUARIOS, etc.)
+  .pcoded-menu-caption {
+    label {
+      color: rgba(255,255,255,0.3) !important;
+      font-size: 10px !important;
+      letter-spacing: 0.08em !important;
+      font-weight: 600 !important;
+    }
+  }
+
+  // Links del menú
+  .pcoded-inner-navbar {
+    li {
+      a {
+        color: rgba(255,255,255,0.6) !important;
+        border-radius: 8px !important;
+        margin: 2px 8px !important;
+        transition: all 0.15s !important;
+
+        &:hover {
+          background: rgba(29,158,117,0.15) !important;
+          color: #5DCAA5 !important;
+
+          .pcoded-micon i {
+            color: #5DCAA5 !important;
+          }
+        }
+      }
+
+      // Ítem activo
+      &.active > a,
+      &.pcoded-trigger > a {
+        background: rgba(29,158,117,0.2) !important;
+        color: #5DCAA5 !important;
+
+        .pcoded-micon i {
+          color: #1D9E75 !important;
+        }
+      }
+
+      // Línea verde ítem activo
+      &.active:after,
+      &.pcoded-trigger:after {
+        background-color: #1D9E75 !important;
+      }
+    }
+
+    // Submenú
+    .pcoded-submenu {
+      background: rgba(0,0,0,0.15) !important;
+
+      li a {
+        color: rgba(255,255,255,0.5) !important;
+        margin: 1px 8px !important;
+
+        &:hover {
+          color: #5DCAA5 !important;
+          background: rgba(29,158,117,0.1) !important;
+        }
+
+        &:before {
+          background: rgba(255,255,255,0.3) !important;
+        }
+      }
+
+      li.active a {
+        color: #5DCAA5 !important;
+
+        &:before {
+          background: #1D9E75 !important;
+        }
+      }
+    }
+  }
+}

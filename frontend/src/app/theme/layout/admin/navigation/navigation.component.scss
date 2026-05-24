@@ -1,3 +1,62 @@
 .page-wrapper{
   min-height: calc(100vh - 120px);
 }
+
+// Sidebar mejorado
+.pcoded-navbar {
+  background: #0F1923 !important;
+
+  .navbar-brand {
+    background: #0a1219 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .b-title {
+    color: #ffffff !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+  }
+
+  // Secciones
+  .pcoded-menu-caption label {
+    color: rgba(255,255,255,0.3) !important;
+    font-size: 10px !important;
+    letter-spacing: 0.08em !important;
+    font-weight: 600 !important;
+  }
+
+  // Items
+  .nav-link {
+    color: rgba(255,255,255,0.6) !important;
+    border-radius: 8px !important;
+    margin: 2px 8px !important;
+    padding: 10px 12px !important;
+    transition: all 0.15s !important;
+
+    &:hover {
+      background: rgba(29,158,117,0.15) !important;
+      color: #5DCAA5 !important;
+    }
+
+    .pcoded-micon i {
+      color: rgba(255,255,255,0.5) !important;
+    }
+  }
+
+  // Item activo
+  .nav-item.active > .nav-link,
+  li.active > .nav-link {
+    background: rgba(29,158,117,0.2) !important;
+    color: #5DCAA5 !important;
+    border-left: 3px solid #1D9E75 !important;
+
+    .pcoded-micon i {
+      color: #1D9E75 !important;
+    }
+  }
+
+  // Submenú
+  .pcoded-submenu {
+    background: rgba(0,0,0,0.15) !important;
+  }
+}
