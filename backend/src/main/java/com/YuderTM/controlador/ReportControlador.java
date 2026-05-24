@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = {
   "http://localhost:4200",
   "http://localhost:64764",
-  "https://confienvios-app-two.vercel.app"
+  "https://confienvios-app-two.vercel.app",
+  "https://confienvios-app.vercel.app"
+
 })
 
 public class ReportControlador {
