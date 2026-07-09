@@ -1,13 +1,26 @@
 <H3>LISTA DE FACTURAS</H3>
 <hr />
 
-<div class="d-flex align-items-center justify-content-between mb-3">
+<div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
   <button class="btn btn-primary" routerLink="/basic/facturacion">Factura Nueva</button>
-  <div class="input-group w-25">
-    <span class="input-group-text bg-white border-end-0">
-      <i class="feather icon-search" style="font-size: 14px"></i>
-    </span>
-    <input type="text" id="m-search" class="form-control border-start-0" placeholder="Buscar..." (input)="buscarFactura($event)" />
+
+  <div class="d-flex align-items-center gap-2 flex-wrap">
+    <div class="input-group input-group-sm" style="width: auto">
+      <span class="input-group-text">Desde</span>
+      <input type="date" class="form-control" [(ngModel)]="fechaDesde" (change)="filtrarPorFecha()" />
+      <span class="input-group-text">Hasta</span>
+      <input type="date" class="form-control" [(ngModel)]="fechaHasta" (change)="filtrarPorFecha()" />
+      <button class="btn btn-outline-secondary" type="button" title="Limpiar filtro de fecha" (click)="limpiarFiltroFecha()">
+        <i class="feather icon-x"></i>
+      </button>
+    </div>
+
+    <div class="input-group w-25">
+      <span class="input-group-text bg-white border-end-0">
+        <i class="feather icon-search" style="font-size: 14px"></i>
+      </span>
+      <input type="text" id="m-search" class="form-control border-start-0" placeholder="Buscar..." (input)="buscarFactura($event)" />
+    </div>
   </div>
 </div>
 
@@ -15,7 +28,7 @@
   <app-card cardTitle="LISTA DE FACTURAS" [options]="false" blockClass="table-border-style">
     <p class="text-muted mb-2" style="font-size: 13px">
       <i class="feather icon-users"></i>
-      {{ facturaPaginado.length }} facturas registradas
+      {{ factura.length }} facturas registradas
     </p>
     <div class="table-responsive">
       <table class="table table-hover table-sm">
@@ -30,6 +43,7 @@
             <th style="width: 10%">Documento_Dto</th>
             <th style="width: 10%">Td</th>
             <th style="width: 10%">Nui</th>
+            <th style="width: 10%">Fecha</th>
             <th style="width: 10%">Imprimir</th>
             <th style="width: 5%">Anular</th>
           </tr>
@@ -46,6 +60,7 @@
               <td>{{ f.documento_cliente_dto }}</td>
               <td>{{ f.td }}</td>
               <td>{{ f.niu }}</td>
+              <td>{{ f.fecha_creacion | date: 'dd/MM/yyyy HH:mm' }}</td>
 
               <td>
                 <button

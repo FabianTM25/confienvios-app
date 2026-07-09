@@ -14,5 +14,6 @@ import java.util.Optional;
 @Repository
     public interface IClienteDtoRepository extends JpaRepository<Cliente_dto, Integer> {
     Optional<Cliente_dto> findByDocumentoClienteDto(String documento);
+    Optional<Cliente_dto> findByDocumentoClienteDtoOrTd(String documento, String td);
     }
 

@@ -1456,19 +1456,24 @@ app-nav-group {
 
 // Fondo del sidebar
 .pcoded-navbar {
-  background: #103961 !important;
+  background: #1e3a5f !important;
   box-shadow: 2px 0 8px rgba(0,0,0,0.2) !important;
 
   // Logo area
   .navbar-brand {
-    background: #0a1219 !important;
+    background: #132b41 !important;
     border-bottom: 1px solid rgba(255,255,255,0.06) !important;
   }
 
   .b-bg {
-    background: #1D9E75 !important;
-    border-radius: 10px !important;
-  }
+  background: transparent;
+  border-radius: 10px;
+  width: 35px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
   .b-title {
     color: #ffffff !important;

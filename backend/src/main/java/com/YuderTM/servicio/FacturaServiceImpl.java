@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 
 @Service
@@ -62,20 +63,22 @@ public class FacturaServiceImpl implements IFacturaService {
     }
 
 
+    private static final ZoneId ZONA_BOGOTA = ZoneId.of("America/Bogota");
+
     @Override
     public Long contarFacturasDia() {
-        return iFacturaRepository.contarFacturasDia();
+        return iFacturaRepository.contarFacturasDia(LocalDate.now(ZONA_BOGOTA));
     }
 
     @Override
     public Long contarFacturasMes() {
-        LocalDateTime hoy = LocalDateTime.now();
+        LocalDateTime hoy = LocalDateTime.now(ZONA_BOGOTA);
         return iFacturaRepository.contarFacturasMes(hoy.getMonthValue(), hoy.getYear());
     }
 
     @Override
     public Long contarFacturasAnio() {
-        return iFacturaRepository.contarFacturasAnio(LocalDateTime.now().getYear());
+        return iFacturaRepository.contarFacturasAnio(LocalDateTime.now(ZONA_BOGOTA).getYear());
     }
 
 

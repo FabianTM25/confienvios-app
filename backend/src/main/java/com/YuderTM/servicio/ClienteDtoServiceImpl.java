@@ -59,7 +59,7 @@ public class ClienteDtoServiceImpl implements IClienteDtoService{
     @Override
     public Cliente_dto buscarDocumento(String documento) {
         return iClienteDtoRepository
-                .findByDocumentoClienteDto(documento)
+                .findByDocumentoClienteDtoOrTd(documento, documento)
                 .orElse(null);
     }
 

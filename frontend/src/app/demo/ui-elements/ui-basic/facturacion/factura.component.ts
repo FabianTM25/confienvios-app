@@ -14,6 +14,8 @@ import { FacturaService } from 'src/app/service/factura_service';
 import { ClienteDto } from 'src/app/modelo/ClienteDto_modelo';
 import { clienteDto_Service } from 'src/app/service/clienteDto_service';
 import { ReporteService } from 'src/app/service/reporteFactura_service';
+import { DataOld } from 'src/app/modelo/DataOld_modelo';
+import { dataOld_Service } from 'src/app/service/dataOld_service';
 
 @Component({
   selector: 'app-factura',
@@ -31,6 +33,7 @@ export class FacturaComponent implements OnInit {
   private ClienteRmt_Service = inject(clienteRmt_Service);
   private ClienteDto_Service = inject(clienteDto_Service);
   private reporteService = inject(ReporteService);
+  private DataOld_Service = inject(dataOld_Service);
 
 
      // Referencias y Estados
@@ -43,10 +46,13 @@ export class FacturaComponent implements OnInit {
   clienteDtoOriginal: ClienteDto[] = [];
   facturaGuardada: Factura = {} as Factura;
 
-  //busqueda 
+  //busqueda
   textoBusqueda: string = '';
   textoBusquedaDto: string = '';
   submitted = signal(false);
+
+  //resultados historicos (tabla data_old)
+  dataOldResultados: DataOld[] = [];
 
 
 
@@ -105,11 +111,13 @@ buscarCliente(){
   this.cd.detectChanges(); // fuerza refresco del formulario
 },
     error: (error) => {
-      
+
       console.error(error);
       alert("Cliente no encontrado");
     }
   });
+
+  this.buscarEnDataOld(this.textoBusqueda);
 
 }
 
@@ -132,6 +140,22 @@ buscarCliente(){
       alert("Cliente no encontrado");
     }
   });
+
+  this.buscarEnDataOld(this.textoBusquedaDto);
+  }
+
+  //busca en la tabla historica data_old y acumula los resultados en la tabla de lectura
+  private buscarEnDataOld(texto: string): void {
+    this.DataOld_Service.buscarDataOld(texto).subscribe({
+      next: (datos: DataOld[]) => {
+        const mapa = new Map<number, DataOld>();
+        this.dataOldResultados.forEach((d) => mapa.set(d.idcliente, d));
+        datos.forEach((d) => mapa.set(d.idcliente, d));
+        this.dataOldResultados = Array.from(mapa.values());
+        this.cd.detectChanges();
+      },
+      error: (error) => console.error("Error al buscar en data_old:", error)
+    });
   }
 
 
@@ -214,6 +238,9 @@ limpiarFormulario(): void {
   // limpiar buscadores
   this.textoBusqueda = '';
   this.textoBusquedaDto = '';
+
+  // limpiar tabla de historico
+  this.dataOldResultados = [];
 
 }
 

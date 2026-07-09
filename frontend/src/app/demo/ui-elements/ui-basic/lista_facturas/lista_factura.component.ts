@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbDropdownModule, NgbModal,NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -13,7 +14,7 @@ import { ReporteService } from 'src/app/service/reporteFactura_service';
 @Component({
   selector: 'app-factura',
   standalone: true, // Importante si usas la propiedad 'imports' dentro del componente
-  imports: [CommonModule, SharedModule, NgbDropdownModule, RouterModule],
+  imports: [CommonModule, FormsModule, SharedModule, NgbDropdownModule, RouterModule],
   templateUrl: './lista_factura.component.html',
   styleUrl: './lista_factura.component.scss'
 })
@@ -34,8 +35,10 @@ export class BasicClientesComponent implements OnInit{
   facturaOriginal: Factura[] = [];
   facturaPaginado: Factura[] = [];
   
-  //busqueda 
+  //busqueda
   textoBusqueda: string = '';
+  fechaDesde: string = '';
+  fechaHasta: string = '';
   submitted = signal(false);
 
   //paginador
@@ -131,16 +134,40 @@ private obtenerFactura(): void {
 }
 //buscador entre paginas
 buscarFactura(event: any) {
+  this.textoBusqueda = event.target.value.toLowerCase();
+  this.aplicarFiltros();
+}
 
-  const texto = event.target.value.toLowerCase();
+//filtro por rango de fechas (usa fecha_creacion, formato ISO yyyy-MM-dd...)
+filtrarPorFecha() {
+  this.aplicarFiltros();
+}
 
-  this.factura = this.facturaOriginal.filter(f =>
-    f.numero_factura?.toString().includes(texto) ||
-    f.documento_cliente_dto?.toLowerCase().includes(texto) ||
-    f.documento_cliente_rmt?.toLowerCase().includes(texto) ||
-    f.nombre_cliente_rmt?.toLowerCase().includes(texto) ||
-    f.nombre_cliente_dto?.toLowerCase().includes(texto)
-  );
+limpiarFiltroFecha() {
+  this.fechaDesde = '';
+  this.fechaHasta = '';
+  this.aplicarFiltros();
+}
+
+//aplica busqueda por texto y rango de fechas en conjunto
+aplicarFiltros() {
+  const texto = this.textoBusqueda;
+
+  this.factura = this.facturaOriginal.filter(f => {
+    const coincideTexto =
+      !texto ||
+      f.numero_factura?.toString().toLowerCase().includes(texto) ||
+      f.documento_cliente_dto?.toLowerCase().includes(texto) ||
+      f.documento_cliente_rmt?.toLowerCase().includes(texto) ||
+      f.nombre_cliente_rmt?.toLowerCase().includes(texto) ||
+      f.nombre_cliente_dto?.toLowerCase().includes(texto);
+
+    const fechaFactura = f.fecha_creacion ? f.fecha_creacion.substring(0, 10) : '';
+    const cumpleDesde = !this.fechaDesde || fechaFactura >= this.fechaDesde;
+    const cumpleHasta = !this.fechaHasta || fechaFactura <= this.fechaHasta;
+
+    return coincideTexto && cumpleDesde && cumpleHasta;
+  });
 
   this.paginaActual = 1;
   this.actualizarPaginacion();

@@ -1,0 +1,9 @@
+.git
+.github
+.idea
+.vercel
+frontend/node_modules
+frontend/dist
+frontend/.angular
+backend/target
+*.md

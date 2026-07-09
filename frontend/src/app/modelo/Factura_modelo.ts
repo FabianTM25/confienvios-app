@@ -15,6 +15,7 @@ export interface Factura {
     niu: string;
     pabellon: string;
     estructura: string;
-    estado: string;   
+    estado: string;
+    fecha_creacion?: string;
 
 }

@@ -1,0 +1,100 @@
+<jasperReport name="Rotulo" language="java" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="227a4425-32b2-4331-999d-b98e41dadaf6" floatColumnFooter="true">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Confienvios"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="logoParam1" class="java.io.InputStream"/>
+	<query language="sql"><![CDATA[SELECT * FROM rotulo]]></query>
+	<field name="id_rotulo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id_rotulo"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_rotulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rotulo"/>
+	</field>
+	<field name="documento_cliente_dto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="documento_cliente_dto"/>
+		<property name="com.jaspersoft.studio.field.label" value="documento_cliente_dto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rotulo"/>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="estado"/>
+		<property name="com.jaspersoft.studio.field.label" value="estado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rotulo"/>
+	</field>
+	<field name="estructura" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="estructura"/>
+		<property name="com.jaspersoft.studio.field.label" value="estructura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rotulo"/>
+	</field>
+	<field name="n_factura" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="n_factura"/>
+		<property name="com.jaspersoft.studio.field.label" value="n_factura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rotulo"/>
+	</field>
+	<field name="niu" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="niu"/>
+		<property name="com.jaspersoft.studio.field.label" value="niu"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rotulo"/>
+	</field>
+	<field name="nombre_cliente_dto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre_cliente_dto"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_cliente_dto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rotulo"/>
+	</field>
+	<field name="pabellon" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pabellon"/>
+		<property name="com.jaspersoft.studio.field.label" value="pabellon"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rotulo"/>
+	</field>
+	<field name="td" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="td"/>
+		<property name="com.jaspersoft.studio.field.label" value="td"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rotulo"/>
+	</field>
+	<field name="tipo_documento_dto" class="java.lang.String"/>
+	<background splitType="Stretch"/>
+	<title height="380" splitType="Stretch">
+		<element kind="rectangle" uuid="b938fbe8-0122-471a-8fb5-f23670ab50b8" x="0" y="0" width="580" height="360" radius="15"/>
+		<element kind="staticText" uuid="7e274d52-b96b-4b7c-8e0e-11f7f917135e" x="20" y="32" width="70" height="33" fontName="DejaVu Sans" fontSize="25.0" bold="true">
+			<text><![CDATA[NUI:]]></text>
+		</element>
+		<element kind="staticText" uuid="f29c3ffe-e79f-499f-b174-e426e065f814" x="21" y="65" width="70" height="32" fontName="DejaVu Sans" fontSize="25.0" bold="true">
+			<text><![CDATA[TD:]]></text>
+		</element>
+		<element kind="staticText" uuid="a46a6c9d-627a-4c56-9dbe-b50004358bf0" x="22" y="97" width="70" height="45" fontName="DejaVu Sans" fontSize="25.0" bold="true">
+			<text><![CDATA[PPT:]]></text>
+		</element>
+		<element kind="staticText" uuid="238f91ce-bae5-42d8-b634-8c05cf09056f" x="23" y="305" width="70" height="33" fontName="DejaVu Sans" fontSize="22.0" bold="true">
+			<text><![CDATA[PAB-]]></text>
+		</element>
+		<element kind="staticText" uuid="4b5f0c7a-cc7f-4b51-83ea-4802495c61f5" x="260" y="305" width="180" height="33" fontName="DejaVu Sans" fontSize="22.0" bold="true">
+			<text><![CDATA[ESTRUCTURA-
+]]></text>
+		</element>
+		<element kind="textField" uuid="2306dfa3-7668-44c8-aa09-7f3c98f20d9c" x="85" y="258" width="371" height="40" fontName="DejaVu Sans" fontSize="25.0" textAdjust="ScaleFont" bold="false">
+			<expression><![CDATA[$F{documento_cliente_dto}]]></expression>
+		</element>
+		<element kind="textField" uuid="6b508d59-d259-45c9-99a3-ec2c48fb2056" x="432" y="305" width="111" height="33" fontName="DejaVu Sans" fontSize="22.0" textAdjust="ScaleFont" bold="false">
+			<expression><![CDATA[$F{estructura}]]></expression>
+		</element>
+		<element kind="textField" uuid="0625c649-ec61-4a88-b447-273d01660b73" mode="Opaque" x="350" y="29" width="200" height="54" forecolor="#FC0303" fontName="DejaVu Sans" fontSize="25.0" textAdjust="ScaleFont" bold="false" hTextAlign="Center">
+			<expression><![CDATA[$F{n_factura}]]></expression>
+		</element>
+		<element kind="textField" uuid="77c63540-6ec8-478e-a7db-66cd9f6c8f64" x="83" y="32" width="130" height="33" fontName="DejaVu Sans" fontSize="25.0" textAdjust="ScaleFont" bold="false">
+			<expression><![CDATA[$F{niu}]]></expression>
+		</element>
+		<element kind="textField" uuid="6dc8a103-7c65-40bb-a5e9-46a34d3ef77c" x="85" y="61" width="135" height="41" fontName="DejaVu Sans" fontSize="25.0" textAdjust="ScaleFont" bold="false">
+			<expression><![CDATA[$F{td}]]></expression>
+		</element>
+		<element kind="textField" uuid="ad558558-7a4f-4232-a9f6-fe934d35aa88" stretchType="NoStretch" x="10" y="121" width="557" height="149" fontName="DejaVu Sans" fontSize="51.0" textAdjust="ScaleFont" hTextAlign="Center">
+			<expression><![CDATA[$F{nombre_cliente_dto}]]></expression>
+		</element>
+		<element kind="textField" uuid="48771448-befc-4d5b-b8d2-85e9bb0bec4b" x="86" y="305" width="154" height="33" fontName="DejaVu Sans" fontSize="22.0" textAdjust="ScaleFont" bold="false">
+			<expression><![CDATA[$F{pabellon}]]></expression>
+		</element>
+		<element kind="image" uuid="0a2a10bd-977b-4423-b942-031648735dbe" x="350" y="-12" width="200" height="50" linkType="None" linkTarget="Self">
+			<expression><![CDATA[$P{logoParam1}]]></expression>
+		</element>
+		<element kind="textField" uuid="e2e5e613-9fed-471f-a299-0bcd0f5118f0" x="10" y="261" width="80" height="35" fontName="DejaVu Sans" fontSize="25.0" textAdjust="ScaleFont" bold="true">
+			<expression><![CDATA[$F{tipo_documento_dto}]]></expression>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</title>
+</jasperReport>

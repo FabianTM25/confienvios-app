@@ -7,10 +7,6 @@
     <!-- Buscar cliente envía -->
     <div class="col-md-6">
       <div class="input-group">
-        <div class="input-group w-25">
-       <span class="input-group-text bg-white border-end-0">
-      <i class="feather icon-search" style="font-size: 14px;"></i>
-    </span>
         <input
           type="text"
           class="form-control"
@@ -25,10 +21,6 @@
     <!-- Buscar cliente recibe -->
     <div class="col-md-6">
       <div class="input-group">
-        <div class="input-group w-25">
-       <span class="input-group-text bg-white border-end-0">
-      <i class="feather icon-search" style="font-size: 14px;"></i>
-    </span>
         <input
           type="text"
           class="form-control"
@@ -42,6 +34,8 @@
     </div>
   </div>
 </div>
+
+
 
 <!-- INFORMACION CLIENTES -->
 <div class="container">
@@ -225,6 +219,46 @@
 <!-- BOTON GUARDAR -->
 <div class="text-center mt-4">
   <button class="btn btn-primary px-5" (click)="guardar(modalContent)">GUARDAR</button>
+</div>
+
+<!-- HISTORICO DATA_OLD -->
+<div class="container mt-4" *ngIf="dataOldResultados.length > 0">
+  <div class="card shadow-sm p-4">
+    <h5>Historial (Data Old)</h5>
+    <hr />
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-sm">
+        <thead>
+          <tr>
+            <th>Cédula Rmt</th>
+            <th>Nombre Rmt</th>
+            <th>Dirección Rmt</th>
+            <th>Nombre Dto</th>
+            <th>Documento Dto</th>
+            <th>TD</th>
+            <th>NIU</th>
+            <th>Bloque</th>
+            <th>Pabellón</th>
+            <th>Sección</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataOldResultados">
+            <td>{{ item.cedulaRmt }}</td>
+            <td>{{ item.nombreRmt }}</td>
+            <td>{{ item.direccionRmt }}</td>
+            <td>{{ item.nombreDto }}</td>
+            <td>{{ item.documentoDto }}</td>
+            <td>{{ item.td }}</td>
+            <td>{{ item.niu }}</td>
+            <td>{{ item.bloque }}</td>
+            <td>{{ item.pabellon }}</td>
+            <td>{{ item.seccion }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 <!-- MODAL -->
