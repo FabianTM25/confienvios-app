@@ -253,6 +253,24 @@ cambiarPagina(pagina: number) {
   this.actualizarPaginacion();
 }
 
+//paginas a mostrar en el paginador (con "..." para rangos largos)
+paginasVisibles(): number[] {
+  const total = this.totalPaginas;
+  const actual = this.paginaActual;
+  const rango = 2;
+  const paginas: number[] = [];
+
+  for (let i = 1; i <= total; i++) {
+    if (i === 1 || i === total || (i >= actual - rango && i <= actual + rango)) {
+      paginas.push(i);
+    } else if (paginas[paginas.length - 1] !== -1) {
+      paginas.push(-1);
+    }
+  }
+
+  return paginas;
+}
+
 
  //---------------------------- * Obtiene la lista de clientes desde el servicio-------------------------------
 //obtener cliente

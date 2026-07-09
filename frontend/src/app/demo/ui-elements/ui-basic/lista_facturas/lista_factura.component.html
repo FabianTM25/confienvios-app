@@ -174,12 +174,16 @@
         <a class="page-link" (click)="cambiarPagina(paginaActual - 1)">Previous</a>
       </li>
 
-      @for (p of [].constructor(totalPaginas); track i; let i = $index) {
-        <li class="page-item" [class.active]="paginaActual === i + 1">
-          <a class="page-link" (click)="cambiarPagina(i + 1)">
-            {{ i + 1 }}
-          </a>
-        </li>
+      @for (p of paginasVisibles(); track $index) {
+        @if (p === -1) {
+          <li class="page-item disabled"><span class="page-link">...</span></li>
+        } @else {
+          <li class="page-item" [class.active]="paginaActual === p">
+            <a class="page-link" (click)="cambiarPagina(p)">
+              {{ p }}
+            </a>
+          </li>
+        }
       }
 
       <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
