@@ -33,6 +33,16 @@ import { authGuard } from 'src/app/demo/pages/authentication/security/auth.guard
         loadComponent: () => import('./lista_facturas/lista_factura.component').then((c) => c.BasicClientesComponent)
       },
       {
+        path: 'ventas',
+        canActivate: [authGuard],
+        loadComponent: () => import('./ventas/venta.component').then((c) => c.VentaComponent)
+      },
+      {
+        path: 'lista_ventas',
+        canActivate: [authGuard],
+        loadComponent: () => import('./lista_ventas/lista_venta.component').then((c) => c.ListaVentaComponent)
+      },
+      {
         path: 'dashboard',
         canActivate: [authGuard],
         loadComponent: () => import('src/app/demo/dashboard/dashboard.component').then((c) => c.DashboardComponent)

@@ -102,7 +102,6 @@ import java.util.List;
             "/**/*.css",
             "/assets/**",
             "/api/auth/login",
-            "/api/auth/encriptar/**",
             "/api/clienteDto/buscar",  // ← agrega
             "/api/clientes/buscar"
           ).permitAll()

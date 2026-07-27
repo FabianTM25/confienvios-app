@@ -251,6 +251,7 @@ imprimirFacturaYRotulo(id: number): void {
       const file = new Blob([data], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(file);
       window.open(url, '_blank');
+      window.URL.revokeObjectURL(url);
     },
     error: (err) => console.error('Error al imprimir factura:', err)
   });
@@ -261,6 +262,7 @@ imprimirFacturaYRotulo(id: number): void {
       const file = new Blob([data], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(file);
       window.open(url, '_blank');
+      window.URL.revokeObjectURL(url);
     },
     error: (err) => console.error('Error al imprimir rótulo:', err)
   });

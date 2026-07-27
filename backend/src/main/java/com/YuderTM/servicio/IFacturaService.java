@@ -15,6 +15,9 @@ public interface IFacturaService {
         // Buscar por ID
         Factura buscarFacturaId(Integer id_factura);
 
+        // Buscar por numero de factura
+        Factura buscarFacturaPorNumero(String numero_factura);
+
         // Guardar
         Factura guardarFactura (Factura factura);
 

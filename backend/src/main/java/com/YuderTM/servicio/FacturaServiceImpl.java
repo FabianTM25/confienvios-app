@@ -41,6 +41,12 @@ public class FacturaServiceImpl implements IFacturaService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Factura buscarFacturaPorNumero(String numero_factura) {
+        return iFacturaRepository.findByNumeroFactura(numero_factura).orElse(null);
+    }
+
+    @Override
     public Factura guardarFactura(Factura factura) {
 
         // guardar primero
@@ -85,12 +91,14 @@ public class FacturaServiceImpl implements IFacturaService {
 
     @Override
     public boolean existeEncomiendaClienteMes(String documentoClienteDto) {
-        LocalDateTime inicioMes = LocalDate.now()
+        LocalDate hoyBogota = LocalDate.now(ZONA_BOGOTA);
+
+        LocalDateTime inicioMes = hoyBogota
                 .withDayOfMonth(1)
                 .atStartOfDay();
 
-        LocalDateTime finMes = LocalDate.now()
-                .withDayOfMonth(LocalDate.now().lengthOfMonth())
+        LocalDateTime finMes = hoyBogota
+                .withDayOfMonth(hoyBogota.lengthOfMonth())
                 .atTime(23, 59, 59);
 
         return iFacturaRepository.existeEncomiendaClienteMes(  // ✅ nombre actualizado

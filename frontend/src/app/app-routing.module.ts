@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 // project import
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
+import { authGuard } from './demo/pages/authentication/security/auth.guard';
 
 export const routes: Routes = [
   {
@@ -12,13 +13,14 @@ export const routes: Routes = [
         pathMatch: 'full'
       },
   {
-    
+
     path: '',
     component: AdminComponent,
     children: [
-      
+
       {
         path: 'dashboard',
+        canActivate: [authGuard],
         loadComponent: () => import('./demo/dashboard/dashboard.component').then((c) => c.DashboardComponent)
       },
       {

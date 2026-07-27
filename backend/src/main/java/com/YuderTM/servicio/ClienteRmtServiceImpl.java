@@ -41,7 +41,11 @@ public class ClienteRmtServiceImpl implements IClienteRmtService{
     @Override
     public Cliente_rmt guardarClienteRtm(Cliente_rmt clienteRmt) {
 
-            clienteRmt.setNombreClienteRmt(clienteRmt.getNombreClienteRmt().toUpperCase());
+        if (clienteRmt.getNombreClienteRmt() == null || clienteRmt.getNombreClienteRmt().isBlank()) {
+            throw new IllegalArgumentException("El nombre del cliente es obligatorio");
+        }
+
+        clienteRmt.setNombreClienteRmt(clienteRmt.getNombreClienteRmt().toUpperCase());
 
         return iClienteRmtRepository.save(clienteRmt);
     }

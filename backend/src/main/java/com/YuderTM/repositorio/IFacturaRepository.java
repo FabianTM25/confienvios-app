@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +12,9 @@ import org.springframework.data.repository.query.Param;
 
 @Repository
     public interface IFacturaRepository extends JpaRepository<Factura, Integer> {
+
+    @Query("SELECT f FROM Factura f WHERE f.numero_factura = :numero")
+    Optional<Factura> findByNumeroFactura(@Param("numero") String numero);
 
     // "hoy" se recibe calculado en Java con zona America/Bogota, para no depender
     // de la zona horaria configurada en la sesion de Postgres (CURRENT_DATE usaba UTC).

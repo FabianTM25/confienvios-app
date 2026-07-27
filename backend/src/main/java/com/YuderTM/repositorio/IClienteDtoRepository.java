@@ -8,12 +8,13 @@ import com.YuderTM.modelo.Cliente_rmt;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
 @Repository
     public interface IClienteDtoRepository extends JpaRepository<Cliente_dto, Integer> {
     Optional<Cliente_dto> findByDocumentoClienteDto(String documento);
-    Optional<Cliente_dto> findByDocumentoClienteDtoOrTd(String documento, String td);
+    List<Cliente_dto> findByDocumentoClienteDtoOrTd(String documento, String td);
     }
 

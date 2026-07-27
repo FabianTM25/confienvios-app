@@ -1,0 +1,192 @@
+<div class="d-flex align-items-center justify-content-between">
+  <h3>NUEVA VENTA</h3>
+  <button class="btn btn-outline-secondary" (click)="abrirConfiguracion(modalConfig)">
+    <i class="feather icon-settings"></i>
+    Configuración
+  </button>
+</div>
+<hr />
+
+<!-- PARTE 1: BUSQUEDA DE FACTURA -->
+<div class="container mt-2">
+  <div class="card shadow-sm p-4">
+    <h5>Factura</h5>
+    <hr />
+    <div class="row g-3 align-items-end">
+      <div class="col-md-4">
+        <label>Número de factura</label>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ej: FAC-0001"
+            name="numeroFactura"
+            [(ngModel)]="numeroFactura"
+            (keyup.enter)="buscarFactura()"
+          />
+          <button class="btn btn-primary" type="button" (click)="buscarFactura()">Buscar</button>
+        </div>
+        <div class="text-danger mt-1" *ngIf="errorBusqueda">{{ errorBusqueda }}</div>
+      </div>
+
+      <div class="col-md-8" *ngIf="facturaEncontrada">
+        <div class="row g-2">
+          <div class="col-md-4">
+            <label>Nombre</label>
+            <input type="text" class="form-control" [ngModel]="facturaEncontrada.nombre_cliente_rmt" readonly />
+          </div>
+          <div class="col-md-2">
+            <label>Tipo Doc</label>
+            <input type="text" class="form-control" [ngModel]="facturaEncontrada.tipo_documento_rmt" readonly />
+          </div>
+          <div class="col-md-3">
+            <label>Documento</label>
+            <input type="text" class="form-control" [ngModel]="facturaEncontrada.documento_cliente_rmt" readonly />
+          </div>
+          <div class="col-md-3">
+            <label>Teléfono</label>
+            <input type="text" class="form-control" [ngModel]="facturaEncontrada.telefono_cliente_rmt" readonly />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PARTE 2: PESO Y VALORES -->
+<div class="container mt-4" *ngIf="facturaEncontrada">
+  <div class="card shadow-sm p-4">
+    <h5>Envío</h5>
+    <hr />
+    <div class="row g-3 align-items-end">
+      <div class="col-md-3">
+        <label>Peso (kg)</label>
+        <input
+          type="number"
+          step="0.1"
+          min="0"
+          class="form-control"
+          name="peso"
+          [(ngModel)]="peso"
+          (ngModelChange)="calcularPreview()"
+        />
+      </div>
+
+      <div class="col-md-2 form-check ms-2 mb-2">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="conCaja"
+          name="conCaja"
+          [(ngModel)]="conCaja"
+          (ngModelChange)="calcularPreview()"
+        />
+        <label class="form-check-label" for="conCaja">Con caja</label>
+      </div>
+
+      <div class="col-md-3">
+        <label>Valor del peso</label>
+        <input type="text" class="form-control" [ngModel]="previewValorPeso ?? '-'" readonly />
+      </div>
+
+      <div class="col-md-3">
+        <label>Valor total del envío</label>
+        <input type="text" class="form-control fw-bold" [ngModel]="previewValorEnvio ?? '-'" readonly />
+      </div>
+    </div>
+
+    <div class="text-danger mt-2" *ngIf="previewError">{{ previewError }}</div>
+
+    <div class="row g-3 mt-1">
+      <div class="col-md-4">
+        <label>Valor avalúo</label>
+        <input type="number" class="form-control" name="valorAvaluo" [(ngModel)]="valorAvaluo" />
+      </div>
+      <div class="col-md-8">
+        <label>Observaciones</label>
+        <input type="text" class="form-control" name="observaciones" [(ngModel)]="observaciones" />
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-primary px-5" (click)="guardar(modalTicket)">GUARDAR</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: VENTA GUARDADA / IMPRIMIR TICKET -->
+<ng-template #modalTicket let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">VENTA REGISTRADA</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body text-center" *ngIf="ventaGuardada">
+    <p>
+      Venta <strong>{{ ventaGuardada.numero_venta }}</strong> guardada correctamente.
+    </p>
+    <p>Valor total del envío: <strong>{{ ventaGuardada.valor_envio }}</strong></p>
+
+    <button class="btn btn-success" (click)="imprimirTicket(ventaGuardada.id_venta!)">IMPRIMIR TICKET</button>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close(); limpiarFormulario()">Cerrar</button>
+  </div>
+</ng-template>
+
+<!-- MODAL: CONFIGURACION -->
+<ng-template #modalConfig let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">CONFIGURACIÓN</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <h6>Precio de la caja</h6>
+    <div class="input-group mb-4" style="max-width: 300px">
+      <span class="input-group-text">$</span>
+      <input type="number" class="form-control" [(ngModel)]="configuracion.precio_caja" />
+      <button class="btn btn-outline-primary" type="button" (click)="guardarConfiguracionGeneral()">Guardar</button>
+    </div>
+
+    <h6>Rangos de peso</h6>
+    <div class="table-responsive">
+      <table class="table table-sm table-bordered align-middle">
+        <thead>
+          <tr>
+            <th>Desde (kg)</th>
+            <th>Hasta (kg)</th>
+            <th>Valor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (rango of rangos; track rango.id_rango) {
+            <tr>
+              <td><input type="number" step="0.1" class="form-control form-control-sm" [(ngModel)]="rango.peso_desde" /></td>
+              <td><input type="number" step="0.1" class="form-control form-control-sm" [(ngModel)]="rango.peso_hasta" /></td>
+              <td><input type="number" class="form-control form-control-sm" [(ngModel)]="rango.valor" /></td>
+              <td class="text-nowrap">
+                <button class="btn btn-outline-primary btn-sm" (click)="guardarRango(rango)">Guardar</button>
+                <button class="btn btn-outline-danger btn-sm" (click)="eliminarRango(rango.id_rango!)">Eliminar</button>
+              </td>
+            </tr>
+          }
+          <tr>
+            <td><input type="number" step="0.1" class="form-control form-control-sm" [(ngModel)]="nuevoRango.peso_desde" /></td>
+            <td><input type="number" step="0.1" class="form-control form-control-sm" [(ngModel)]="nuevoRango.peso_hasta" /></td>
+            <td><input type="number" class="form-control form-control-sm" [(ngModel)]="nuevoRango.valor" /></td>
+            <td>
+              <button class="btn btn-outline-success btn-sm" (click)="agregarRango()">Agregar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>

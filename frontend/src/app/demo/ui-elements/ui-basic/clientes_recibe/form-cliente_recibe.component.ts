@@ -6,7 +6,7 @@ import { NgbDropdownModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-boots
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Field, form, minLength, required } from '@angular/forms/signals';
+import { Field, form, minLength, required, validate, customError } from '@angular/forms/signals';
 
 
 // Models & Services
@@ -66,12 +66,20 @@ export class BasicClientesComponent implements OnInit {
       message: 'El nombre es requerido'
     });
 
-    required(path.documentoClienteDto, {
-      message: 'El documento es requerido'
+    // Documento y TD son opcionales de forma individual, pero se debe
+    // indicar al menos uno de los dos para poder guardar el cliente.
+    validate(path.documentoClienteDto, ({ value, valueOf }) => {
+      if (!value() && !valueOf(path.td)) {
+        return customError({ message: 'Debe indicar Documento o TD' });
+      }
+      return undefined;
     });
 
-    required(path.td, {
-      message: 'El TD es requerido'
+    validate(path.td, ({ value, valueOf }) => {
+      if (!value() && !valueOf(path.documentoClienteDto)) {
+        return customError({ message: 'Debe indicar Documento o TD' });
+      }
+      return undefined;
     });
   });
   
@@ -135,25 +143,29 @@ onSubmit() {
   const datosUsuario = this.registerForm().value();
   const esEdicion = !!datosUsuario.idClienteDto;
 
-  // validaciones
-  const documentoExiste = this.clienteDtoOriginal.find(c =>
-    c.documentoClienteDto === datosUsuario.documentoClienteDto &&
-    c.idClienteDto !== datosUsuario.idClienteDto
-  );
+  // validaciones (solo si el campo tiene valor: documento/td en blanco no cuentan como duplicado)
+  if (datosUsuario.documentoClienteDto) {
+    const documentoExiste = this.clienteDtoOriginal.find(c =>
+      c.documentoClienteDto === datosUsuario.documentoClienteDto &&
+      c.idClienteDto !== datosUsuario.idClienteDto
+    );
 
-  if (documentoExiste) {
-    alert("El documento ya está registrado");
-    return;
+    if (documentoExiste) {
+      alert("El documento ya está registrado");
+      return;
+    }
   }
 
-  const tdExiste = this.clienteDtoOriginal.find(c =>
-    c.td === datosUsuario.td &&
-    c.idClienteDto !== datosUsuario.idClienteDto
-  );
+  if (datosUsuario.td) {
+    const tdExiste = this.clienteDtoOriginal.find(c =>
+      c.td === datosUsuario.td &&
+      c.idClienteDto !== datosUsuario.idClienteDto
+    );
 
-  if (tdExiste) {
-    alert("El TD ya está registrado");
-    return;
+    if (tdExiste) {
+      alert("El TD ya está registrado");
+      return;
+    }
   }
 
   if (esEdicion) {
@@ -307,7 +319,8 @@ buscarClienteDto(event: any) {
 
   this.clienteDto = this.clienteDtoOriginal.filter(cliente =>
     cliente.nombreClienteDto?.toLowerCase().includes(texto) ||
-    cliente.documentoClienteDto?.toString().includes(texto)
+    cliente.documentoClienteDto?.toString().includes(texto) ||
+    cliente.td?.toString().includes(texto)
   );
 
   this.paginaActual = 1;

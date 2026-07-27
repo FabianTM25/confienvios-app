@@ -2,6 +2,7 @@
   package com.YuderTM.servicio;
 
 import com.YuderTM.modelo.Rotulo;
+import com.YuderTM.modelo.Venta;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
@@ -19,13 +20,16 @@ public class ReporteService {
 
   private final DataSource dataSource;
   private final IRotuloService iRotuloService;
+  private final IVentaService iVentaService;
 
   public ReporteService(
     DataSource dataSource,
-    IRotuloService iRotuloService
+    IRotuloService iRotuloService,
+    IVentaService iVentaService
   ) {
     this.dataSource = dataSource;
     this.iRotuloService = iRotuloService;
+    this.iVentaService = iVentaService;
   }
 
   // FACTURA
@@ -101,6 +105,63 @@ public class ReporteService {
     }
 
     List<Rotulo> lista = List.of(rotulo);
+
+    JRBeanCollectionDataSource dataSourceBean =
+      new JRBeanCollectionDataSource(lista);
+
+    InputStream logoStream =
+      this.getClass()
+        .getResourceAsStream("/img/confienvios2.png");
+    InputStream logoStream2 =
+      this.getClass()
+        .getResourceAsStream("/img/confienvios1.png");
+
+    Map<String, Object> params = new HashMap<>();
+
+    if (logoStream != null) {
+      params.put("logoParam1", logoStream);
+    }
+
+    if (logoStream2 != null) {
+      params.put("logoParam2", logoStream2);
+    }
+
+    JasperPrint jasperPrint =
+      JasperFillManager.fillReport(
+        reportStream,
+        params,
+        dataSourceBean
+      );
+
+    return JasperExportManager
+      .exportReportToPdf(jasperPrint);
+  }
+
+  // TICKET DE VENTA
+  public byte[] generarTicketVenta(Integer idVenta)
+    throws Exception {
+
+    InputStream reportStream =
+      this.getClass()
+        .getResourceAsStream("/reports/VentaTicket.jasper");
+
+    if (reportStream == null) {
+      throw new RuntimeException(
+        "No se encontró VentaTicket.jasper"
+      );
+    }
+
+    Venta venta =
+      iVentaService.buscarVentaId(idVenta);
+
+    if (venta == null) {
+      throw new RuntimeException(
+        "No existe la venta con ID: "
+          + idVenta
+      );
+    }
+
+    List<Venta> lista = List.of(venta);
 
     JRBeanCollectionDataSource dataSourceBean =
       new JRBeanCollectionDataSource(lista);

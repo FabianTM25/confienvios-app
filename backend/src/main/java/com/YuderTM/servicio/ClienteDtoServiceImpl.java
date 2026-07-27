@@ -41,7 +41,11 @@ public class ClienteDtoServiceImpl implements IClienteDtoService{
     @Override
     public Cliente_dto guardarClienteDto(Cliente_dto clienteDto) {
 
-         clienteDto.setNombreClienteDto(clienteDto.getNombreClienteDto().toUpperCase());
+        if (clienteDto.getNombreClienteDto() == null || clienteDto.getNombreClienteDto().isBlank()) {
+            throw new IllegalArgumentException("El nombre del cliente es obligatorio");
+        }
+
+        clienteDto.setNombreClienteDto(clienteDto.getNombreClienteDto().toUpperCase());
 
         return iClienteDtoRepository.save(clienteDto);
     }
@@ -55,11 +59,13 @@ public class ClienteDtoServiceImpl implements IClienteDtoService{
         iClienteDtoRepository.deleteById(id_clienteDto);
     }
 
-    //buscar
+    //buscar (match exacto por documento o td; si hay duplicados se toma el primero)
     @Override
     public Cliente_dto buscarDocumento(String documento) {
         return iClienteDtoRepository
                 .findByDocumentoClienteDtoOrTd(documento, documento)
+                .stream()
+                .findFirst()
                 .orElse(null);
     }
 

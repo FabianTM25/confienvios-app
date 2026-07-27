@@ -117,36 +117,8 @@ public class FacturaControlador {
     Factura facturaGuardada =
       iFacturaService.guardarFactura(factura);
 
-    // crear rótulo
-    Rotulo rotulo = new Rotulo();
-
-    rotulo.setId_rotulo(
-      facturaGuardada.getId_factura()
-    );
-
-    rotulo.setN_factura(
-      facturaGuardada.getNumero_factura()
-    );
-
-    rotulo.setNombre_cliente_dto(
-      facturaGuardada.getNombre_cliente_dto()
-    );
-
-    rotulo.setTipo_documento_dto(
-      facturaGuardada.getTipo_documento_dto()
-    );
-
-    rotulo.setDocumento_cliente_dto(
-      facturaGuardada.getDocumento_cliente_dto()
-    );
-
-    rotulo.setTd(facturaGuardada.getTd());
-    rotulo.setNiu(facturaGuardada.getNiu());
-    rotulo.setPabellon(facturaGuardada.getPabellon());
-    rotulo.setEstructura(facturaGuardada.getEstructura());
-
-    // guardar rótulo
-    iRotuloService.guardarRotulo(rotulo);
+    // crear/actualizar rótulo asociado (mismo id que la factura)
+    sincronizarRotulo(facturaGuardada);
 
     // respuesta
     respuesta.setFactura(facturaGuardada);
@@ -167,9 +139,13 @@ public class FacturaControlador {
 
     factura.setId_factura(id);
 
-    return ResponseEntity.ok(
-      iFacturaService.guardarFactura(factura)
-    );
+    Factura actualizada =
+      iFacturaService.guardarFactura(factura);
+
+    // mantener el rótulo sincronizado con los datos editados
+    sincronizarRotulo(actualizada);
+
+    return ResponseEntity.ok(actualizada);
   }
 
   // =============================
@@ -181,6 +157,9 @@ public class FacturaControlador {
   ) {
 
     iFacturaService.eliminarFacturaId(id);
+
+    // evitar que quede un rótulo huérfano con el mismo id
+    iRotuloService.eliminarRotulo(id);
 
     return ResponseEntity.noContent().build();
   }
@@ -205,7 +184,31 @@ public class FacturaControlador {
     Factura actualizada =
       iFacturaService.guardarFactura(factura);
 
+    // reflejar la anulación en el rótulo asociado
+    sincronizarRotulo(actualizada);
+
     return ResponseEntity.ok(actualizada);
+  }
+
+  // =============================
+  // SINCRONIZAR RÓTULO CON LA FACTURA
+  // =============================
+  private void sincronizarRotulo(Factura factura) {
+
+    Rotulo rotulo = new Rotulo();
+
+    rotulo.setId_rotulo(factura.getId_factura());
+    rotulo.setN_factura(factura.getNumero_factura());
+    rotulo.setNombre_cliente_dto(factura.getNombre_cliente_dto());
+    rotulo.setTipo_documento_dto(factura.getTipo_documento_dto());
+    rotulo.setDocumento_cliente_dto(factura.getDocumento_cliente_dto());
+    rotulo.setTd(factura.getTd());
+    rotulo.setNiu(factura.getNiu());
+    rotulo.setPabellon(factura.getPabellon());
+    rotulo.setEstructura(factura.getEstructura());
+    rotulo.setEstado(factura.getEstado());
+
+    iRotuloService.guardarRotulo(rotulo);
   }
 
   // =============================

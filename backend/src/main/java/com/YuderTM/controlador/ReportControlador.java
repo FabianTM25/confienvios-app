@@ -28,78 +28,78 @@ public class ReportControlador {
   @GetMapping("/report/{id}")
   public ResponseEntity<byte[]> generarReporte(
     @PathVariable Integer id
-  ) {
+  ) throws Exception {
 
-    try {
+    byte[] report =
+      reporteService.generarReporte(id);
 
-      byte[] report =
-        reporteService.generarReporte(id);
+    HttpHeaders headers = new HttpHeaders();
 
-      HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(
+      MediaType.APPLICATION_PDF
+    );
 
-      headers.setContentType(
-        MediaType.APPLICATION_PDF
-      );
+    headers.add(
+      "Content-Disposition",
+      "inline; filename=Factura.pdf"
+    );
 
-      headers.add(
-        "Content-Disposition",
-        "inline; filename=Factura.pdf"
-      );
-
-      return new ResponseEntity<>(
-        report,
-        headers,
-        HttpStatus.OK
-      );
-
-    } catch (Exception e) {
-
-      e.printStackTrace();
-
-      return ResponseEntity
-        .status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(
-          ("Error al generar PDF: "
-            + e.getMessage()).getBytes()
-        );
-    }
+    return new ResponseEntity<>(
+      report,
+      headers,
+      HttpStatus.OK
+    );
   }
 
   @GetMapping("/rotulo/{id}")
   public ResponseEntity<byte[]> generarRotulo(
     @PathVariable Integer id
-  ) {
+  ) throws Exception {
 
-    try {
+    byte[] pdf =
+      reporteService.generarRotulo(id);
 
-      byte[] pdf =
-        reporteService.generarRotulo(id);
+    HttpHeaders headers = new HttpHeaders();
 
-      HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(
+      MediaType.APPLICATION_PDF
+    );
 
-      headers.setContentType(
-        MediaType.APPLICATION_PDF
-      );
+    headers.add(
+      "Content-Disposition",
+      "inline; filename=Rotulo.pdf"
+    );
 
-      headers.add(
-        "Content-Disposition",
-        "inline; filename=Rotulo.pdf"
-      );
+    return new ResponseEntity<>(
+      pdf,
+      headers,
+      HttpStatus.OK
+    );
+  }
 
-      return new ResponseEntity<>(
-        pdf,
-        headers,
-        HttpStatus.OK
-      );
+  @GetMapping("/report-venta/{id}")
+  public ResponseEntity<byte[]> generarTicketVenta(
+    @PathVariable Integer id
+  ) throws Exception {
 
-    } catch (Exception e) {
+    byte[] pdf =
+      reporteService.generarTicketVenta(id);
 
-      return ResponseEntity
-        .status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(
-          ("Error: "
-            + e.getMessage()).getBytes()
-        );
-    }
+    HttpHeaders headers = new HttpHeaders();
+
+    headers.setContentType(
+      MediaType.APPLICATION_PDF
+    );
+
+    headers.add(
+      "Content-Disposition",
+      "inline; filename=VentaTicket.pdf"
+    );
+
+    return new ResponseEntity<>(
+      pdf,
+      headers,
+      HttpStatus.OK
+    );
   }
 }

@@ -1,5 +1,6 @@
 package com.YuderTM.modelo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,7 +12,12 @@ public class Usuario {
     Integer id_usuario;
     String usuario;
     String user_name;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
+
+    // 1 = activo, 2 = eliminado (soft-delete, igual que Cliente_dto/Cliente_rmt)
+    Integer estado = 1;
 
     //metodos
 
@@ -71,6 +77,14 @@ public class Usuario {
         this.password = password;
     }
 
+    public Integer getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
+    }
+
     //toString
     @Override
     public String toString() {
@@ -78,7 +92,7 @@ public class Usuario {
                 "id_usuario=" + id_usuario +
                 ", usuario='" + usuario + '\'' +
                 ", user_name='" + user_name + '\'' +
-                ", password='" + password + '\'' +
+                ", estado=" + estado +
                 '}';
     }
 }

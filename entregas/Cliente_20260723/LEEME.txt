@@ -1,0 +1,90 @@
+========================================
+ CONFIENVIOS - INSTALACION LOCAL
+========================================
+
+Contenido de esta carpeta:
+  - confienvios-images.tar   -> las imagenes de la app y de la base de datos, listas para instalar sin internet
+  - docker-compose.yml       -> la configuracion para levantar todo
+  - .env                     -> usuario/clave de la base de datos y clave de sesion (JWT)
+  - base_datos_inicial.sql   -> copia de la base de datos, sin las facturas ni rotulos de prueba
+                                 (clientes y usuarios ya cargados quedan intactos)
+
+Requisito en la maquina del cliente: tener Docker Desktop instalado y abierto.
+
+----------------------------------------
+PASO 1 - Copiar la carpeta
+----------------------------------------
+Copiar esta carpeta completa a la maquina del cliente, por ejemplo a:
+  C:\Cursos\Confienvios_java_local\Confienvios_java
+
+(Si se usa otra ruta, hay que ajustar la ruta dentro de confienvios.bat)
+
+----------------------------------------
+PASO 2 - Cargar las imagenes
+----------------------------------------
+Abrir una terminal (cmd o PowerShell) parado en esta carpeta y ejecutar:
+
+    docker load -i confienvios-images.tar
+
+----------------------------------------
+PASO 3 - Ajustar docker-compose.yml
+----------------------------------------
+Abrir docker-compose.yml y en el servicio "app", cambiar la linea:
+
+    build: .
+
+por:
+
+    image: confienvios-app:latest
+
+----------------------------------------
+PASO 4 - Levantar SOLO la base de datos primero
+----------------------------------------
+    docker compose up -d db
+
+Esperar unos segundos a que este "healthy" (se puede chequear con "docker compose ps").
+
+----------------------------------------
+PASO 5 - Restaurar la base de datos inicial
+----------------------------------------
+Esto carga los clientes y usuarios ya existentes (sin facturas de prueba):
+
+    docker exec -i confienvios-db psql -U postgres -d confienviosdb < base_datos_inicial.sql
+
+Si se salta este paso, la base queda completamente vacia y el sistema crea
+automaticamente un usuario administrador por defecto la primera vez que arranca:
+
+    usuario:    admin
+    contraseña: admin123
+
+(cambiar esa contraseña por una propia luego de entrar, desde el modulo de Usuarios)
+
+----------------------------------------
+PASO 6 - Levantar el resto del sistema
+----------------------------------------
+    docker compose up -d
+
+----------------------------------------
+PASO 7 - Abrir el sistema
+----------------------------------------
+Ir a http://localhost:8080 en el navegador.
+
+Si se restauro el PASO 5, entrar con un usuario ya existente.
+Si no se restauro nada, entrar con admin / admin123.
+
+========================================
+ USO DIARIO (una vez instalado)
+========================================
+Para arrancar el sistema en el dia a dia, no hace falta repetir estos pasos:
+simplemente ejecutar confienvios.bat (o el acceso directo Confienvios.vbs).
+Eso levanta Docker si no esta corriendo, inicia el sistema y abre el navegador
+solo. Los datos quedan guardados entre reinicios (estan en un volumen de Docker,
+no se pierden al apagar la PC).
+
+========================================
+ RESPALDOS
+========================================
+Conviene hacer backups periodicos de la base real del cliente (no de esta
+copia inicial) con:
+
+    docker exec confienvios-db pg_dump -U postgres -d confienviosdb > backup_AAAAMMDD.sql

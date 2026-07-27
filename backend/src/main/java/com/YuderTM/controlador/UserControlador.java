@@ -19,7 +19,6 @@ import java.util.List;
     "http://localhost:4200",
     "https://confienvios-app-two.vercel.app/"  // reemplaza con tu URL real de Angular
 })*/
-@CrossOrigin(origins = "*")
 
 public class UserControlador {
 

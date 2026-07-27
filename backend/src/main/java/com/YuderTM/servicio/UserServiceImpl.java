@@ -33,7 +33,9 @@ public class UserServiceImpl implements IUserService {
   @Override
   @Transactional(readOnly = true)
   public List<Usuario> listarUsuarios() {
-    return iUserRepository.findAll();
+    return iUserRepository.findAll().stream()
+      .filter(u -> u.getEstado() == null || u.getEstado() != 2)
+      .toList();
   }
 
   // =========================
@@ -68,16 +70,18 @@ public class UserServiceImpl implements IUserService {
       Usuario existente =
         iUserRepository
           .findById(usuario.getId_usuario())
-          .orElse(null);
+          .orElseThrow(() -> new NoSuchElementException(
+            "Usuario no encontrado " + usuario.getId_usuario()
+          ));
 
-      if (existente != null &&
-        !usuario.getPassword()
-          .equals(existente.getPassword())) {
+      String nuevaPassword = usuario.getPassword();
 
+      if (nuevaPassword == null || nuevaPassword.isBlank()) {
+        // No se envió una contraseña nueva: se conserva la actual
+        usuario.setPassword(existente.getPassword());
+      } else {
         usuario.setPassword(
-          passwordEncoder.encode(
-            usuario.getPassword()
-          )
+          passwordEncoder.encode(nuevaPassword)
         );
       }
     }
@@ -86,19 +90,19 @@ public class UserServiceImpl implements IUserService {
   }
 
   // =========================
-  // ELIMINAR
+  // ELIMINAR (soft-delete, igual que Cliente_dto/Cliente_rmt)
   // =========================
   @Override
   public void eliminarUsuarioId(Integer id_usuario) {
 
-    if (!iUserRepository.existsById(id_usuario)) {
-
-      throw new NoSuchElementException(
+    Usuario usuario = iUserRepository
+      .findById(id_usuario)
+      .orElseThrow(() -> new NoSuchElementException(
         "Usuario no encontrado " + id_usuario
-      );
-    }
+      ));
 
-    iUserRepository.deleteById(id_usuario);
+    usuario.setEstado(2);
+    iUserRepository.save(usuario);
   }
 }
 

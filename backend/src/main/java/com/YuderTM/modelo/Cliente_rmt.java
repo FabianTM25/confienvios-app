@@ -28,7 +28,7 @@ public class Cliente_rmt {
     String telefonoClienteRmt;
 
     @Column(name ="estado")
-    Integer estado;
+    Integer estado = 1;
 
     //constructor
     public Cliente_rmt(){

@@ -38,6 +38,8 @@ export class BasicUsuariosComponent implements OnInit {
   usuarios: Usuario[] = [];
   submitted = signal(false);
   modalTitle = signal('Nuevo Usuario');
+  mostrarToast = false;
+  mensajeToast = '';
 
   // Modelo inicializado como Signal
   registerModel = signal<Usuario>({
@@ -58,11 +60,14 @@ export class BasicUsuariosComponent implements OnInit {
     });
 
     required(schemaPath.password, {
-      message: 'Contraseña es requerida'
+      message: 'Contraseña es requerida',
+      // Solo obligatoria al crear un usuario nuevo; al editar se puede
+      // dejar en blanco para conservar la contraseña actual.
+      when: ({ valueOf }) => valueOf(schemaPath.id_usuario) == null
     });
 
-    minLength(schemaPath.password, 8, {
-      message: 'La contraseña debe tener mínimo 8 caracteres'
+    minLength(schemaPath.password, ({ value }) => (value() ? 6 : undefined), {
+      message: 'La contraseña debe tener mínimo 6 caracteres'
     });
   });
 
@@ -108,8 +113,10 @@ export class BasicUsuariosComponent implements OnInit {
     this.modalTitle.set('Editar Usuario');
     this.submitted.set(false);
     
-    // Clonamos el objeto para evitar modificar la fila de la tabla directamente
-    this.registerModel.set({ ...usuario });
+    // Clonamos el objeto para evitar modificar la fila de la tabla directamente.
+    // El backend ya no devuelve la contraseña (WRITE_ONLY), así que se deja
+    // en blanco: si no se completa, se conserva la contraseña actual.
+    this.registerModel.set({ ...usuario, password: '' });
     
     this.openModal(content);
   }
@@ -143,13 +150,13 @@ export class BasicUsuariosComponent implements OnInit {
     if (datosUsuario.id_usuario) {
       // Caso: Editar
       this.usuarioService.actualizarUsuario(datosUsuario).subscribe({
-        next: () => this.finalizarGuardado(),
+        next: () => this.finalizarGuardado("Usuario actualizado correctamente"),
         error: (err) => console.error("Error al actualizar:", err)
       });
     } else {
       // Caso: Nuevo
       this.usuarioService.agregarUsuario(datosUsuario).subscribe({
-        next: () => this.finalizarGuardado(),
+        next: () => this.finalizarGuardado("Usuario creado correctamente"),
         error: (err) => console.error("Error al agregar:", err)
       });
     }
@@ -158,11 +165,13 @@ export class BasicUsuariosComponent implements OnInit {
   /**
    * Limpia el estado tras una operación exitosa
    */
-  private finalizarGuardado() {
-    console.log("Operación exitosa");
+  private finalizarGuardado(mensaje: string) {
     this.modalRef.close();
     this.obtenerUsuario(); // Refrescar tabla
-    
+
+    this.mensajeToast = mensaje;
+    this.mostrarToast = true;
+
     // Resetear modelo
     this.registerModel.set({
       id_usuario: null,
@@ -175,11 +184,15 @@ export class BasicUsuariosComponent implements OnInit {
 
   /**---------------------------------------------------------------------eliminar usuario------------------------------------------
    Lógica para eliminar*/
-   
+
   eliminarUsuario(id: number | null) {
     if (id && confirm('¿Está seguro de eliminar este usuario?')) {
       this.usuarioService.eliminarUsuario(id).subscribe({
-        next: () => this.obtenerUsuario(),
+        next: () => {
+          this.obtenerUsuario();
+          this.mensajeToast = "Usuario eliminado correctamente";
+          this.mostrarToast = true;
+        },
         error: (err) => console.error("Error al eliminar:", err)
       });
     }

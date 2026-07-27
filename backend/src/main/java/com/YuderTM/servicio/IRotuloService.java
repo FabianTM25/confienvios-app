@@ -11,4 +11,6 @@ public interface IRotuloService {
     // 🔥 ESTE TE FALTABA
 
     Rotulo buscarPorId(Integer id);
+
+    void eliminarRotulo(Integer id);
 }

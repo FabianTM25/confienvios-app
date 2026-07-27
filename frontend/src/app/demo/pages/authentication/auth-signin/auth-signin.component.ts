@@ -10,10 +10,6 @@ import { Router, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { AuthService } from '../security/auth.service';
 
-const TEST_USER = 'Yuder';
-const TEST_PASSWORD = '12345678';
-
-
 @Component({
   selector: 'app-auth-signin',
   imports: [CommonModule, RouterModule, SharedModule, Field],
@@ -35,7 +31,7 @@ export class AuthSigninComponent {
   loginForm = form(this.loginModal, (schemaPath) => {
     required(schemaPath.user, { message: 'Usuario es Requerido' });
     required(schemaPath.password, { message: 'Contraseña Requerida' });
-    minLength(schemaPath.password, 8, { message: 'Ingrese una Contraseña valida' });
+    minLength(schemaPath.password, 6, { message: 'Ingrese una Contraseña valida' });
   });
 
  /* onSubmit(event: Event) {

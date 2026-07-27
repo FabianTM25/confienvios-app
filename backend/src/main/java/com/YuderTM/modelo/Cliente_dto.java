@@ -33,7 +33,7 @@ public class Cliente_dto {
     String estructura;
 
     @Column(name ="estado")
-    Integer estado;
+    Integer estado = 1;
 
     //constructor
     public Cliente_dto(){

@@ -44,3 +44,8 @@ testem.log
 Thumbs.db
 
 
+.vercel
+.env*
+
+# Paquetes de entrega (imagenes docker exportadas, muy pesadas para git)
+*.tar

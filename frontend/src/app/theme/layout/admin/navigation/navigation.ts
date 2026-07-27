@@ -113,7 +113,38 @@ export const NavigationItems: NavigationItem[] = [
           }
         ]
       },
-      
+
+    ]
+  },
+
+  {
+    id: 'ventas',
+    title: 'ventas',
+    type: 'group',
+    icon: 'feather icon-shopping-cart',
+    children: [
+      {
+        id: 'venta',
+        title: 'Ventas',
+        type: 'collapse',
+        icon: 'feather icon-shopping-cart',
+        children: [
+          {
+            id: 'venta_detalle',
+            title: 'Nueva venta',
+            type: 'item',
+            icon: 'feather icon-plus-circle',
+            url: '/basic/ventas'
+          },
+          {
+            id: 'venta_lista',
+            title: 'Lista de ventas',
+            type: 'item',
+            icon: 'feather icon-folder',
+            url: '/basic/lista_ventas'
+          }
+        ]
+      }
     ]
   }
 ];

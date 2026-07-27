@@ -19,7 +19,6 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 //@CrossOrigin(origins = "http://localhost:4200")
 //@CrossOrigin(origins = "https://confienvios-app.onrender.com")
-@CrossOrigin(origins = "*")
 
 public class AuthControlador {
 
@@ -42,26 +41,13 @@ public class AuthControlador {
 
         Usuario usuario = userRepository.findByUsuario(username);
 
-        if (usuario == null || !passwordEncoder.matches(password, usuario.getPassword())) {
+        boolean eliminado = usuario != null && usuario.getEstado() != null && usuario.getEstado() == 2;
+
+        if (usuario == null || eliminado || !passwordEncoder.matches(password, usuario.getPassword())) {
             return ResponseEntity.status(401).body("Usuario o contraseña incorrectos");
         }
 
         String token = jwtUtil.generarToken(username);
         return ResponseEntity.ok(Map.of("token", token, "usuario", username));
-    }
-
-    // ✅ Endpoint TEMPORAL para encriptar - ELIMINAR después de usarlo
-    @GetMapping("/encriptar/{id}/{password}")
-    public ResponseEntity<?> encriptarPassword(
-            @PathVariable Integer id,
-            @PathVariable String password) {
-
-        Usuario u = userRepository.findById(id).orElse(null);
-        if (u == null) return ResponseEntity.notFound().build();
-
-        u.setPassword(passwordEncoder.encode(password));
-        userRepository.save(u);
-
-        return ResponseEntity.ok("Contraseña encriptada para usuario ID: " + id);
     }
 }
