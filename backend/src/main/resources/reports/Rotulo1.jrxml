@@ -1,7 +1,9 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
 <jasperReport name="Rotulo" language="java" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="227a4425-32b2-4331-999d-b98e41dadaf6" floatColumnFooter="true">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Confienvios"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="logoParam1" class="java.io.InputStream"/>
+	<parameter name="logoParam2" class="java.io.InputStream"/>
 	<query language="sql"><![CDATA[SELECT * FROM rotulo]]></query>
 	<field name="id_rotulo" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="id_rotulo"/>
@@ -92,8 +94,11 @@
 		<element kind="image" uuid="0a2a10bd-977b-4423-b942-031648735dbe" x="350" y="-12" width="200" height="50" linkType="None" linkTarget="Self">
 			<expression><![CDATA[$P{logoParam1}]]></expression>
 		</element>
-		<element kind="textField" uuid="e2e5e613-9fed-471f-a299-0bcd0f5118f0" x="10" y="261" width="80" height="35" fontName="DejaVu Sans" fontSize="25.0" textAdjust="ScaleFont" bold="true">
+		<element kind="textField" uuid="e2e5e613-9fed-471f-a299-0bcd0f5118f0" x="25" y="261" width="80" height="35" fontName="DejaVu Sans" fontSize="25.0" textAdjust="ScaleFont" bold="true">
 			<expression><![CDATA[$F{tipo_documento_dto}]]></expression>
+		</element>
+		<element kind="image" uuid="b7967d69-707a-4fd4-ab65-7c0a6cea30be" x="314" y="25" width="60" height="50" linkType="None" linkTarget="Self">
+			<expression><![CDATA[$P{logoParam2}]]></expression>
 		</element>
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</title>

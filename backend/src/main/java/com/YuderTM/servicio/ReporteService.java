@@ -83,6 +83,7 @@ public class ReporteService {
       this.getClass()
         .getResourceAsStream("/reports/Rotulo1.jasper");
 
+
     if (reportStream == null) {
       throw new RuntimeException(
         "No se encontró Rotulo.jasper"
@@ -107,11 +108,18 @@ public class ReporteService {
     InputStream logoStream =
       this.getClass()
         .getResourceAsStream("/img/confienvios2.png");
+    InputStream logoStream2 =
+      this.getClass()
+        .getResourceAsStream("/img/confienvios1.png");
 
     Map<String, Object> params = new HashMap<>();
 
     if (logoStream != null) {
       params.put("logoParam1", logoStream);
+    }
+
+    if (logoStream2 != null) {
+      params.put("logoParam2", logoStream2);
     }
 
     JasperPrint jasperPrint =
