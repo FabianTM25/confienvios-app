@@ -43,6 +43,16 @@ import { authGuard } from 'src/app/demo/pages/authentication/security/auth.guard
         loadComponent: () => import('./lista_ventas/lista_venta.component').then((c) => c.ListaVentaComponent)
       },
       {
+        path: 'documentos',
+        canActivate: [authGuard],
+        loadComponent: () => import('./documentos/documento.component').then((c) => c.DocumentoComponent)
+      },
+      {
+        path: 'lista_documentos',
+        canActivate: [authGuard],
+        loadComponent: () => import('./lista_documentos/lista_documento.component').then((c) => c.ListaDocumentoComponent)
+      },
+      {
         path: 'dashboard',
         canActivate: [authGuard],
         loadComponent: () => import('src/app/demo/dashboard/dashboard.component').then((c) => c.DashboardComponent)

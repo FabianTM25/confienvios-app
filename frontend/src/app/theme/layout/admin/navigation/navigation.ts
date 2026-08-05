@@ -146,5 +146,36 @@ export const NavigationItems: NavigationItem[] = [
         ]
       }
     ]
+  },
+
+  {
+    id: 'documentos',
+    title: 'documentos',
+    type: 'group',
+    icon: 'feather icon-file',
+    children: [
+      {
+        id: 'documento',
+        title: 'Documentos',
+        type: 'collapse',
+        icon: 'feather icon-file',
+        children: [
+          {
+            id: 'documento_detalle',
+            title: 'Nuevo documento',
+            type: 'item',
+            icon: 'feather icon-plus-circle',
+            url: '/basic/documentos'
+          },
+          {
+            id: 'documento_lista',
+            title: 'Lista de documentos',
+            type: 'item',
+            icon: 'feather icon-folder',
+            url: '/basic/lista_documentos'
+          }
+        ]
+      }
+    ]
   }
 ];

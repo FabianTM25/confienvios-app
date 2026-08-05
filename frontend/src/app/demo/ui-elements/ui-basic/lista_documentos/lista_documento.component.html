@@ -1,0 +1,151 @@
+<H3>LISTA DE DOCUMENTOS</H3>
+<hr />
+
+<div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+  <button class="btn btn-primary" routerLink="/basic/documentos">Documento Nuevo</button>
+
+  <div class="d-flex align-items-center gap-2 flex-wrap">
+    <div class="input-group input-group-sm" style="width: auto">
+      <span class="input-group-text">Desde</span>
+      <input type="date" class="form-control" [(ngModel)]="fechaDesde" (change)="filtrarPorFecha()" />
+      <span class="input-group-text">Hasta</span>
+      <input type="date" class="form-control" [(ngModel)]="fechaHasta" (change)="filtrarPorFecha()" />
+      <button class="btn btn-outline-secondary" type="button" title="Limpiar filtro de fecha" (click)="limpiarFiltroFecha()">
+        <i class="feather icon-x"></i>
+      </button>
+    </div>
+
+    <div class="input-group w-25">
+      <span class="input-group-text bg-white border-end-0">
+        <i class="feather icon-search" style="font-size: 14px"></i>
+      </span>
+      <input type="text" id="m-search" class="form-control border-start-0" placeholder="Buscar..." (input)="buscarDocumento($event)" />
+    </div>
+  </div>
+</div>
+
+<div class="col-x1-12">
+  <app-card cardTitle="LISTA DE DOCUMENTOS" [options]="false" blockClass="table-border-style">
+    <p class="text-muted mb-2" style="font-size: 13px">
+      <i class="feather icon-file-text"></i>
+      {{ documento.length }} documentos registrados
+    </p>
+    <div class="table-responsive">
+      <table class="table table-hover table-sm">
+        <thead>
+          <tr>
+            <th style="width: 10%">N° Radicado</th>
+            <th style="width: 17%">Nombre Cliente</th>
+            <th style="width: 9%">Documento</th>
+            <th style="width: 11%">Tipo Documento</th>
+            <th style="width: 9%">Estado Envío</th>
+            <th style="width: 11%">Fecha Recibido</th>
+            <th style="width: 11%">Fecha Entrega</th>
+            <th style="width: 10%">Observación</th>
+            <th style="width: 12%">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (d of documentoPaginado; track d.id_documento) {
+            <tr>
+              <td class="fw-bold">{{ d.numero_radicado }}</td>
+              <td class="text-truncate">{{ d.nombre_cliente_rmt }}</td>
+              <td>{{ d.documento_cliente_rmt }}</td>
+              <td>{{ d.tipo_documento }}</td>
+              <td>
+                <span
+                  class="badge"
+                  [class.bg-warning]="d.estado_envio === 'PENDIENTE'"
+                  [class.bg-primary]="d.estado_envio === 'ENVIADO'"
+                  [class.bg-success]="d.estado_envio === 'ENTREGADO'"
+                  [class.bg-danger]="d.estado_envio === 'CANCELADO'"
+                >
+                  {{ d.estado_envio }}
+                </span>
+              </td>
+              <td>{{ d.fecha_recibido ? (d.fecha_recibido | date: 'dd/MM/yyyy HH:mm') : '-' }}</td>
+              <td>{{ d.fecha_entrega ? (d.fecha_entrega | date: 'dd/MM/yyyy HH:mm') : '-' }}</td>
+              <td class="text-truncate">{{ d.observacion }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  title="Cambiar estado / fechas"
+                  (click)="abrirModalEstado(modalEstado, d)"
+                >
+                  <i class="feather icon-edit-2"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-success btn-sm"
+                  title="Imprimir / Descargar"
+                  (click)="imprimirDocumento(d.id_documento!)"
+                >
+                  <i class="feather icon-download"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </app-card>
+</div>
+
+<!-- MODAL CAMBIAR ESTADO / FECHAS -->
+<ng-template #modalEstado let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">RADICADO {{ documentoEnEdicion.numero_radicado }}</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <div class="mb-3">
+      <label>Estado de Envío</label>
+      <select class="form-select" name="editEstadoEnvio" [(ngModel)]="documentoEnEdicion.estado_envio">
+        <option value="PENDIENTE">Pendiente</option>
+        <option value="ENVIADO">Enviado</option>
+        <option value="ENTREGADO">Entregado</option>
+        <option value="CANCELADO">Cancelado</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Fecha de Entrega</label>
+      <input type="datetime-local" class="form-control" name="editFechaEntrega" [(ngModel)]="documentoEnEdicion.fecha_entrega" />
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button class="btn btn-primary" (click)="guardarEstado(modal)">Guardar</button>
+  </div>
+</ng-template>
+
+<!-- CONTADOR DE REGISTROS -->
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <div>Mostrando {{ obtenerInicio() }} - {{ obtenerFin() }} de {{ documento.length }} registros</div>
+
+  <!-- PAGINADOR -->
+  <nav>
+    <ul class="pagination mb-0">
+      <li class="page-item" [class.disabled]="paginaActual === 1">
+        <a class="page-link" (click)="cambiarPagina(paginaActual - 1)">Previous</a>
+      </li>
+
+      @for (p of paginasVisibles(); track $index) {
+        @if (p === -1) {
+          <li class="page-item disabled"><span class="page-link">...</span></li>
+        } @else {
+          <li class="page-item" [class.active]="paginaActual === p">
+            <a class="page-link" (click)="cambiarPagina(p)">{{ p }}</a>
+          </li>
+        }
+      }
+
+      <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+        <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

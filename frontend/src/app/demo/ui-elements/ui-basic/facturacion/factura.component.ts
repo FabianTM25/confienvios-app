@@ -54,6 +54,10 @@ export class FacturaComponent implements OnInit {
   //resultados historicos (tabla data_old)
   dataOldResultados: DataOld[] = [];
 
+  // Edicion de clientes (modal)
+  clienteRmtEnEdicion: ClienteRtm = {} as ClienteRtm;
+  clienteDtoEnEdicion: ClienteDto = {} as ClienteDto;
+
 
 
    ngOnInit(): void {
@@ -159,6 +163,62 @@ buscarCliente(){
   }
 
 
+
+  editarClienteRmt(content: any): void {
+    if (!this.clienteRmtSeleccionado?.idClienteRmt) {
+      alert('Debe buscar un cliente REMITE antes de editarlo');
+      return;
+    }
+
+    this.clienteRmtEnEdicion = { ...this.clienteRmtSeleccionado };
+
+    this.modalService.open(content, {
+      centered: true,
+      size: 'lg'
+    });
+  }
+
+  guardarClienteRmtEditado(modal: any): void {
+    this.ClienteRmt_Service.actualizarCliente_rmt(this.clienteRmtEnEdicion).subscribe({
+      next: (data: any) => {
+        this.clienteRmtSeleccionado = data;
+        this.cd.detectChanges();
+        modal.close();
+      },
+      error: (error) => {
+        console.error(error);
+        alert('Error al actualizar el cliente REMITE');
+      }
+    });
+  }
+
+  editarClienteDto(content: any): void {
+    if (!this.clienteDtoSeleccionado?.idClienteDto) {
+      alert('Debe buscar un cliente DESTINO antes de editarlo');
+      return;
+    }
+
+    this.clienteDtoEnEdicion = { ...this.clienteDtoSeleccionado };
+
+    this.modalService.open(content, {
+      centered: true,
+      size: 'lg'
+    });
+  }
+
+  guardarClienteDtoEditado(modal: any): void {
+    this.ClienteDto_Service.actualizarCliente_dto(this.clienteDtoEnEdicion).subscribe({
+      next: (data: any) => {
+        this.clienteDtoSeleccionado = data;
+        this.cd.detectChanges();
+        modal.close();
+      },
+      error: (error) => {
+        console.error(error);
+        alert('Error al actualizar el cliente DESTINO');
+      }
+    });
+  }
 
   openModal(content: any): void {
 

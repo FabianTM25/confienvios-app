@@ -102,4 +102,30 @@ public class ReportControlador {
       HttpStatus.OK
     );
   }
+
+  @GetMapping("/report-documento/{id}")
+  public ResponseEntity<byte[]> generarDocumento(
+    @PathVariable Integer id
+  ) throws Exception {
+
+    byte[] pdf =
+      reporteService.generarDocumento(id);
+
+    HttpHeaders headers = new HttpHeaders();
+
+    headers.setContentType(
+      MediaType.APPLICATION_PDF
+    );
+
+    headers.add(
+      "Content-Disposition",
+      "inline; filename=Documento.pdf"
+    );
+
+    return new ResponseEntity<>(
+      pdf,
+      headers,
+      HttpStatus.OK
+    );
+  }
 }

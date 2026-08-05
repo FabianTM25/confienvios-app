@@ -43,7 +43,18 @@
     <!-- CLIENTE rmt -->
     <div class="col-md-6">
       <div class="card shadow-sm p-4">
-        <h5>Cliente Remite</h5>
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Cliente Remite</h5>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            type="button"
+            [disabled]="!clienteRmtSeleccionado?.idClienteRmt"
+            (click)="editarClienteRmt(modalEditarClienteRmt)"
+          >
+            <i class="feather icon-edit-2"></i>
+            Editar
+          </button>
+        </div>
         <hr />
 
         <form>
@@ -114,7 +125,18 @@
     <!-- CLIENTE dto -->
     <div class="col-md-6">
       <div class="card shadow-sm p-4">
-        <h5>Cliente Destino</h5>
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Cliente Destino</h5>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            type="button"
+            [disabled]="!clienteDtoSeleccionado?.idClienteDto"
+            (click)="editarClienteDto(modalEditarClienteDto)"
+          >
+            <i class="feather icon-edit-2"></i>
+            Editar
+          </button>
+        </div>
         <hr />
 
         <form>
@@ -350,6 +372,100 @@
 
   <div class="modal-footer">
     <button class="btn btn-secondary" (click)="modal.close(); limpiarFormulario()">Cerrar</button>
+  </div>
+</ng-template>
+
+<!-- MODAL EDITAR CLIENTE REMITE -->
+<ng-template #modalEditarClienteRmt let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">EDITAR CLIENTE REMITE</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <div class="mb-3">
+      <label>Nombre</label>
+      <input type="text" class="form-control" name="editRmtNombre" [(ngModel)]="clienteRmtEnEdicion.nombreClienteRmt" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label>Tipo Documento</label>
+        <input type="text" class="form-control" name="editRmtTipoDocumento" [(ngModel)]="clienteRmtEnEdicion.tipoDocumentoRmt" />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Documento</label>
+        <input type="text" class="form-control" name="editRmtDocumento" [(ngModel)]="clienteRmtEnEdicion.documentoClienteRmt" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label>Dirección</label>
+        <input type="text" class="form-control" name="editRmtDireccion" [(ngModel)]="clienteRmtEnEdicion.direccionClienteRmt" />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Teléfono</label>
+        <input type="text" class="form-control" name="editRmtTelefono" [(ngModel)]="clienteRmtEnEdicion.telefonoClienteRmt" />
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button class="btn btn-primary" (click)="guardarClienteRmtEditado(modal)">Guardar Cambios</button>
+  </div>
+</ng-template>
+
+<!-- MODAL EDITAR CLIENTE DESTINO -->
+<ng-template #modalEditarClienteDto let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">EDITAR CLIENTE DESTINO</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <div class="mb-3">
+      <label>Nombre</label>
+      <input type="text" class="form-control" name="editDtoNombre" [(ngModel)]="clienteDtoEnEdicion.nombreClienteDto" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label>Tipo Documento</label>
+        <input type="text" class="form-control" name="editDtoTipoDocumento" [(ngModel)]="clienteDtoEnEdicion.tipoDocumentoDto" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label>Documento</label>
+        <input type="text" class="form-control" name="editDtoDocumento" [(ngModel)]="clienteDtoEnEdicion.documentoClienteDto" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label>TD</label>
+        <input type="text" class="form-control" name="editDtoTd" [(ngModel)]="clienteDtoEnEdicion.td" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label>NIU</label>
+        <input type="text" class="form-control" name="editDtoNiu" [(ngModel)]="clienteDtoEnEdicion.niu" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label>Pabellón</label>
+        <input type="text" class="form-control" name="editDtoPabellon" [(ngModel)]="clienteDtoEnEdicion.pabellon" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label>Estructura</label>
+        <input type="text" class="form-control" name="editDtoEstructura" [(ngModel)]="clienteDtoEnEdicion.estructura" />
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button class="btn btn-primary" (click)="guardarClienteDtoEditado(modal)">Guardar Cambios</button>
   </div>
 </ng-template>
 

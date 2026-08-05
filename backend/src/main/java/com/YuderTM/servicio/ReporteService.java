@@ -1,6 +1,7 @@
 
   package com.YuderTM.servicio;
 
+import com.YuderTM.modelo.Documento;
 import com.YuderTM.modelo.Rotulo;
 import com.YuderTM.modelo.Venta;
 import net.sf.jasperreports.engine.*;
@@ -21,15 +22,20 @@ public class ReporteService {
   private final DataSource dataSource;
   private final IRotuloService iRotuloService;
   private final IVentaService iVentaService;
+  private final IDocumentoService iDocumentoService;
+
+  private JasperReport documentoReportCompilado;
 
   public ReporteService(
     DataSource dataSource,
     IRotuloService iRotuloService,
-    IVentaService iVentaService
+    IVentaService iVentaService,
+    IDocumentoService iDocumentoService
   ) {
     this.dataSource = dataSource;
     this.iRotuloService = iRotuloService;
     this.iVentaService = iVentaService;
+    this.iDocumentoService = iDocumentoService;
   }
 
   // FACTURA
@@ -187,6 +193,52 @@ public class ReporteService {
       JasperFillManager.fillReport(
         reportStream,
         params,
+        dataSourceBean
+      );
+
+    return JasperExportManager
+      .exportReportToPdf(jasperPrint);
+  }
+
+  // DOCUMENTO
+  public byte[] generarDocumento(Integer idDocumento)
+    throws Exception {
+
+    Documento documento =
+      iDocumentoService.buscarDocumentoId(idDocumento);
+
+    if (documento == null) {
+      throw new RuntimeException(
+        "No existe el documento con ID: "
+          + idDocumento
+      );
+    }
+
+    if (documentoReportCompilado == null) {
+      try (InputStream jrxmlStream =
+             this.getClass()
+               .getResourceAsStream("/reports/Documento.jrxml")) {
+
+        if (jrxmlStream == null) {
+          throw new RuntimeException(
+            "No se encontró Documento.jrxml"
+          );
+        }
+
+        documentoReportCompilado =
+          JasperCompileManager.compileReport(jrxmlStream);
+      }
+    }
+
+    List<Documento> lista = List.of(documento);
+
+    JRBeanCollectionDataSource dataSourceBean =
+      new JRBeanCollectionDataSource(lista);
+
+    JasperPrint jasperPrint =
+      JasperFillManager.fillReport(
+        documentoReportCompilado,
+        new HashMap<>(),
         dataSourceBean
       );
 
