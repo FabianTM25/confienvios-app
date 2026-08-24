@@ -1,7 +1,7 @@
-<H3>DOCUMENTOS</H3>
+<H3>CORRESPONDENCIA Y MATERIALES</H3>
 <hr />
 
-<!-- BUSCADOR DE CLIENTE -->
+<!-- BUSCADORES DE CLIENTES -->
 <div class="container mt-4">
   <div class="row g-3">
     <div class="col-md-6">
@@ -9,7 +9,7 @@
         <input
           type="text"
           class="form-control"
-          placeholder="Buscar Cliente Rmt por documento..."
+          placeholder="Buscar Cliente Rmt..."
           name="buscarClienteRmt"
           [(ngModel)]="textoBusqueda"
           (keyup.enter)="buscarCliente()"
@@ -17,16 +17,30 @@
         <button class="btn btn-primary" type="button" (click)="buscarCliente()">Buscar</button>
       </div>
     </div>
+    <div class="col-md-6">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar Cliente Dto..."
+          name="buscarClienteDto"
+          [(ngModel)]="textoBusquedaDto"
+          (keyup.enter)="buscarClienteDto()"
+        />
+        <button class="btn btn-primary" type="button" (click)="buscarClienteDto()">Buscar</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- INFORMACION DEL CLIENTE -->
+<!-- INFORMACION DE LOS CLIENTES -->
 <div class="container">
   <div class="row g-4 mt-2">
-    <div class="col-md-12">
+    <!-- CLIENTE REMITE -->
+    <div class="col-md-6">
       <div class="card shadow-sm p-4">
         <div class="d-flex justify-content-between align-items-center">
-          <h5>Cliente</h5>
+          <h5>Cliente Remite</h5>
           <button
             class="btn btn-outline-secondary btn-sm"
             type="button"
@@ -34,7 +48,7 @@
             (click)="editarCliente(modalEditarCliente)"
           >
             <i class="feather icon-edit-2"></i>
-            Editar Cliente
+            Editar
           </button>
         </div>
         <hr />
@@ -103,18 +117,151 @@
         </form>
       </div>
     </div>
+
+    <!-- CLIENTE DESTINO -->
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Cliente Destino</h5>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            type="button"
+            [disabled]="!clienteDtoSeleccionado?.idClienteDto"
+            (click)="editarClienteDto(modalEditarClienteDto)"
+          >
+            <i class="feather icon-edit-2"></i>
+            Editar
+          </button>
+        </div>
+        <hr />
+
+        <form>
+          <div class="mb-3">
+            <label>Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nombreClienteDto"
+              placeholder="Nombre del Cliente Dto"
+              [(ngModel)]="clienteDtoSeleccionado.nombreClienteDto"
+              readonly
+            />
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label>Tipo Documento</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Tipo Documento"
+                name="tipoDocumentoClienteDto"
+                [(ngModel)]="clienteDtoSeleccionado.tipoDocumentoDto"
+                readonly
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>Documento</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Documento"
+                name="documentoClienteDto"
+                [(ngModel)]="clienteDtoSeleccionado.documentoClienteDto"
+                readonly
+              />
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label>TD</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="TD"
+                name="td"
+                [(ngModel)]="clienteDtoSeleccionado.td"
+                readonly
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label>NIU</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="NIU"
+                name="niu"
+                [(ngModel)]="clienteDtoSeleccionado.niu"
+                readonly
+              />
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label>Pabellón</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Pabellón"
+                name="pabellon"
+                [(ngModel)]="clienteDtoSeleccionado.pabellon"
+                readonly
+              />
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label>Estructura</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Estructura"
+                name="estructura"
+                [(ngModel)]="clienteDtoSeleccionado.estructura"
+                readonly
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- DATOS DEL DOCUMENTO -->
+<!-- DATOS DE LA CORRESPONDENCIA -->
 <div class="container">
   <div class="row g-4 mt-2">
     <div class="col-md-12">
       <div class="card shadow-sm p-4">
-        <h5>Documento</h5>
+        <h5>Correspondencia y Materiales</h5>
         <hr />
 
         <form>
+          <div class="mb-3 d-flex gap-4">
+            <div class="form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="tipoCorrespondencia"
+                name="tipoCorrespondencia"
+                [checked]="!esMaterial"
+                (change)="seleccionarTipoRegistro(false)"
+              />
+              <label class="form-check-label" for="tipoCorrespondencia">Correspondencia</label>
+            </div>
+            <div class="form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="tipoMateriales"
+                name="tipoMateriales"
+                [checked]="esMaterial"
+                (change)="seleccionarTipoRegistro(true)"
+              />
+              <label class="form-check-label" for="tipoMateriales">Materiales</label>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-md-6 mb-3">
               <label>Tipo de Documento</label>
@@ -135,19 +282,6 @@
                 <option value="ENTREGADO">Entregado</option>
                 <option value="CANCELADO">Cancelado</option>
               </select>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label>Fecha de Entrega</label>
-              <input
-                type="datetime-local"
-                class="form-control"
-                name="fechaEntrega"
-                [(ngModel)]="fechaEntrega"
-              />
-              <small class="text-muted">La fecha de recibido se asigna automáticamente al guardar</small>
             </div>
           </div>
 
@@ -175,12 +309,12 @@
 <!-- MODAL -->
 <ng-template #modalContent let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">DOCUMENTO GUARDADO</h4>
+    <h4 class="modal-title">CORRESPONDENCIA Y MATERIALES GUARDADA</h4>
     <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
   </div>
 
   <div class="modal-body">
-    <h5>Cliente</h5>
+    <h5>Cliente Remite</h5>
 
     <div class="row mb-3">
       <div class="col-md-6">
@@ -197,7 +331,24 @@
       </div>
     </div>
 
-    <h5>Documento</h5>
+    <h5>Cliente Destino</h5>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label>Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="documentoGuardado.nombre_cliente_dto" readonly />
+      </div>
+      <div class="col-md-3">
+        <label>Tipo Doc</label>
+        <input type="text" class="form-control" [(ngModel)]="documentoGuardado.tipo_documento_dto" readonly />
+      </div>
+      <div class="col-md-3">
+        <label>Documento</label>
+        <input type="text" class="form-control" [(ngModel)]="documentoGuardado.documento_cliente_dto" readonly />
+      </div>
+    </div>
+
+    <h5>Correspondencia y Materiales</h5>
 
     <div class="row mb-3">
       <div class="col-md-4">
@@ -225,7 +376,7 @@
       </div>
     </div>
     <div class="text-center mt-4">
-      <button class="btn btn-success" (click)="imprimirDocumento(documentoGuardado.id_documento!)">
+      <button class="btn btn-success" (click)="imprimirGuardado()">
         <i class="feather icon-download"></i>
         IMPRIMIR / DESCARGAR
       </button>
@@ -278,5 +429,55 @@
   <div class="modal-footer">
     <button class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
     <button class="btn btn-primary" (click)="guardarClienteEditado(modal)">Guardar Cambios</button>
+  </div>
+</ng-template>
+
+<!-- MODAL EDITAR CLIENTE DESTINO -->
+<ng-template #modalEditarClienteDto let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">EDITAR CLIENTE DESTINO</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <div class="mb-3">
+      <label>Nombre</label>
+      <input type="text" class="form-control" name="editDtoNombre" [(ngModel)]="clienteDtoEnEdicion.nombreClienteDto" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label>Tipo Documento</label>
+        <input type="text" class="form-control" name="editDtoTipoDocumento" [(ngModel)]="clienteDtoEnEdicion.tipoDocumentoDto" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label>Documento</label>
+        <input type="text" class="form-control" name="editDtoDocumento" [(ngModel)]="clienteDtoEnEdicion.documentoClienteDto" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label>TD</label>
+        <input type="text" class="form-control" name="editDtoTd" [(ngModel)]="clienteDtoEnEdicion.td" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label>NIU</label>
+        <input type="text" class="form-control" name="editDtoNiu" [(ngModel)]="clienteDtoEnEdicion.niu" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label>Pabellón</label>
+        <input type="text" class="form-control" name="editDtoPabellon" [(ngModel)]="clienteDtoEnEdicion.pabellon" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label>Estructura</label>
+        <input type="text" class="form-control" name="editDtoEstructura" [(ngModel)]="clienteDtoEnEdicion.estructura" />
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button class="btn btn-primary" (click)="guardarClienteDtoEditado(modal)">Guardar Cambios</button>
   </div>
 </ng-template>

@@ -1,5 +1,5 @@
-export interface Documento {
-  id_documento: number | null;
+export interface Material {
+  id_material: number | null;
   numero_radicado?: string;
 
   // Snapshot del cliente rmt (se copian al guardar, no se referencian)
@@ -20,7 +20,7 @@ export interface Documento {
   estructura?: string;
   estado_cliente_dto?: number;
 
-  // Datos propios del documento
+  // Datos propios del material
   tipo_documento: string;
   estado_envio?: string;
   fecha_recibido?: string | null;

@@ -36,6 +36,10 @@ public class Venta {
     String observaciones;
     BigDecimal valor_avaluo;
 
+    String vendedor;
+
+    String forma_pago;
+
     String estado;
 
     @Column(name = "fecha_creacion", updatable = false)
@@ -188,6 +192,22 @@ public class Venta {
         this.valor_avaluo = valor_avaluo;
     }
 
+    public String getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public String getForma_pago() {
+        return forma_pago;
+    }
+
+    public void setForma_pago(String forma_pago) {
+        this.forma_pago = forma_pago;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -224,6 +244,8 @@ public class Venta {
                 ", valor_envio=" + valor_envio +
                 ", observaciones='" + observaciones + '\'' +
                 ", valor_avaluo=" + valor_avaluo +
+                ", vendedor='" + vendedor + '\'' +
+                ", forma_pago='" + forma_pago + '\'' +
                 ", estado='" + estado + '\'' +
                 '}';
     }

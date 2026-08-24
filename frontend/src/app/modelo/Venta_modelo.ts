@@ -16,6 +16,8 @@ export interface Venta {
     valor_envio?: number;
     observaciones?: string;
     valor_avaluo?: number;
+    vendedor?: string;
+    forma_pago?: string;
     estado?: string;
     fecha_creacion?: string;
 }

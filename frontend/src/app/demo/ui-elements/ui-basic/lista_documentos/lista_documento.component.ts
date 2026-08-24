@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { forkJoin, Observable } from 'rxjs';
 
 // Models & Services
-import { Documento } from 'src/app/modelo/Documento_modelo';
 import { DocumentoService } from 'src/app/service/documento_service';
 import { ReporteDocumentoService } from 'src/app/service/reporteDocumento_service';
+import { MaterialService } from 'src/app/service/material_service';
+import { ReporteMaterialService } from 'src/app/service/reporteMaterial_service';
 
 @Component({
   selector: 'app-lista-documento',
@@ -21,14 +23,19 @@ export class ListaDocumentoComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);
   private documentoService = inject(DocumentoService);
   private reporteDocumentoService = inject(ReporteDocumentoService);
+  private materialService = inject(MaterialService);
+  private reporteMaterialService = inject(ReporteMaterialService);
   private modalService = inject(NgbModal);
 
-  documento: Documento[] = [];
-  documentoOriginal: Documento[] = [];
-  documentoPaginado: Documento[] = [];
+  // Lista combinada de documentos (correspondencia, tabla "documento") y materiales
+  // (tabla "material", numeracion propia). Cada fila lleva _origen/_id para saber
+  // a que servicio/tabla enrutar las acciones de editar e imprimir.
+  documento: any[] = [];
+  documentoOriginal: any[] = [];
+  documentoPaginado: any[] = [];
 
   // edicion de estado/fechas (modal)
-  documentoEnEdicion: Documento = {} as Documento;
+  documentoEnEdicion: any = {};
 
   // busqueda
   textoBusqueda: string = '';
@@ -45,9 +52,17 @@ export class ListaDocumentoComponent implements OnInit {
   }
 
   private obtenerDocumentos(): void {
-    this.documentoService.obtenerDocumentoLista().subscribe({
-      next: (datos) => {
-        this.documentoOriginal = datos.sort((a, b) => (b.id_documento ?? 0) - (a.id_documento ?? 0));
+    forkJoin({
+      documentos: this.documentoService.obtenerDocumentoLista(),
+      materiales: this.materialService.obtenerMaterialLista()
+    }).subscribe({
+      next: ({ documentos, materiales }) => {
+        const docs = documentos.map((d: any) => ({ ...d, _origen: 'documento', _id: d.id_documento }));
+        const mats = materiales.map((m: any) => ({ ...m, _origen: 'material', _id: m.id_material }));
+
+        this.documentoOriginal = [...docs, ...mats].sort((a, b) =>
+          (b.fecha_creacion ?? '').localeCompare(a.fecha_creacion ?? '')
+        );
         this.documento = [...this.documentoOriginal];
 
         this.paginaActual = 1;
@@ -55,7 +70,7 @@ export class ListaDocumentoComponent implements OnInit {
 
         this.cd.detectChanges();
       },
-      error: (error) => console.error('Error al obtener los documentos:', error)
+      error: (error) => console.error('Error al obtener los registros:', error)
     });
   }
 
@@ -138,16 +153,33 @@ export class ListaDocumentoComponent implements OnInit {
     return fin > this.documento.length ? this.documento.length : fin;
   }
 
-  abrirModalEstado(content: any, documento: Documento): void {
-    this.documentoEnEdicion = { ...documento };
+  abrirModalEstado(content: any, registro: any): void {
+    this.documentoEnEdicion = { ...registro };
     this.modalService.open(content, { centered: true });
   }
 
   guardarEstado(modal: any): void {
-    this.documentoService.actualizarDocumento(this.documentoEnEdicion).subscribe({
-      next: (data: Documento) => {
-        const index = this.documentoOriginal.findIndex((d) => d.id_documento === data.id_documento);
-        if (index !== -1) this.documentoOriginal[index] = data;
+    const esMaterial = this.documentoEnEdicion._origen === 'material';
+
+    // El backend no conoce _origen/_id (son solo para enrutar en el frontend)
+    const { _origen, _id, ...payload } = this.documentoEnEdicion;
+
+    const peticion: Observable<any> = esMaterial
+      ? this.materialService.actualizarMaterial(payload)
+      : this.documentoService.actualizarDocumento(payload);
+
+    peticion.subscribe({
+      next: (data: any) => {
+        const actualizado = {
+          ...data,
+          _origen: esMaterial ? 'material' : 'documento',
+          _id: esMaterial ? data.id_material : data.id_documento
+        };
+
+        const index = this.documentoOriginal.findIndex(
+          (d) => d._origen === actualizado._origen && d._id === actualizado._id
+        );
+        if (index !== -1) this.documentoOriginal[index] = actualizado;
 
         this.documento = [...this.documentoOriginal];
         this.actualizarPaginacion();
@@ -155,14 +187,41 @@ export class ListaDocumentoComponent implements OnInit {
         modal.close();
       },
       error: (err) => {
-        console.error('Error al actualizar el documento:', err);
-        alert('No se pudo actualizar el documento');
+        console.error('Error al actualizar el registro:', err);
+        alert('No se pudo actualizar el registro');
       }
     });
   }
 
-  imprimirDocumento(id: number): void {
-    this.reporteDocumentoService.imprimirDocumento(id).subscribe({
+  verVistaPrevia(registro: any): void {
+    const esMaterial = registro._origen === 'material';
+    const peticion = esMaterial
+      ? this.reporteMaterialService.imprimirMaterial(registro._id)
+      : this.reporteDocumentoService.imprimirDocumento(registro._id);
+
+    peticion.subscribe({
+      next: (data: Blob) => {
+        const file = new Blob([data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(file);
+
+        window.open(url, '_blank');
+
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        console.error('Error al generar la vista previa:', err);
+        alert('No se pudo generar la vista previa');
+      }
+    });
+  }
+
+  imprimirDocumento(registro: any): void {
+    const esMaterial = registro._origen === 'material';
+    const peticion = esMaterial
+      ? this.reporteMaterialService.imprimirMaterial(registro._id)
+      : this.reporteDocumentoService.imprimirDocumento(registro._id);
+
+    peticion.subscribe({
       next: (data: Blob) => {
         const file = new Blob([data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(file);
@@ -171,14 +230,14 @@ export class ListaDocumentoComponent implements OnInit {
 
         const link = document.createElement('a');
         link.href = url;
-        link.download = `Documento_${id}.pdf`;
+        link.download = `${esMaterial ? 'Material' : 'Documento'}_${registro._id}.pdf`;
         link.click();
 
         window.URL.revokeObjectURL(url);
       },
       error: (err) => {
-        console.error('Error al generar el documento:', err);
-        alert('No se pudo generar el PDF del documento');
+        console.error('Error al generar el PDF:', err);
+        alert('No se pudo generar el PDF');
       }
     });
   }

@@ -222,6 +222,30 @@ imprimirRotulo(id: number) {
     });
 }
 
+imprimirCorrespondencia(id: number) {
+  this.reporteService.imprimirCorrespondencia(id)
+    .subscribe({
+      next: (data: Blob) => {
+        const file = new Blob([data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(file);
+
+        window.open(url, '_blank');
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `Correspondencia_${id}.pdf`;
+        link.click();
+
+        window.URL.revokeObjectURL(url);
+        this.modalService.dismissAll();
+      },
+      error: (err) => {
+        console.error('Error al imprimir correspondencia:', err);
+        this.mensajeError = 'No se pudo generar la correspondencia';
+      }
+    });
+}
+
 imprimirFactura(id: number) {
   this.reporteService.imprimirFactura(id)
     .subscribe({

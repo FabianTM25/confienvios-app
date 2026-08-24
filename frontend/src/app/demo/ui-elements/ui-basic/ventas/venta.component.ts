@@ -39,6 +39,7 @@ export class VentaComponent implements OnInit {
   conCaja: boolean = false;
   observaciones: string = '';
   valorAvaluo: number | null = null;
+  formaPago: string = 'Efectivo';
 
   // Configuracion (cargada para el preview y el panel de configuracion)
   rangos: RangoPeso[] = [];
@@ -135,7 +136,7 @@ export class VentaComponent implements OnInit {
     }
 
     this.ventaService
-      .agregarVenta(this.numeroFactura, this.peso, this.conCaja, this.observaciones, this.valorAvaluo)
+      .agregarVenta(this.numeroFactura, this.peso, this.conCaja, this.observaciones, this.valorAvaluo, this.formaPago)
       .subscribe({
       next: (data: Venta) => {
         this.ventaGuardada = data;
@@ -177,6 +178,7 @@ export class VentaComponent implements OnInit {
     this.conCaja = false;
     this.observaciones = '';
     this.valorAvaluo = null;
+    this.formaPago = 'Efectivo';
     this.previewValorPeso = null;
     this.previewValorEnvio = null;
     this.previewError = '';

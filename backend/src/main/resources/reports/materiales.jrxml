@@ -1,0 +1,355 @@
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
+<jasperReport name="Blank_A4" language="java" columnCount="1" pageWidth="612" pageHeight="792" orientation="Landscape" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cf2fd52-982e-441f-b6f3-3c26b090b8c3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Confienvios"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="logoParam" class="java.io.InputStream"/>
+	<parameter name="logoParam1" class="java.io.InputStream"/>
+	<parameter name="idFactura" class="java.lang.Integer"/>
+	<parameter name="idMaterial" class="java.lang.Integer"/>
+	<query language="sql"><![CDATA[SELECT * FROM material WHERE id_material = $P{idMaterial}]]></query>
+	<field name="id_factura" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_factura"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_factura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="direccion_cliente_rmt" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="direccion_cliente_rmt"/>
+		<property name="com.jaspersoft.studio.field.label" value="direccion_cliente_rmt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="documento_cliente_dto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="documento_cliente_dto"/>
+		<property name="com.jaspersoft.studio.field.label" value="documento_cliente_dto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="documento_cliente_rmt" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="documento_cliente_rmt"/>
+		<property name="com.jaspersoft.studio.field.label" value="documento_cliente_rmt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="estado"/>
+		<property name="com.jaspersoft.studio.field.label" value="estado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="estructura" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="estructura"/>
+		<property name="com.jaspersoft.studio.field.label" value="estructura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="id_cliente_dto" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_cliente_dto"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_cliente_dto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="id_cliente_rmt" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_cliente_rmt"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_cliente_rmt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="niu" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="niu"/>
+		<property name="com.jaspersoft.studio.field.label" value="niu"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="nombre_cliente_dto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre_cliente_dto"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_cliente_dto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="nombre_cliente_rmt" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre_cliente_rmt"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_cliente_rmt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="numero_factura" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numero_factura"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero_factura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="pabellon" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pabellon"/>
+		<property name="com.jaspersoft.studio.field.label" value="pabellon"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="td" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="td"/>
+		<property name="com.jaspersoft.studio.field.label" value="td"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="telefono_cliente_rmt" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telefono_cliente_rmt"/>
+		<property name="com.jaspersoft.studio.field.label" value="telefono_cliente_rmt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="fecha_creacion" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_creacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_creacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="tipo_documento_rmt" class="java.lang.String"/>
+	<field name="tipo_documento_dto" class="java.lang.String"/>
+	<field name="observacion" class="java.lang.String"/>
+	<title height="298" splitType="Stretch">
+		<element kind="rectangle" uuid="20a0731e-2e67-4012-8ad6-430a7f813d79" mode="Opaque" x="4" y="10" width="565" height="279" radius="5">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineWidth="1.0" lineStyle="Solid"/>
+		</element>
+		<element kind="rectangle" uuid="add12bf1-50a8-498e-bf17-bd0cded4c2e5" mode="Opaque" x="418" y="16" width="143" height="53" radius="5">
+			<pen lineWidth="1.0" lineStyle="Solid"/>
+		</element>
+		<element kind="rectangle" uuid="f4ece981-e982-438c-9d24-7ad3e588e954" mode="Opaque" x="10" y="72" width="357" height="73" radius="5">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<pen lineWidth="1.0" lineStyle="Solid"/>
+		</element>
+		<element kind="rectangle" uuid="c3105265-aa8b-422a-8eca-117d7b403053" mode="Opaque" x="10" y="252" width="359" height="35" radius="5">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<pen lineWidth="1.0" lineStyle="Solid"/>
+		</element>
+		<element kind="rectangle" uuid="97faaee8-914a-402a-89f1-960713c53cfd" mode="Opaque" x="371" y="214" width="191" height="73" radius="5">
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineWidth="1.0" lineStyle="Solid"/>
+		</element>
+		<element kind="rectangle" uuid="76230092-9db8-457f-9953-c780627cb38c" mode="Opaque" x="370" y="72" width="191" height="56" radius="5">
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineWidth="1.0" lineStyle="Solid"/>
+		</element>
+		<element kind="rectangle" uuid="2f80e11d-755c-4a93-85b4-0ce759f9f962" mode="Opaque" x="11" y="147" width="357" height="103" radius="5">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<pen lineWidth="1.0" lineStyle="Solid"/>
+		</element>
+		<element kind="staticText" uuid="6ce587cb-124e-49f0-a717-6457ee7801e4" x="189" y="40" width="180" height="41" fontName="DejaVu Sans" fontSize="6.0" bold="true" hTextAlign="Center">
+			<paragraph lineSpacingSize="0.0"/>
+			<text><![CDATA[Car 45 sur N° 135-301 casa 17B
+B/Picaleña - Ibague
+Cel 3108774476 
+Email: confienviosencomiendas@gmail.com]]></text>
+		</element>
+		<element kind="staticText" uuid="b8249977-6ec9-4fc1-9068-5d8bd5429a7a" mode="Transparent" x="418" y="16" width="144" height="25" forecolor="#F5130F" backcolor="#F70E0A" fontName="DejaVu Sans" fontSize="16.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Materiales]]></text>
+		</element>
+		<element kind="line" uuid="f5bc62d4-e270-4cea-a67d-f7333721e407" x="419" y="36" width="141" height="1">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="staticText" uuid="b832f7fc-165f-40e7-a2a0-56b420f7a0d7" x="420" y="37" width="40" height="32" fontName="DejaVu Sans" fontSize="7.0" bold="true">
+			<text><![CDATA[N° Guia:                    
+
+Fecha:
+]]></text>
+		</element>
+		<element kind="staticText" uuid="c01e791e-9102-49cb-8ee0-928a2195d72a" mode="Opaque" x="16" y="75" width="228" height="12" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center">
+			<text><![CDATA[NOMBRE_RMT:]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="97d94633-9aa7-4cc5-b198-cdf3fa099a19" mode="Opaque" x="245" y="75" width="120" height="12" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center">
+			<text><![CDATA[CEDULA:]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="staticText" uuid="dc985911-427c-4c6c-8f63-308bd636c907" mode="Opaque" x="133" y="185" width="115" height="11" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center">
+			<text><![CDATA[TD:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="b06abdc5-aed8-4132-ad56-d0cba3f1881d" mode="Opaque" x="17" y="108" width="228" height="12" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center">
+			<text><![CDATA[DIRECCION:]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="staticText" uuid="7ba1a0d2-0400-411d-92aa-ed20266b1e09" mode="Opaque" x="250" y="185" width="115" height="11" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center">
+			<text><![CDATA[NIU:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="ea56f496-1bd6-451d-bc21-79c514a09fbf" mode="Opaque" x="245" y="108" width="120" height="12" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center">
+			<text><![CDATA[TELEFONO:]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="staticText" uuid="0f9de86e-ad96-4ddb-8484-bd2577aef436" mode="Opaque" x="15" y="185" width="115" height="11" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[CEDULA:]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="d7340235-83c2-4f03-abd6-fb67a26b45d0" mode="Opaque" x="251" y="215" width="115" height="11" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[PABELLON:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="08a8dacf-b154-4020-8ded-ae93e80e0969" mode="Opaque" x="15" y="216" width="115" height="11" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ESTRUCTURA:]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="9008cec4-fa8d-4748-8853-5b707d591418" mode="Opaque" x="133" y="216" width="115" height="11" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[DESTINO:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="dd86dcdd-481b-401e-8f61-47dd2dbaab16" x="374" y="217" width="50" height="10" fontName="DejaVu Sans" fontSize="8.0">
+			<text><![CDATA[Recibido:]]></text>
+		</element>
+		<element kind="staticText" uuid="382d7a4b-fd58-4a19-bc15-96365d4b225e" x="370" y="72" width="80" height="14" fontName="DejaVu Sans" fontSize="8.0">
+			<text><![CDATA[Codigo de Barras]]></text>
+		</element>
+		<element kind="staticText" uuid="a4c95843-8de4-43b5-9db0-147b67a7efe7" mode="Transparent" x="10" y="255" width="358" height="34" backcolor="#FFFFFF" fontName="DejaVu Sans" fontSize="7.0" bold="false" hTextAlign="Center">
+			<text><![CDATA[CONFIENVIOS NO se responsabiliza por el contenido ilícito que pueda contener esta Correspondencia Por lo tanto, el REMITENTE se hace totalmente responsable del contenido y de los elementos enviados, los cuales deben cumplir con el reglamento interno del INPEC para la recepción de correspondencia]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="image" uuid="e1e27274-3156-4636-a27f-bf4530674de0" x="16" y="17" width="115" height="50" linkType="None" linkTarget="Self">
+			<expression><![CDATA[$P{logoParam}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="8fe6f67e-a733-4a87-8d0d-e875a0d947d7" mode="Opaque" x="370" y="131" width="191" height="80" radius="5">
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineWidth="1.0" lineStyle="Solid"/>
+		</element>
+		<element kind="staticText" uuid="90f99e85-bfe4-4464-a607-fa8c0f87e40b" x="373" y="134" width="50" height="10" fontName="DejaVu Sans" fontSize="8.0">
+			<text><![CDATA[Observaciones:]]></text>
+		</element>
+		<element kind="textField" uuid="42e8655f-ed06-4542-a51c-c8f0d9387ab8" x="15" y="120" width="230" height="22" fontName="DejaVu Sans" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{direccion_cliente_rmt}]]></expression>
+			<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Confienvios"/>
+			<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+			<property name="com.jaspersoft.studio.unit." value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="7f50bfaf-fdf7-475d-9cf8-be9b0aa35bde" x="20" y="196" width="110" height="18" fontName="DejaVu Sans" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{documento_cliente_dto}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="b22991df-3ebd-4bbd-86d8-de6425d52893" x="265" y="87" width="100" height="22" fontName="DejaVu Sans" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{documento_cliente_rmt}]]></expression>
+			<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Confienvios"/>
+			<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+			<property name="com.jaspersoft.studio.unit." value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="8a79a78e-8e0a-49cb-a784-3a70055336fc" x="15" y="226" width="114" height="18" fontName="DejaVu Sans" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{estructura}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="43034560-e5bb-4d57-9af3-13db1698d2f4" x="250" y="196" width="114" height="18" fontName="DejaVu Sans" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{niu}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="6e0fe515-ecce-41b6-bbaf-4a3867895fee" x="15" y="163" width="350" height="20" fontName="DejaVu Sans" fontSize="12.0" hTextAlign="Center">
+			<expression><![CDATA[$F{nombre_cliente_dto}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="28a1e477-bd43-45f2-bbbe-e4d832d2841d" x="15" y="87" width="230" height="22" fontName="DejaVu Sans" fontSize="12.0" hTextAlign="Center">
+			<expression><![CDATA[$F{nombre_cliente_rmt}]]></expression>
+			<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Confienvios"/>
+			<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+			<property name="com.jaspersoft.studio.unit." value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="3abdef15-a014-4fd1-b890-0e45ee4346a6" x="460" y="35" width="100" height="26" forecolor="#F71E1E" fontName="DejaVu Sans" fontSize="12.0" linkType="None" linkTarget="Self" bold="true">
+			<expression><![CDATA[$F{numero_factura}]]></expression>
+		</element>
+		<element kind="textField" uuid="f9866e87-a82e-4404-b437-9f89e694e762" x="251" y="226" width="114" height="18" fontName="DejaVu Sans" fontSize="12.0" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{pabellon}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="1ef090a5-89f2-432c-b3bd-bd0dc1caec75" x="133" y="196" width="114" height="18" fontName="DejaVu Sans" fontSize="12.0" hTextAlign="Center">
+			<expression><![CDATA[$F{td}]]></expression>
+		</element>
+		<element kind="textField" uuid="9896a081-6432-4046-be63-aedb72066266" x="245" y="120" width="120" height="22" fontName="DejaVu Sans" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{telefono_cliente_rmt}]]></expression>
+			<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Confienvios"/>
+			<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+			<property name="com.jaspersoft.studio.unit." value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="104c3fe4-c461-4397-9f8d-0d5dd058857f" x="460" y="52" width="94" height="16" fontName="DejaVu Sans" pattern="dd/MM/yy, hh:mm a">
+			<expression><![CDATA[$F{fecha_creacion}]]></expression>
+		</element>
+		<element kind="image" uuid="88b0d27c-78fa-46d8-87f7-50b17dc0971b" x="150" y="13" width="250" height="27" hImageAlign="Center">
+			<expression><![CDATA[$P{logoParam1}]]></expression>
+		</element>
+		<element kind="staticText" uuid="0e1f4e84-1eef-4df0-9167-b7e0cd1e7b10" x="133" y="226" width="114" height="18" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[COIBA]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="bcb42ea0-be28-4414-af8d-39d5b2824c1a" x="245" y="87" width="24" height="22" fontName="DejaVu Sans" fontSize="12.0" vTextAlign="Middle">
+			<expression><![CDATA[$F{tipo_documento_rmt}]]></expression>
+			<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Confienvios"/>
+			<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+			<property name="com.jaspersoft.studio.unit." value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="0183071a-dc19-4067-8662-2b91e367883d" x="15" y="196" width="24" height="18" fontName="DejaVu Sans" fontSize="12.0" vTextAlign="Middle">
+			<expression><![CDATA[$F{tipo_documento_dto}]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="component" uuid="6eb93b8e-211d-4962-8ec4-804ff772f1f5" positionType="Float" mode="Transparent" x="402" y="83" width="137" height="55">
+			<component kind="barcode4j:Code128" evaluationTime="Report" moduleWidth="2.0" textPosition="bottom" quietZone="1.0" verticalQuietZone="0.0">
+				<codeExpression><![CDATA[$F{numero_factura}]]></codeExpression>
+			</component>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="staticText" uuid="97e27d06-2141-4003-980a-cf45ce3938c9" mode="Opaque" x="15" y="151" width="350" height="12" backcolor="#CCF4FC" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Center">
+			<text><![CDATA[PPL:]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="5cc57c5e-e67e-4d2a-90d2-eb5e60d76f58" x="374" y="145" width="180" height="66" fontName="DejaVu Sans" fontSize="12.0" textAdjust="StretchHeight" linkType="None" linkTarget="Self" hTextAlign="Left" vTextAlign="Top">
+			<expression><![CDATA[$F{observacion}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+	</title>
+</jasperReport>

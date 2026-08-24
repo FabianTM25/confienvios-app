@@ -150,26 +150,26 @@ export const NavigationItems: NavigationItem[] = [
 
   {
     id: 'documentos',
-    title: 'documentos',
+    title: 'correspondencia y materiales',
     type: 'group',
     icon: 'feather icon-file',
     children: [
       {
         id: 'documento',
-        title: 'Documentos',
+        title: 'Correspondencia y Materiales',
         type: 'collapse',
         icon: 'feather icon-file',
         children: [
           {
             id: 'documento_detalle',
-            title: 'Nuevo documento',
+            title: 'Nueva',
             type: 'item',
             icon: 'feather icon-plus-circle',
             url: '/basic/documentos'
           },
           {
             id: 'documento_lista',
-            title: 'Lista de documentos',
+            title: 'Lista',
             type: 'item',
             icon: 'feather icon-folder',
             url: '/basic/lista_documentos'

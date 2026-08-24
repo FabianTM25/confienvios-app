@@ -11,6 +11,7 @@ public class VentaRequestDto {
     private boolean con_caja;
     private String observaciones;
     private BigDecimal valor_avaluo;
+    private String forma_pago;
 
     public String getNumero_factura() {
         return numero_factura;
@@ -50,5 +51,13 @@ public class VentaRequestDto {
 
     public void setValor_avaluo(BigDecimal valor_avaluo) {
         this.valor_avaluo = valor_avaluo;
+    }
+
+    public String getForma_pago() {
+        return forma_pago;
+    }
+
+    public void setForma_pago(String forma_pago) {
+        this.forma_pago = forma_pago;
     }
 }

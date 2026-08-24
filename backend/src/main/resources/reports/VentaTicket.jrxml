@@ -1,0 +1,119 @@
+<jasperReport name="VentaTicket" language="java" pageWidth="212" pageHeight="600" columnWidth="200" leftMargin="6" rightMargin="6" topMargin="8" bottomMargin="8" uuid="7c9a1e10-4b3f-4a6a-9d2a-1f0e6a2b5c31">
+	<query language="sql"><![CDATA[SELECT * FROM venta]]></query>
+	<field name="id_venta" class="java.lang.Integer"/>
+	<field name="numero_venta" class="java.lang.String"/>
+	<field name="numero_factura" class="java.lang.String"/>
+	<field name="nombre_cliente_dto" class="java.lang.String"/>
+	<field name="documento_cliente_dto" class="java.lang.String"/>
+	<field name="nombre_cliente_rmt" class="java.lang.String"/>
+	<field name="tipo_documento_rmt" class="java.lang.String"/>
+	<field name="documento_cliente_rmt" class="java.lang.String"/>
+	<field name="telefono_cliente_rmt" class="java.lang.String"/>
+	<field name="peso" class="java.math.BigDecimal"/>
+	<field name="valor_peso" class="java.math.BigDecimal"/>
+	<field name="con_caja" class="java.lang.Boolean"/>
+	<field name="precio_caja_aplicado" class="java.math.BigDecimal"/>
+	<field name="valor_envio" class="java.math.BigDecimal"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<field name="valor_avaluo" class="java.math.BigDecimal"/>
+	<field name="vendedor" class="java.lang.String"/>
+	<field name="forma_pago" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="fecha_creacion" class="java.time.LocalDateTime"/>
+	<background splitType="Stretch"/>
+	<title height="430" splitType="Stretch">
+
+		<!-- ENCABEZADO -->
+		<element kind="staticText" uuid="7c9a1e10-0001-4a6a-9d2a-1f0e6a2b5c31" x="0" y="0" width="200" height="18" fontName="DejaVu Sans" fontSize="15.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[CONFIENVIOS]]></text>
+		</element>
+		<element kind="staticText" uuid="7c9a1e10-0002-4a6a-9d2a-1f0e6a2b5c31" x="0" y="18" width="200" height="9" fontName="DejaVu Sans" fontSize="6.0" hTextAlign="Center">
+			<text><![CDATA[Cra 45 sur N° 135-301 casa 17B]]></text>
+		</element>
+		<element kind="staticText" uuid="7c9a1e10-0003-4a6a-9d2a-1f0e6a2b5c31" x="0" y="27" width="200" height="9" fontName="DejaVu Sans" fontSize="6.0" hTextAlign="Center">
+			<text><![CDATA[B/Picaleña - Ibagué]]></text>
+		</element>
+		<element kind="staticText" uuid="7c9a1e10-0004-4a6a-9d2a-1f0e6a2b5c31" x="0" y="36" width="200" height="9" fontName="DejaVu Sans" fontSize="6.0" hTextAlign="Center">
+			<text><![CDATA[Tel: (8)2755028 - Cel 3108774476]]></text>
+		</element>
+		<element kind="staticText" uuid="7c9a1e10-0006-4a6a-9d2a-1f0e6a2b5c31" x="0" y="57" width="200" height="12" fontName="DejaVu Sans" fontSize="9.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[TICKET DE VENTA]]></text>
+		</element>
+		<element kind="line" uuid="7c9a1e10-0007-4a6a-9d2a-1f0e6a2b5c31" x="0" y="74" width="200" height="1">
+			<pen lineWidth="0.75" lineStyle="Solid" lineColor="#999999"/>
+		</element>
+
+		<!-- DATOS DEL TICKET -->
+		<element kind="textField" uuid="7c9a1e10-0008-4a6a-9d2a-1f0e6a2b5c31" x="6" y="81" width="188" height="11" fontName="DejaVu Sans" fontSize="8.0" bold="true">
+			<expression><![CDATA["Ticket N°: " + $F{numero_venta}]]></expression>
+		</element>
+		<element kind="textField" uuid="7c9a1e10-0009-4a6a-9d2a-1f0e6a2b5c31" x="6" y="94" width="100" height="11" fontName="DejaVu Sans" fontSize="8.0">
+			<expression><![CDATA["Fecha: " + ($F{fecha_creacion} != null ? $F{fecha_creacion}.toLocalDate().toString() : "-")]]></expression>
+		</element>
+		<element kind="textField" uuid="7c9a1e10-0010-4a6a-9d2a-1f0e6a2b5c31" x="106" y="94" width="88" height="11" fontName="DejaVu Sans" fontSize="8.0">
+			<expression><![CDATA["Hora: " + ($F{fecha_creacion} != null ? $F{fecha_creacion}.toLocalTime().toString().substring(0,5) : "-")]]></expression>
+		</element>
+		<element kind="textField" uuid="7c9a1e10-0011-4a6a-9d2a-1f0e6a2b5c31" x="6" y="107" width="188" height="20" fontName="DejaVu Sans" fontSize="8.0">
+			<expression><![CDATA["Vendedor: " + ($F{vendedor} != null ? $F{vendedor} : "-")]]></expression>
+		</element>
+		<element kind="line" uuid="7c9a1e10-0013-4a6a-9d2a-1f0e6a2b5c31" x="0" y="130" width="200" height="1">
+			<pen lineWidth="0.75" lineStyle="Dashed" lineColor="#999999"/>
+		</element>
+
+		<!-- CLIENTE -->
+		<element kind="textField" uuid="7c9a1e10-0014-4a6a-9d2a-1f0e6a2b5c31" x="6" y="137" width="188" height="20" fontName="DejaVu Sans" fontSize="8.0">
+			<expression><![CDATA["Cliente: " + $F{nombre_cliente_rmt}]]></expression>
+		</element>
+		<element kind="textField" uuid="7c9a1e10-0015-4a6a-9d2a-1f0e6a2b5c31" x="6" y="157" width="188" height="11" fontName="DejaVu Sans" fontSize="8.0">
+			<expression><![CDATA["Documento: " + ($F{tipo_documento_rmt} != null ? $F{tipo_documento_rmt} + " " : "") + $F{documento_cliente_rmt}]]></expression>
+		</element>
+		<element kind="textField" uuid="7c9a1e10-0016-4a6a-9d2a-1f0e6a2b5c31" x="6" y="170" width="188" height="11" fontName="DejaVu Sans" fontSize="8.0">
+			<expression><![CDATA["Teléfono: " + ($F{telefono_cliente_rmt} != null ? $F{telefono_cliente_rmt} : "-")]]></expression>
+		</element>
+		<element kind="line" uuid="7c9a1e10-0017-4a6a-9d2a-1f0e6a2b5c31" x="0" y="186" width="200" height="1">
+			<pen lineWidth="0.75" lineStyle="Solid" lineColor="#999999"/>
+		</element>
+
+		<!-- DETALLE -->
+		<element kind="textField" uuid="7c9a1e10-0018-4a6a-9d2a-1f0e6a2b5c31" x="6" y="193" width="188" height="11" fontName="DejaVu Sans" fontSize="8.0">
+			<expression><![CDATA["Envío (" + ($F{peso} != null ? $F{peso}.toString() : "0") + " kg): $ " + ($F{valor_peso} != null ? java.text.NumberFormat.getInstance().format($F{valor_peso}) : "0")]]></expression>
+		</element>
+		<element kind="textField" uuid="7c9a1e10-0019-4a6a-9d2a-1f0e6a2b5c31" x="6" y="206" width="188" height="11" fontName="DejaVu Sans" fontSize="8.0">
+			<expression><![CDATA[($F{con_caja} != null && $F{con_caja}) ? "Caja: $ " + java.text.NumberFormat.getInstance().format($F{precio_caja_aplicado}) : "Caja: No aplica"]]></expression>
+		</element>
+		<element kind="textField" uuid="7c9a1e10-0020-4a6a-9d2a-1f0e6a2b5c31" x="6" y="217" width="188" height="11" fontName="DejaVu Sans" fontSize="8.0">
+			<expression><![CDATA["Forma de pago: " + ($F{forma_pago} != null && !$F{forma_pago}.isBlank() ? $F{forma_pago} : "-")]]></expression>
+		</element>
+		<!-- TOTAL -->
+		<element kind="rectangle" uuid="7c9a1e10-0028-4a6a-9d2a-1f0e6a2b5c31" x="3" y="241" width="194" height="20" radius="3">
+			<pen lineWidth="0.75" lineColor="#999999"/>
+		</element>
+		<element kind="textField" uuid="7c9a1e10-0021-4a6a-9d2a-1f0e6a2b5c31" x="6" y="245" width="188" height="14" fontName="DejaVu Sans" fontSize="11.0" bold="true" hTextAlign="Center">
+			<expression><![CDATA["TOTAL: $ " + ($F{valor_envio} != null ? java.text.NumberFormat.getInstance().format($F{valor_envio}) : "0")]]></expression>
+		</element>
+		<!-- INFORMACION ADICIONAL -->
+		<element kind="textField" uuid="7c9a1e10-0023-4a6a-9d2a-1f0e6a2b5c31" x="6" y="271" width="188" height="11" fontName="DejaVu Sans" fontSize="7.0">
+			<expression><![CDATA["Valor declarado: " + ($F{valor_avaluo} != null ? "$ " + java.text.NumberFormat.getInstance().format($F{valor_avaluo}) : "-")]]></expression>
+		</element>
+		<element kind="textField" uuid="7c9a1e10-0024-4a6a-9d2a-1f0e6a2b5c31" x="6" y="283" width="188" height="11" fontName="DejaVu Sans" fontSize="7.0">
+			<expression><![CDATA["N° Factura: " + ($F{numero_factura} != null ? $F{numero_factura} : "-")]]></expression>
+		</element>
+		<element kind="textField" uuid="7c9a1e10-0025-4a6a-9d2a-1f0e6a2b5c31" x="6" y="295" width="188" height="22" fontName="DejaVu Sans" fontSize="7.0">
+			<expression><![CDATA["Obs: " + ($F{observaciones} != null && !$F{observaciones}.isBlank() ? $F{observaciones} : "-")]]></expression>
+		</element>
+
+		<!-- PIE -->
+		<element kind="staticText" uuid="7c9a1e10-0027-4a6a-9d2a-1f0e6a2b5c31" x="0" y="331" width="200" height="18" fontName="DejaVu Sans" fontSize="7.0" italic="true" hTextAlign="Center">
+			<text><![CDATA[¡Gracias por confiar en Confienvios!]]></text>
+		</element>
+
+		<!-- CODIGO DE BARRAS -->
+		<element kind="component" uuid="7c9a1e10-0029-4a6a-9d2a-1f0e6a2b5c31" positionType="Float" mode="Transparent" x="30" y="357" width="140" height="50">
+			<component kind="barcode4j:Code128" evaluationTime="Report" moduleWidth="1.5" textPosition="bottom" quietZone="1.0" verticalQuietZone="0.0">
+				<codeExpression><![CDATA[$F{numero_venta}]]></codeExpression>
+			</component>
+		</element>
+
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</title>
+</jasperReport>

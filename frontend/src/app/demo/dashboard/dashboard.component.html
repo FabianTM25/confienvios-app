@@ -89,6 +89,117 @@
     </div>
   </div>
 
+  <!-- Filtro de fechas: aplica a Ventas, Correspondencia y Materiales -->
+  <div class="d-flex justify-content-end mb-3">
+    <div class="input-group input-group-sm" style="width: auto">
+      <span class="input-group-text">Desde</span>
+      <input type="date" class="form-control" [(ngModel)]="fechaDesde" (change)="aplicarFiltroFechas()" />
+      <span class="input-group-text">Hasta</span>
+      <input type="date" class="form-control" [(ngModel)]="fechaHasta" (change)="aplicarFiltroFechas()" />
+      <button class="btn btn-outline-secondary" type="button" title="Limpiar filtro de fecha" (click)="limpiarFiltroFechas()">
+        <i class="feather icon-x"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Resumen de ventas -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="text-muted small fw-semibold text-uppercase">Ventas</span>
+            <div class="rounded-circle bg-info bg-opacity-10 p-2">
+              <i class="feather icon-shopping-cart text-info" style="font-size:18px"></i>
+            </div>
+          </div>
+          <h2 class="fw-bold mb-1">{{ ventasResumen.cantidad }}</h2>
+          <p class="text-muted small mb-0">Ventas activas registradas</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="text-muted small fw-semibold text-uppercase">Total vendido</span>
+            <div class="rounded-circle bg-success bg-opacity-10 p-2">
+              <i class="feather icon-dollar-sign text-success" style="font-size:18px"></i>
+            </div>
+          </div>
+          <h2 class="fw-bold mb-1">{{ ventasResumen.total | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</h2>
+          <p class="text-muted small mb-0">Valor total de envíos vendidos</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="text-muted small fw-semibold text-uppercase">Forma de pago</span>
+            <div class="rounded-circle bg-primary bg-opacity-10 p-2">
+              <i class="feather icon-credit-card text-primary" style="font-size:18px"></i>
+            </div>
+          </div>
+          @if (ventasResumen.porFormaPago.length === 0) {
+            <p class="text-muted small mb-0">Sin datos aún</p>
+          }
+          @for (fp of ventasResumen.porFormaPago; track fp.forma) {
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="small">{{ fp.forma }}</span>
+              <span class="badge bg-light text-dark border">{{ fp.cantidad }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumen de correspondencia y materiales -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="text-muted small fw-semibold text-uppercase">Correspondencia</span>
+            <div class="rounded-circle bg-secondary bg-opacity-10 p-2">
+              <i class="feather icon-file-text text-secondary" style="font-size:18px"></i>
+            </div>
+          </div>
+          <h2 class="fw-bold mb-3">{{ correspondenciaResumen.total }}</h2>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-warning">Pendiente: {{ correspondenciaResumen.porEstado['PENDIENTE'] }}</span>
+            <span class="badge bg-primary">Enviado: {{ correspondenciaResumen.porEstado['ENVIADO'] }}</span>
+            <span class="badge bg-success">Entregado: {{ correspondenciaResumen.porEstado['ENTREGADO'] }}</span>
+            <span class="badge bg-danger">Cancelado: {{ correspondenciaResumen.porEstado['CANCELADO'] }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="text-muted small fw-semibold text-uppercase">Materiales</span>
+            <div class="rounded-circle bg-secondary bg-opacity-10 p-2">
+              <i class="feather icon-package text-secondary" style="font-size:18px"></i>
+            </div>
+          </div>
+          <h2 class="fw-bold mb-3">{{ materialesResumen.total }}</h2>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-warning">Pendiente: {{ materialesResumen.porEstado['PENDIENTE'] }}</span>
+            <span class="badge bg-primary">Enviado: {{ materialesResumen.porEstado['ENVIADO'] }}</span>
+            <span class="badge bg-success">Entregado: {{ materialesResumen.porEstado['ENTREGADO'] }}</span>
+            <span class="badge bg-danger">Cancelado: {{ materialesResumen.porEstado['CANCELADO'] }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Logo central -->
   <div class="row">
     <div class="col-12">

@@ -80,6 +80,15 @@
                 >
                   Rot
                 </button>
+
+                <button
+                  type="button"
+                  class="mb-1 btn btn-outline-success btn-sm"
+                  [disabled]="f.estado == 2 || f.estado == '2'"
+                  (click)="imprimirCorrespondencia(f.id_factura!)"
+                >
+                  Corr
+                </button>
               </td>
               <td>
                 <span *ngIf="f.estado == '2'" class="badge bg-danger">ANULADA</span>

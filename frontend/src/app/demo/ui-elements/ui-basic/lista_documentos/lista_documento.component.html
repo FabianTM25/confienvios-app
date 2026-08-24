@@ -1,8 +1,8 @@
-<H3>LISTA DE DOCUMENTOS</H3>
+<H3>LISTA DE CORRESPONDENCIA Y MATERIALES</H3>
 <hr />
 
 <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
-  <button class="btn btn-primary" routerLink="/basic/documentos">Documento Nuevo</button>
+  <button class="btn btn-primary" routerLink="/basic/documentos">Nueva Correspondencia y Materiales</button>
 
   <div class="d-flex align-items-center gap-2 flex-wrap">
     <div class="input-group input-group-sm" style="width: auto">
@@ -25,30 +25,36 @@
 </div>
 
 <div class="col-x1-12">
-  <app-card cardTitle="LISTA DE DOCUMENTOS" [options]="false" blockClass="table-border-style">
+  <app-card cardTitle="LISTA DE CORRESPONDENCIA Y MATERIALES" [options]="false" blockClass="table-border-style">
     <p class="text-muted mb-2" style="font-size: 13px">
       <i class="feather icon-file-text"></i>
-      {{ documento.length }} documentos registrados
+      {{ documento.length }} correspondencias registradas
     </p>
     <div class="table-responsive">
       <table class="table table-hover table-sm">
         <thead>
           <tr>
-            <th style="width: 10%">N° Radicado</th>
-            <th style="width: 17%">Nombre Cliente</th>
-            <th style="width: 9%">Documento</th>
-            <th style="width: 11%">Tipo Documento</th>
-            <th style="width: 9%">Estado Envío</th>
-            <th style="width: 11%">Fecha Recibido</th>
-            <th style="width: 11%">Fecha Entrega</th>
-            <th style="width: 10%">Observación</th>
-            <th style="width: 12%">Acciones</th>
+            <th style="width: 9%">N° Radicado</th>
+            <th style="width: 8%">Tipo</th>
+            <th style="width: 15%">Nombre Cliente</th>
+            <th style="width: 8%">Documento</th>
+            <th style="width: 10%">Tipo Documento</th>
+            <th style="width: 8%">Estado Envío</th>
+            <th style="width: 10%">Fecha Recibido</th>
+            <th style="width: 10%">Fecha Entrega</th>
+            <th style="width: 8%">Observación</th>
+            <th style="width: 14%">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          @for (d of documentoPaginado; track d.id_documento) {
+          @for (d of documentoPaginado; track d._origen + '-' + d._id) {
             <tr>
               <td class="fw-bold">{{ d.numero_radicado }}</td>
+              <td>
+                <span class="badge" [class.bg-info]="d._origen === 'material'" [class.bg-secondary]="d._origen !== 'material'">
+                  {{ d._origen === 'material' ? 'Materiales' : 'Correspondencia' }}
+                </span>
+              </td>
               <td class="text-truncate">{{ d.nombre_cliente_rmt }}</td>
               <td>{{ d.documento_cliente_rmt }}</td>
               <td>{{ d.tipo_documento }}</td>
@@ -75,11 +81,14 @@
                 >
                   <i class="feather icon-edit-2"></i>
                 </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" title="Vista previa" (click)="verVistaPrevia(d)">
+                  <i class="feather icon-eye"></i>
+                </button>
                 <button
                   type="button"
                   class="btn btn-outline-success btn-sm"
                   title="Imprimir / Descargar"
-                  (click)="imprimirDocumento(d.id_documento!)"
+                  (click)="imprimirDocumento(d)"
                 >
                   <i class="feather icon-download"></i>
                 </button>

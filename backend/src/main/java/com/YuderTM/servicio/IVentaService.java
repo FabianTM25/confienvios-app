@@ -18,7 +18,8 @@ public interface IVentaService {
             BigDecimal peso,
             boolean con_caja,
             String observaciones,
-            BigDecimal valor_avaluo
+            BigDecimal valor_avaluo,
+            String forma_pago
     );
 
     void eliminarVentaId(Integer id_venta);

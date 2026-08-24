@@ -3,8 +3,11 @@ package com.YuderTM.servicio;
 import com.YuderTM.modelo.Configuracion;
 import com.YuderTM.modelo.Factura;
 import com.YuderTM.modelo.RangoPeso;
+import com.YuderTM.modelo.Usuario;
 import com.YuderTM.modelo.Venta;
+import com.YuderTM.repositorio.IUserRepository;
 import com.YuderTM.repositorio.IVentaRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,17 +23,41 @@ public class VentaServiceImpl implements IVentaService {
     private final IFacturaService iFacturaService;
     private final IConfiguracionService iConfiguracionService;
     private final IRangoPesoService iRangoPesoService;
+    private final IUserRepository iUserRepository;
 
     public VentaServiceImpl(
             IVentaRepository iVentaRepository,
             IFacturaService iFacturaService,
             IConfiguracionService iConfiguracionService,
-            IRangoPesoService iRangoPesoService
+            IRangoPesoService iRangoPesoService,
+            IUserRepository iUserRepository
     ) {
         this.iVentaRepository = iVentaRepository;
         this.iFacturaService = iFacturaService;
         this.iConfiguracionService = iConfiguracionService;
         this.iRangoPesoService = iRangoPesoService;
+        this.iUserRepository = iUserRepository;
+    }
+
+    // Toma el vendedor del usuario autenticado (JWT); usa el nombre visible si existe,
+    // si no cae al usuario de login, y si no hay sesion deja el campo vacio.
+    private String obtenerVendedorActual() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || authentication.getName() == null) {
+            return null;
+        }
+
+        String username = authentication.getName();
+        Usuario usuario = iUserRepository.findByUsuario(username);
+
+        if (usuario == null) {
+            return username;
+        }
+
+        return (usuario.getUser_name() != null && !usuario.getUser_name().isBlank())
+                ? usuario.getUser_name()
+                : username;
     }
 
     @Override
@@ -51,7 +78,8 @@ public class VentaServiceImpl implements IVentaService {
             BigDecimal peso,
             boolean con_caja,
             String observaciones,
-            BigDecimal valor_avaluo
+            BigDecimal valor_avaluo,
+            String forma_pago
     ) {
 
         Factura factura = iFacturaService.buscarFacturaPorNumero(numero_factura);
@@ -88,6 +116,8 @@ public class VentaServiceImpl implements IVentaService {
         venta.setValor_envio(valorPeso.add(precioCaja));
         venta.setObservaciones(observaciones);
         venta.setValor_avaluo(valor_avaluo);
+        venta.setVendedor(obtenerVendedorActual());
+        venta.setForma_pago((forma_pago != null && !forma_pago.isBlank()) ? forma_pago : "Efectivo");
         venta.setEstado("1");
 
         // guardar primero para obtener el id

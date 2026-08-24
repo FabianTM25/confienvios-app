@@ -51,6 +51,32 @@ public class ReportControlador {
     );
   }
 
+  @GetMapping("/report-correspondencia/{id}")
+  public ResponseEntity<byte[]> generarCorrespondencia(
+    @PathVariable Integer id
+  ) throws Exception {
+
+    byte[] report =
+      reporteService.generarCorrespondencia(id);
+
+    HttpHeaders headers = new HttpHeaders();
+
+    headers.setContentType(
+      MediaType.APPLICATION_PDF
+    );
+
+    headers.add(
+      "Content-Disposition",
+      "inline; filename=Correspondencia.pdf"
+    );
+
+    return new ResponseEntity<>(
+      report,
+      headers,
+      HttpStatus.OK
+    );
+  }
+
   @GetMapping("/rotulo/{id}")
   public ResponseEntity<byte[]> generarRotulo(
     @PathVariable Integer id
@@ -120,6 +146,32 @@ public class ReportControlador {
     headers.add(
       "Content-Disposition",
       "inline; filename=Documento.pdf"
+    );
+
+    return new ResponseEntity<>(
+      pdf,
+      headers,
+      HttpStatus.OK
+    );
+  }
+
+  @GetMapping("/report-material/{id}")
+  public ResponseEntity<byte[]> generarMaterial(
+    @PathVariable Integer id
+  ) throws Exception {
+
+    byte[] pdf =
+      reporteService.generarMaterial(id);
+
+    HttpHeaders headers = new HttpHeaders();
+
+    headers.setContentType(
+      MediaType.APPLICATION_PDF
+    );
+
+    headers.add(
+      "Content-Disposition",
+      "inline; filename=Material.pdf"
     );
 
     return new ResponseEntity<>(

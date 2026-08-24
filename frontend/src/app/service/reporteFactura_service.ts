@@ -24,4 +24,10 @@ export class ReporteService {
       responseType: 'blob'
     });
   }
+
+  imprimirCorrespondencia(id: number): Observable<Blob> {
+    return this.http.get(`${this.url}/api/report-correspondencia/${id}`, {
+      responseType: 'blob'
+    });
+  }
 }

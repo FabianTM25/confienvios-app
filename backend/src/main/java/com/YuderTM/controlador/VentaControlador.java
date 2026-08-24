@@ -83,7 +83,8 @@ public class VentaControlador {
       request.getPeso(),
       request.isCon_caja(),
       request.getObservaciones(),
-      request.getValor_avaluo()
+      request.getValor_avaluo(),
+      request.getForma_pago()
     );
 
     return ResponseEntity.ok(venta);

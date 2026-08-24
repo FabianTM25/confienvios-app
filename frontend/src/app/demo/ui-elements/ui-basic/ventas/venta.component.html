@@ -102,7 +102,15 @@
         <label>Valor avalúo</label>
         <input type="number" class="form-control" name="valorAvaluo" [(ngModel)]="valorAvaluo" />
       </div>
-      <div class="col-md-8">
+      <div class="col-md-4">
+        <label>Forma de pago</label>
+        <select class="form-select" name="formaPago" [(ngModel)]="formaPago">
+          <option value="Efectivo">Efectivo</option>
+          <option value="Transferencia">Transferencia</option>
+          <option value="Tarjeta">Tarjeta</option>
+        </select>
+      </div>
+      <div class="col-md-4">
         <label>Observaciones</label>
         <input type="text" class="form-control" name="observaciones" [(ngModel)]="observaciones" />
       </div>

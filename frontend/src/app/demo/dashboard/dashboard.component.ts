@@ -1,10 +1,17 @@
 // angular import
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 // project import
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { FacturaService } from 'src/app/service/factura_service';
+import { VentaService } from 'src/app/service/venta_service';
+import { DocumentoService } from 'src/app/service/documento_service';
+import { MaterialService } from 'src/app/service/material_service';
+import { Venta } from 'src/app/modelo/Venta_modelo';
+import { Documento } from 'src/app/modelo/Documento_modelo';
+import { Material } from 'src/app/modelo/Material_modelo';
 
 declare const AmCharts: any;
 
@@ -27,18 +34,48 @@ import mapColor from 'src/fake-data/map-color-data.json';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
    private facturaService = inject(FacturaService);
+   private ventaService = inject(VentaService);
+   private documentoService = inject(DocumentoService);
+   private materialService = inject(MaterialService);
 
    // Datos del dashboard
   facturasDia: number = 0;
   facturasMes: number = 0;
   facturasAnio: number = 0;
+
+  // Filtro de fechas compartido por Ventas, Correspondencia y Materiales
+  fechaDesde: string = '';
+  fechaHasta: string = '';
+
+  // Listas completas sin filtrar (se guardan para poder recalcular al cambiar el filtro)
+  private ventasOriginal: Venta[] = [];
+  private documentosOriginal: Documento[] = [];
+  private materialesOriginal: Material[] = [];
+
+  // Resumen de ventas (excluye anuladas)
+  ventasResumen: { cantidad: number; total: number; porFormaPago: { forma: string; cantidad: number }[] } = {
+    cantidad: 0,
+    total: 0,
+    porFormaPago: []
+  };
+
+  // Resumen de correspondencia y materiales, por estado de envío
+  correspondenciaResumen: { total: number; porEstado: Record<string, number> } = {
+    total: 0,
+    porEstado: { PENDIENTE: 0, ENVIADO: 0, ENTREGADO: 0, CANCELADO: 0 }
+  };
+
+  materialesResumen: { total: number; porEstado: Record<string, number> } = {
+    total: 0,
+    porEstado: { PENDIENTE: 0, ENVIADO: 0, ENTREGADO: 0, CANCELADO: 0 }
+  };
 
   sales = [
     {
@@ -76,6 +113,8 @@ export class DashboardComponent implements OnInit {
   // life cycle event
   ngOnInit() {
     this.cargarDashboard();
+    this.cargarVentas();
+    this.cargarCorrespondenciaMateriales();
 
     setTimeout(() => {
       const latlong = dataJson;
@@ -167,6 +206,108 @@ cargarDashboard(): void {
     error: (err) => console.error('Error cargando dashboard:', err)
   });
 }
+
+  cargarVentas(): void {
+    this.ventaService.obtenerVentaLista().subscribe({
+      next: (ventas) => {
+        this.ventasOriginal = ventas;
+        this.actualizarResumenVentas();
+      },
+      error: (err) => console.error('Error cargando resumen de ventas:', err)
+    });
+  }
+
+  cargarCorrespondenciaMateriales(): void {
+    this.documentoService.obtenerDocumentoLista().subscribe({
+      next: (documentos) => {
+        this.documentosOriginal = documentos;
+        this.actualizarResumenCorrespondencia();
+      },
+      error: (err) => console.error('Error cargando resumen de correspondencia:', err)
+    });
+
+    this.materialService.obtenerMaterialLista().subscribe({
+      next: (materiales) => {
+        this.materialesOriginal = materiales;
+        this.actualizarResumenMateriales();
+      },
+      error: (err) => console.error('Error cargando resumen de materiales:', err)
+    });
+  }
+
+  // El filtro compara solo la parte de fecha (yyyy-MM-dd) de fecha_creacion contra Desde/Hasta
+  private dentroDelRango(fecha?: string): boolean {
+    if (!fecha) return !this.fechaDesde && !this.fechaHasta;
+
+    const soloFecha = fecha.substring(0, 10);
+    const cumpleDesde = !this.fechaDesde || soloFecha >= this.fechaDesde;
+    const cumpleHasta = !this.fechaHasta || soloFecha <= this.fechaHasta;
+
+    return cumpleDesde && cumpleHasta;
+  }
+
+  aplicarFiltroFechas(): void {
+    this.actualizarResumenVentas();
+    this.actualizarResumenCorrespondencia();
+    this.actualizarResumenMateriales();
+  }
+
+  limpiarFiltroFechas(): void {
+    this.fechaDesde = '';
+    this.fechaHasta = '';
+    this.aplicarFiltroFechas();
+  }
+
+  private actualizarResumenVentas(): void {
+    const activas = this.ventasOriginal.filter((v) => v.estado !== '2' && this.dentroDelRango(v.fecha_creacion));
+
+    const conteoPorForma = new Map<string, number>();
+    for (const v of activas) {
+      const forma = v.forma_pago && v.forma_pago.trim() ? v.forma_pago : 'Sin especificar';
+      conteoPorForma.set(forma, (conteoPorForma.get(forma) ?? 0) + 1);
+    }
+
+    this.ventasResumen = {
+      cantidad: activas.length,
+      total: activas.reduce((suma, v) => suma + (v.valor_envio ?? 0), 0),
+      porFormaPago: Array.from(conteoPorForma, ([forma, cantidad]) => ({ forma, cantidad }))
+    };
+
+    this.cd.detectChanges();
+  }
+
+  private contarPorEstado(registros: { estado_envio?: string }[]): Record<string, number> {
+    const porEstado: Record<string, number> = { PENDIENTE: 0, ENVIADO: 0, ENTREGADO: 0, CANCELADO: 0 };
+
+    for (const r of registros) {
+      const estado = r.estado_envio ?? 'PENDIENTE';
+      porEstado[estado] = (porEstado[estado] ?? 0) + 1;
+    }
+
+    return porEstado;
+  }
+
+  private actualizarResumenCorrespondencia(): void {
+    const filtrados = this.documentosOriginal.filter((d) => this.dentroDelRango(d.fecha_creacion));
+
+    this.correspondenciaResumen = {
+      total: filtrados.length,
+      porEstado: this.contarPorEstado(filtrados)
+    };
+
+    this.cd.detectChanges();
+  }
+
+  private actualizarResumenMateriales(): void {
+    const filtrados = this.materialesOriginal.filter((m) => this.dentroDelRango(m.fecha_creacion));
+
+    this.materialesResumen = {
+      total: filtrados.length,
+      porEstado: this.contarPorEstado(filtrados)
+    };
+
+    this.cd.detectChanges();
+  }
 }
 
   

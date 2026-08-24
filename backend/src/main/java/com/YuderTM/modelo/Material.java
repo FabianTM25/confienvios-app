@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 @Entity
-public class Documento {
+public class Material {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id_documento;
+    Integer id_material;
 
-    // Numero unico de radicado (se asigna al crear, con base en el id: RAD-0001)
+    // Numero unico de radicado (se asigna al crear, con base en el id: MAT-0001)
     @Column(unique = true)
     String numero_radicado;
 
@@ -33,7 +33,7 @@ public class Documento {
     String estructura;
     Integer estado_cliente_dto;
 
-    // Datos propios del documento
+    // Datos propios del material
     String tipo_documento;
     String estado_envio;
     LocalDateTime fecha_recibido;
@@ -53,15 +53,15 @@ public class Documento {
         }
     }
 
-    public Documento() {
+    public Material() {
     }
 
-    public Integer getId_documento() {
-        return id_documento;
+    public Integer getId_material() {
+        return id_material;
     }
 
-    public void setId_documento(Integer id_documento) {
-        this.id_documento = id_documento;
+    public void setId_material(Integer id_material) {
+        this.id_material = id_material;
     }
 
     public String getNumero_radicado() {
@@ -234,8 +234,8 @@ public class Documento {
 
     @Override
     public String toString() {
-        return "Documento{" +
-                "id_documento=" + id_documento +
+        return "Material{" +
+                "id_material=" + id_material +
                 ", numero_radicado='" + numero_radicado + '\'' +
                 ", nombre_cliente_rmt='" + nombre_cliente_rmt + '\'' +
                 ", tipo_documento_rmt='" + tipo_documento_rmt + '\'' +

@@ -26,7 +26,8 @@ export class VentaService {
     peso: number,
     con_caja: boolean,
     observaciones: string,
-    valor_avaluo: number | null
+    valor_avaluo: number | null,
+    forma_pago: string
   ): Observable<Venta> {
     return this.clienteHttp.post<Venta>(this.urlBase, {
       numero_factura,
@@ -34,6 +35,7 @@ export class VentaService {
       con_caja,
       observaciones,
       valor_avaluo,
+      forma_pago,
     });
   }
 
