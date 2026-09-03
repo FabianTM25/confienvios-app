@@ -106,6 +106,9 @@ import java.util.List;
             "/api/clientes/buscar"
           ).permitAll()
 
+          // gestion de usuarios: solo administradores
+          .requestMatchers("/api/usuarios/**").hasAuthority("ROLE_ADMIN")
+
           // protegidos
           .requestMatchers("/api/**").authenticated()
 

@@ -64,6 +64,10 @@ public class UserServiceImpl implements IUserService {
         )
       );
 
+      if (usuario.getRol() == null || usuario.getRol().isBlank()) {
+        usuario.setRol("USUARIO");
+      }
+
     } else {
 
       // ACTUALIZACIÓN

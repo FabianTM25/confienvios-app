@@ -19,6 +19,10 @@ public class Usuario {
     // 1 = activo, 2 = eliminado (soft-delete, igual que Cliente_dto/Cliente_rmt)
     Integer estado = 1;
 
+    // ADMIN | USUARIO. Los usuarios creados antes de este campo quedan en null:
+    // se tratan como ADMIN (ver AuthControlador/JwtFilter) para no perder acceso.
+    String rol;
+
     //metodos
 
     //constructor
@@ -85,6 +89,14 @@ public class Usuario {
         this.estado = estado;
     }
 
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     //toString
     @Override
     public String toString() {
@@ -93,6 +105,7 @@ public class Usuario {
                 ", usuario='" + usuario + '\'' +
                 ", user_name='" + user_name + '\'' +
                 ", estado=" + estado +
+                ", rol='" + rol + '\'' +
                 '}';
     }
 }

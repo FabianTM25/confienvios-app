@@ -47,7 +47,11 @@ public class AuthControlador {
             return ResponseEntity.status(401).body("Usuario o contraseña incorrectos");
         }
 
-        String token = jwtUtil.generarToken(username);
-        return ResponseEntity.ok(Map.of("token", token, "usuario", username));
+        // Usuarios creados antes de que existiera el campo "rol" quedan en null:
+        // se tratan como ADMIN para no perder el acceso que ya tenían.
+        String rol = (usuario.getRol() == null || usuario.getRol().isBlank()) ? "ADMIN" : usuario.getRol();
+
+        String token = jwtUtil.generarToken(username, rol);
+        return ResponseEntity.ok(Map.of("token", token, "usuario", username, "rol", rol));
     }
 }

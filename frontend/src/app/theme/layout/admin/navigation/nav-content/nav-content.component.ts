@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { NavigationItem, NavigationItems } from '../navigation';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NavGroupComponent } from './nav-group/nav-group.component';
+import { AuthService } from 'src/app/demo/pages/authentication/security/auth.service';
 
 @Component({
   selector: 'app-nav-content',
@@ -16,6 +17,7 @@ import { NavGroupComponent } from './nav-group/nav-group.component';
 })
 export class NavContentComponent {
   private location = inject(Location);
+  private authService = inject(AuthService);
 
   // public method
   // version
@@ -30,7 +32,8 @@ export class NavContentComponent {
 
   // constructor
   constructor() {
-    this.navigations = NavigationItems;
+    const esAdmin = this.authService.esAdmin();
+    this.navigations = NavigationItems.filter((item) => !item.adminOnly || esAdmin);
   }
 
   fireOutClick() {

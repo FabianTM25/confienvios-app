@@ -3,4 +3,5 @@ export interface Usuario {
   usuario: string;
   user_name: string;
   password: string;
+  rol?: string;
 }

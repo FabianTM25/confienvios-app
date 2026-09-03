@@ -80,6 +80,13 @@
             </div>
           }
         </div>
+        <div class="form-group">
+          <label>Rol</label>
+          <select class="form-select" [field]="registerForm.rol">
+            <option value="USUARIO">Usuario</option>
+            <option value="ADMIN">Administrador</option>
+          </select>
+        </div>
       </div>
       <button type="submit" class="btn btn-primary">GUARDAR</button>
     </form>
@@ -101,6 +108,7 @@
             <th>#</th>
             <th>Usuario</th>
             <th>Nombre de Usuario</th>
+            <th>Rol</th>
             <th>Editar/Eliminar</th>
           </tr>
         </thead>
@@ -110,6 +118,11 @@
               <th scope="row">{{ usuario.id_usuario }}</th>
               <td>{{ usuario.usuario }}</td>
               <td>{{ usuario.user_name }}</td>
+              <td>
+                <span class="badge" [class.bg-primary]="usuario.rol === 'ADMIN'" [class.bg-secondary]="usuario.rol !== 'ADMIN'">
+                  {{ usuario.rol === 'ADMIN' ? 'Administrador' : 'Usuario' }}
+                </span>
+              </td>
               <td>
                 <button type="button" class="btn btn-outline-success btn-sm" (click)="editarUsuario(usuario, modalContent)">Editar</button>
                 <!--<button type="button" class="btn btn-outline-success btn-sm">Editar</button>-->

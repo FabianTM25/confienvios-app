@@ -5,6 +5,7 @@ export interface NavigationItem {
   translate?: string;
   icon?: string;
   hidden?: boolean;
+  adminOnly?: boolean;
   url?: string;
   classes?: string;
   exactMatch?: boolean;
@@ -36,6 +37,7 @@ export const NavigationItems: NavigationItem[] = [
     title: 'USUARIOS',
     type: 'group',
     icon: 'icon-ui',
+    adminOnly: true,
     children: [
       {
         id: 'basic',

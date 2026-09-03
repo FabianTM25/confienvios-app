@@ -24,8 +24,21 @@ private url = environment.apiUrl + '/api/auth';
     localStorage.setItem('token', token);
   }
 
+  guardarSesion(token: string, rol: string): void {
+    localStorage.setItem('token', token);
+    localStorage.setItem('rol', rol);
+  }
+
   obtenerToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  obtenerRol(): string | null {
+    return localStorage.getItem('rol');
+  }
+
+  esAdmin(): boolean {
+    return this.obtenerRol() === 'ADMIN';
   }
 
   estaAutenticado(): boolean {
@@ -34,6 +47,7 @@ private url = environment.apiUrl + '/api/auth';
 
   cerrarSesion(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('rol');
     this.router.navigate(['/login']);
   }
 }

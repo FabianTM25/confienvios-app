@@ -59,7 +59,7 @@ onSubmit(event: Event) {
 
   this.authService.login(user, password).subscribe({
     next: (resp) => {
-      this.authService.guardarToken(resp.token);
+      this.authService.guardarSesion(resp.token, resp.rol);
       this.router.navigate(['/dashboard']);
     },
     error: () => {

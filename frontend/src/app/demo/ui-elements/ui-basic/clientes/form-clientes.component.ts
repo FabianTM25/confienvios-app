@@ -280,9 +280,9 @@ private obtenerClienteRmt(): void {
 
       console.log("Clientes RMT recibidos:", datos);
 
-      this.clienteRmtOriginal = datos.sort(
-  (a, b) => (b.idClienteRmt ?? 0) - (a.idClienteRmt ?? 0)
-);
+      this.clienteRmtOriginal = datos
+  .filter(c => c.estado === 1) // 🔥 solo activos
+  .sort((a, b) => (b.idClienteRmt ?? 0) - (a.idClienteRmt ?? 0));
 
       this.clienteRmt = [...this.clienteRmtOriginal];
 

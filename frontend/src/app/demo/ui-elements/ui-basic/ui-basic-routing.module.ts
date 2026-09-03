@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from 'src/app/demo/pages/authentication/security/auth.guard';
+import { adminGuard } from 'src/app/demo/pages/authentication/security/admin.guard';
 
 
   const routes: Routes = [
@@ -9,7 +10,7 @@ import { authGuard } from 'src/app/demo/pages/authentication/security/auth.guard
     children: [
       {
         path: 'usuarios',
-        canActivate: [authGuard],
+        canActivate: [authGuard, adminGuard],
         loadComponent: () => import('./usuarios/form-usuarios.component').then((c) => c.BasicUsuariosComponent)
       },
       {

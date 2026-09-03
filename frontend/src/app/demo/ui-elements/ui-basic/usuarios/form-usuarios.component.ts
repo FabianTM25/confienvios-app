@@ -46,7 +46,8 @@ export class BasicUsuariosComponent implements OnInit {
     id_usuario: null,
     usuario: '',
     user_name: '',
-    password: ''
+    password: '',
+    rol: 'USUARIO'
   });
 
   // Configuración del Formulario con Signals
@@ -57,6 +58,10 @@ export class BasicUsuariosComponent implements OnInit {
 
     required(schemaPath.user_name, {
       message: 'El Nombre es requerido'
+    });
+
+    required(schemaPath.rol, {
+      message: 'El rol es requerido'
     });
 
     required(schemaPath.password, {
@@ -100,7 +105,8 @@ export class BasicUsuariosComponent implements OnInit {
       id_usuario: null,
       usuario: '',
       user_name: '',
-      password: ''
+      password: '',
+      rol: 'USUARIO'
     });
 
     this.openModal(content);
@@ -177,7 +183,8 @@ export class BasicUsuariosComponent implements OnInit {
       id_usuario: null,
       usuario: '',
       user_name: '',
-      password: ''
+      password: '',
+      rol: 'USUARIO'
     });
     this.submitted.set(false);
   }
