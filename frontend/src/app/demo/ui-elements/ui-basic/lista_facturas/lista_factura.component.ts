@@ -298,6 +298,36 @@ abrirModalAnular(content: any, factura: Factura) {
   this.modalService.open(content, { centered: true });
 }
 
+// Edicion de datos secundarios (contacto/ruta). El nombre y documento de los
+// clientes se corrigen desde el modulo Clientes, no aqui, para no desincronizar
+// esos datos maestros.
+facturaEnEdicion: Factura = {} as Factura;
+
+abrirModalEditar(content: any, factura: Factura) {
+  this.facturaEnEdicion = { ...factura };
+  this.modalService.open(content, { backdrop: 'static', keyboard: false, centered: true });
+}
+
+guardarEdicion(modal: any) {
+  if (!this.facturaEnEdicion.id_factura) return;
+
+  this.Factura_Service.actualizarFactura(this.facturaEnEdicion).subscribe({
+    next: (data: any) => {
+      const index = this.facturaOriginal.findIndex((f) => f.id_factura === data.id_factura);
+      if (index !== -1) this.facturaOriginal[index] = data;
+
+      this.factura = [...this.facturaOriginal];
+      this.actualizarPaginacion();
+      this.cd.detectChanges();
+      modal.close();
+    },
+    error: (err) => {
+      console.error('Error al actualizar la factura:', err);
+      alert('No se pudo actualizar la factura');
+    }
+  });
+}
+
 mensajeError: string = '';
 
 } // <--- Aquí termina la clase del componente

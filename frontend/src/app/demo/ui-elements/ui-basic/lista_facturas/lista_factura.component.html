@@ -45,6 +45,7 @@
             <th style="width: 10%">Nui</th>
             <th style="width: 10%">Fecha</th>
             <th style="width: 10%">Imprimir</th>
+            <th style="width: 5%">Editar</th>
             <th style="width: 5%">Anular</th>
           </tr>
         </thead>
@@ -88,6 +89,16 @@
                   (click)="imprimirCorrespondencia(f.id_factura!)"
                 >
                   Corr
+                </button>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="mb-1 btn btn-outline-secondary btn-sm"
+                  [disabled]="f.estado == 2 || f.estado == '2'"
+                  (click)="abrirModalEditar(modalContentEditar, f)"
+                >
+                  <i class="feather icon-edit-2"></i>
                 </button>
               </td>
               <td>
@@ -138,6 +149,46 @@
   </div>
   <div class="modal-footer">
     <button class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+<!-- Modal Editar (datos de contacto/ruta; nombre y documento se corrigen desde Clientes) -->
+<ng-template #modalContentEditar let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Editar Factura {{ facturaEnEdicion.numero_factura }}</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label>Teléfono Remitente</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaEnEdicion.telefono_cliente_rmt" />
+      </div>
+      <div class="col-md-6">
+        <label>Dirección Remitente</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaEnEdicion.direccion_cliente_rmt" />
+      </div>
+      <div class="col-md-3">
+        <label>TD</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaEnEdicion.td" />
+      </div>
+      <div class="col-md-3">
+        <label>NIU</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaEnEdicion.niu" />
+      </div>
+      <div class="col-md-3">
+        <label>Pabellón</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaEnEdicion.pabellon" />
+      </div>
+      <div class="col-md-3">
+        <label>Estructura</label>
+        <input type="text" class="form-control" [(ngModel)]="facturaEnEdicion.estructura" />
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button class="btn btn-primary" (click)="guardarEdicion(modal)">Guardar Cambios</button>
   </div>
 </ng-template>
 

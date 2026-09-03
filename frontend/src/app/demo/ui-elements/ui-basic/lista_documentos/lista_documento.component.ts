@@ -159,10 +159,27 @@ export class ListaDocumentoComponent implements OnInit {
   }
 
   guardarEstado(modal: any): void {
-    const esMaterial = this.documentoEnEdicion._origen === 'material';
+    this.guardarRegistro(this.documentoEnEdicion, {
+      onExito: () => modal.close(),
+      onError: () => alert('No se pudo actualizar el registro')
+    });
+  }
+
+  cancelarRegistro(registro: any): void {
+    if (!confirm(`¿Está seguro de CANCELAR el radicado ${registro.numero_radicado}?`)) return;
+
+    this.guardarRegistro(
+      { ...registro, estado_envio: 'CANCELADO' },
+      { onError: () => alert('No se pudo cancelar el registro') }
+    );
+  }
+
+  // Actualiza un Documento o Material (segun _origen) y refresca la fila en la lista local.
+  private guardarRegistro(registro: any, callbacks: { onExito?: () => void; onError?: () => void }): void {
+    const esMaterial = registro._origen === 'material';
 
     // El backend no conoce _origen/_id (son solo para enrutar en el frontend)
-    const { _origen, _id, ...payload } = this.documentoEnEdicion;
+    const { _origen, _id, ...payload } = registro;
 
     const peticion: Observable<any> = esMaterial
       ? this.materialService.actualizarMaterial(payload)
@@ -184,11 +201,11 @@ export class ListaDocumentoComponent implements OnInit {
         this.documento = [...this.documentoOriginal];
         this.actualizarPaginacion();
         this.cd.detectChanges();
-        modal.close();
+        callbacks.onExito?.();
       },
       error: (err) => {
         console.error('Error al actualizar el registro:', err);
-        alert('No se pudo actualizar el registro');
+        callbacks.onError?.();
       }
     });
   }

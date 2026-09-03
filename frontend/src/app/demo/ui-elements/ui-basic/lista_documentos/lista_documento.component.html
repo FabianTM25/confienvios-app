@@ -92,6 +92,15 @@
                 >
                   <i class="feather icon-download"></i>
                 </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  title="Cancelar"
+                  [disabled]="d.estado_envio === 'CANCELADO'"
+                  (click)="cancelarRegistro(d)"
+                >
+                  <i class="feather icon-x-circle"></i>
+                </button>
               </td>
             </tr>
           }

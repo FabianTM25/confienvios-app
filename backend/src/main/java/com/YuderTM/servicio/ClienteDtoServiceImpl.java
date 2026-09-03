@@ -59,12 +59,13 @@ public class ClienteDtoServiceImpl implements IClienteDtoService{
         iClienteDtoRepository.deleteById(id_clienteDto);
     }
 
-    //buscar (match exacto por documento o td; si hay duplicados se toma el primero)
+    //buscar (match exacto por documento o td; excluye eliminados, si hay duplicados activos se toma el primero)
     @Override
     public Cliente_dto buscarDocumento(String documento) {
         return iClienteDtoRepository
                 .findByDocumentoClienteDtoOrTd(documento, documento)
                 .stream()
+                .filter(c -> c.getEstado() == null || c.getEstado() != 2)
                 .findFirst()
                 .orElse(null);
     }

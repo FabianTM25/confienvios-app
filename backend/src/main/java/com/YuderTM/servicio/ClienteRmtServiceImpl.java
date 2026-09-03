@@ -58,11 +58,12 @@ public class ClienteRmtServiceImpl implements IClienteRmtService{
         }
         iClienteRmtRepository.deleteById(id_clienteRmt);
     }
-    //buscar
+    //buscar (excluye eliminados)
     @Override
     public Cliente_rmt buscarDocumento(String documento) {
         return iClienteRmtRepository
                 .findByDocumentoClienteRmt(documento)
+                .filter(c -> c.getEstado() == null || c.getEstado() != 2)
                 .orElse(null);
     }
 
